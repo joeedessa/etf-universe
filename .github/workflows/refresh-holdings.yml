@@ -1,0 +1,70 @@
+name: Refresh holdings
+
+# N-PORT publishes quarterly, roughly 60 days after a quarter ends, but the
+# exact publication day moves. Checking monthly catches a new file within weeks
+# of release; the script compares the latest available quarter against the one
+# already in meta.json and exits without downloading when they match, so eight
+# of every twelve runs cost seconds.
+on:
+  schedule:
+    - cron: '0 5 8 * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'rebuild even if the quarter is already processed'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: etf-holdings
+  cancel-in-progress: false
+
+jobs:
+  holdings:
+    runs-on: ubuntu-latest
+    # The ZIP is ~420 MB and the holdings table inside it ~870 MB. It is
+    # streamed rather than loaded, but the download alone can be slow.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Extract top holdings from SEC N-PORT
+        run: |
+          python scripts/fetch_holdings.py \
+            ${{ inputs.force && '--force' || '' }}
+
+      - name: Validate output
+        run: |
+          python - <<'EOF'
+          import json, pathlib
+          p = pathlib.Path('data/holdings.json')
+          if not p.exists():
+              print('no holdings file yet — nothing to validate'); raise SystemExit(0)
+          h = json.loads(p.read_text())
+          assert h, 'holdings.json is empty'
+          for sym, rec in h.items():
+              assert rec['top'], f'{sym} has no positions'
+              assert len(rec['top']) <= 10, f'{sym} has more than 10'
+              assert rec['asOf'], f'{sym} has no report date'
+          print(f'OK — {len(h)} funds with holdings')
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No holdings changes — nothing to commit"
+          else
+            git commit -m "chore: holdings refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase origin main
+            git push
+          fi

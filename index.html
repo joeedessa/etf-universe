@@ -167,6 +167,20 @@ tbody tr:hover{background:var(--color-background-secondary)}
 .num{font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
 .up{color:var(--up)}.dn{color:var(--dn)}
 .dt{color:var(--color-text-tertiary);font-size:11.5px}
+tbody tr.row{cursor:pointer}
+.caret{color:var(--color-text-tertiary);font-size:9px;margin-left:6px}
+tr.open .caret{color:var(--accent)}
+tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px}
+.hd-head{font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--color-text-tertiary);margin-bottom:8px}
+.hd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:3px 20px;max-width:1000px}
+.hd{display:flex;align-items:baseline;gap:8px;font-size:12px;padding:2px 0}
+.hd-n{color:var(--color-text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hd-p{margin-left:auto;font-family:var(--font-mono);font-size:11.5px;
+  color:var(--color-text-primary);font-weight:600}
+.hd-bar{height:3px;border-radius:2px;background:var(--accent);opacity:.5;margin-top:3px}
+.hd-none{font-size:12px;color:var(--color-text-tertiary);line-height:1.6}
 .na{color:var(--color-text-tertiary)}
 .empty{padding:44px 18px;text-align:center;color:var(--color-text-tertiary);font-size:13px}
 .more{padding:14px;text-align:center;color:var(--color-text-tertiary);font-size:11.5px;
@@ -300,6 +314,13 @@ tbody tr:hover{background:var(--color-background-secondary)}
   <strong>Source.</strong> Fund list and quotes from the public Nasdaq ETF screener, refreshed
   each weekday after the US close. Prices are end-of-day and unadjusted.
   <br>
+  <strong>Holdings.</strong> Click any fund for its ten largest positions, from its SEC Form
+  N-PORT filing. These are <em>quarterly and lagging</em> — each drawer shows its own report
+  date, typically three to six months back — so they describe how a fund was positioned, not
+  how it is positioned today. Around 1,200 funds file no N-PORT at all: commodity and crypto
+  trusts and unit investment trusts report differently, and most of them hold one asset.
+  Swap-based funds report notional, so their positions can sum to more than 100%.
+  <br>
   <strong>Listed.</strong> The fund's first trading day, taken from the earliest bar in its
   price history. Prospectus inception can precede it by a few days, and a fund that changed
   sponsor or exchange may show the later of the two dates rather than its original launch.
@@ -318,7 +339,7 @@ tbody tr:hover{background:var(--color-background-secondary)}
   "use strict";
 
   var PAGE = 150;          // rows appended per scroll batch
-  var all = [], view = [], shown = 0, meta = {};
+  var all = [], view = [], shown = 0, meta = {}, holdings = {};
 
   var $ = function(id){ return document.getElementById(id); };
 
@@ -503,14 +524,15 @@ tbody tr:hover{background:var(--color-background-secondary)}
     var html = slice.map(function(r){
       var px = fmtNum(r.price, 2);
       var on = !!favs[r.symbol];
-      return "<tr>" +
+      return '<tr class="row" data-sym="' + esc(r.symbol) + '">' +
         '<td class="std"><button type="button" class="star' + (on ? " on" : "") +
           '" data-sym="' + esc(r.symbol) + '" aria-pressed="' + (on ? "true" : "false") +
           '" title="' + (on ? "Remove from favourites" : "Add to favourites") + '">' +
           (on ? "★" : "☆") + "</button></td>" +
         '<td><a class="tick" target="_blank" rel="noopener" href="https://www.nasdaq.com/market-activity/etf/' +
           encodeURIComponent(r.symbol.toLowerCase()) + '">' + esc(r.symbol) + "</a></td>" +
-        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) + "</td>" +
+        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) +
+          (holdings[r.symbol] ? '<span class="caret">\u25b8</span>' : "") + "</td>" +
         '<td class="iss">' + esc(r.issuer) + "</td>" +
         '<td><span class="chip">' + esc(r.category) + "</span></td>" +
         '<td class="iss">' + esc(r.region) + "</td>" +
@@ -616,6 +638,60 @@ tbody tr:hover{background:var(--color-background-secondary)}
     });
   }
 
+  /* ---------- holdings drawer ---------- */
+  function money(v){
+    if (!v) return "";
+    var b = v / 1e9;
+    return b >= 1 ? "$" + b.toFixed(1) + "B" : "$" + Math.round(v / 1e6) + "M";
+  }
+
+  function holdingsHtml(sym){
+    var h = holdings[sym];
+    if (!h) {
+      return '<div class="hd-none">No portfolio on file with the SEC. ' +
+        "Commodity and crypto trusts (GLD, IBIT) and unit investment trusts " +
+        "(SPY, DIA) file 10-Ks rather than N-PORT — and mostly hold a single " +
+        "asset in any case.</div>";
+    }
+    // Levered and swap-based funds report notional against net assets, so a
+    // single line can exceed 100%. Scale the bars to the largest position
+    // rather than to 100, or those rows render as a wall of full-width bars.
+    var max = h.top.reduce(function(m, x){ return Math.max(m, x.pct); }, 0) || 1;
+    var sum = h.top.reduce(function(m, x){ return m + x.pct; }, 0);
+    // A sum above 100% is not a bug: swap-based funds report notional, so the
+    // positions can add to several times net assets. Saying "458.9% of assets
+    // shown" would read as an error, so name what it actually is.
+    var tail = sum > 100
+      ? " · notional exposure, exceeds net assets"
+      : " · " + sum.toFixed(1) + "% of net assets";
+    return '<div class="hd-head">Top ' + h.top.length + " · as of " +
+        esc(h.asOf) + (h.netAssets ? " · " + money(h.netAssets) + " net assets" : "") +
+        tail + "</div>" +
+      '<div class="hd-grid">' + h.top.map(function(x){
+        return "<div><div class=\"hd\"><span class=\"hd-n\">" + esc(x.name) +
+          '</span><span class="hd-p">' + x.pct.toFixed(2) + "%</span></div>" +
+          '<div class="hd-bar" style="width:' +
+          Math.max(2, (x.pct / max) * 100).toFixed(1) + '%"></div></div>';
+      }).join("") + "</div>";
+  }
+
+  function toggleHoldings(row){
+    var next = row.nextElementSibling;
+    if (next && next.className === "detail") {
+      next.parentNode.removeChild(next);
+      row.classList.remove("open");
+      return;
+    }
+    var tr = document.createElement("tr");
+    tr.className = "detail";
+    var td = document.createElement("td");
+    td.colSpan = row.children.length;
+    td.innerHTML = holdingsHtml(row.getAttribute("data-sym"));
+    tr.appendChild(td);
+    row.parentNode.insertBefore(tr, row.nextSibling);
+    row.classList.add("open");
+  }
+
   function paintFavBtn(){
     var n = favCount();
     $("fav-btn").textContent = (favOnly ? "★" : "☆") + " Favourites" + (n ? " " + n : "");
@@ -718,6 +794,12 @@ tbody tr:hover{background:var(--color-background-secondary)}
       return;
     }
 
+    var row = t.closest ? t.closest("tr.row") : null;
+    if (row && !(t.closest && t.closest("a"))) {   // the ticker link still navigates
+      toggleHoldings(row);
+      return;
+    }
+
     var clear = t.getAttribute && t.getAttribute("data-clear");
     if (clear) {
       sel[clear] = {};
@@ -775,10 +857,14 @@ tbody tr:hover{background:var(--color-background-secondary)}
 
   Promise.all([
     fetch("data/etfs.json").then(function(r){ return r.json(); }),
-    fetch("data/meta.json").then(function(r){ return r.json(); })
+    fetch("data/meta.json").then(function(r){ return r.json(); }),
+    // Absent or stale holdings must not take the whole page down with them.
+    fetch("data/holdings.json").then(function(r){ return r.json(); })
+      .catch(function(){ return {}; })
   ]).then(function(res){
     all = res[0];
     meta = res[1];
+    holdings = res[2] || {};
 
     $("asof").textContent = meta.priceAsOf ? "Prices " + meta.priceAsOf : "";
     $("sub").textContent = "US-listed exchange-traded funds · " +

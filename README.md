@@ -51,6 +51,7 @@ name**:
 |---|---|
 | Ticker, fund name, price, today's %, 1-year % | Nasdaq screener |
 | Listed (first trading day) | Earliest bar in the fund's price history |
+| Top 10 holdings | SEC Form N-PORT (quarterly, lagging) |
 | Sponsor, category, region, leverage | Inferred from the fund name |
 
 The **Listed** column is the fund's first trading day, not its prospectus
@@ -64,6 +65,27 @@ Because a first trading day never changes, `data/inception.json` is a permanent
 cache. The expensive pass is paid once; each scheduled run then looks up only
 the funds listed since the last one.
 
+### Holdings
+
+Click any fund for its ten largest positions. These come from SEC Form N-PORT,
+the only free source covering the whole universe in one download — every
+registered investment company files its full portfolio quarterly.
+
+Two things to keep in mind:
+
+- **They lag.** N-PORT is published ~60 days after a quarter ends, so report
+  dates currently span 2026-02 to 2026-04. Each drawer shows its own as-of date.
+  These describe how a fund *was* positioned.
+- **Coverage is 4,042 of 5,261 funds (77%).** The gap is structural, not a bug:
+  commodity and crypto grantor trusts (`GLD`, `IBIT`, `SLV`) file 10-Ks, and
+  unit investment trusts (`SPY`, `DIA`, `MDY`) file nothing of this shape.
+  Coverage is 84–96% across the diversified categories and weakest in commodity
+  (43%) and crypto (48%) — categories where the funds hold one asset anyway.
+
+Swap-based funds report *notional*, so a levered fund's positions can sum well
+past 100% of net assets; the drawer says so rather than showing an apparently
+broken total.
+
 Name inference is accurate enough to filter on and wrong often enough that you
 should confirm against the fund's own fact sheet before acting on it. A fund
 whose name does not say what it holds will be classified on what its name
@@ -71,9 +93,10 @@ suggests.
 
 Two source limitations worth knowing:
 
-- **No expense ratio, AUM, inception date or holdings.** The screener does not
-  carry them. They are absent rather than estimated — a guessed expense ratio is
-  worse than none.
+- **No expense ratio.** The screener does not carry it, and no free bulk source
+  publishes it. It is absent rather than estimated — a guessed expense ratio is
+  worse than none. (AUM is available, but only for the funds that file N-PORT,
+  so it appears in the holdings drawer rather than as a column.)
 - **Names are truncated at 61 characters** by Nasdaq itself. 461 funds arrive
   with their tails cut off, which is why some rows end mid-word and why a
   classifier keyed on a trailing word can miss them.
@@ -87,10 +110,13 @@ index.html                     the dashboard — one self-contained file
 data/etfs.json                 one record per fund (generated)
 data/meta.json                 counts, breakdowns, timestamps (generated)
 data/inception.json            permanent ticker -> first-trading-day cache
+data/holdings.json             top 10 positions per fund (generated)
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
 scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
+scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
 scripts/test_derive.py         regression tests for the derived fields
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
+.github/workflows/refresh-holdings.yml  monthly N-PORT check
 .github/workflows/ci.yml             validates data, tests, JS syntax
 ```
 

@@ -534,5 +534,8 @@
   "inceptionKnown": 5259,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 640
+  "launchedThisYear": 640,
+  "holdingsKnown": 4042,
+  "holdingsSource": "SEC Form N-PORT 2026q2",
+  "holdingsAsOf": "2026-04-30"
 }
