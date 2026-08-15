@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Data files parse and agree
+        run: |
+          python - <<'EOF'
+          import json
+          etfs = json.load(open('data/etfs.json'))
+          meta = json.load(open('data/meta.json'))
+          assert meta['count'] == len(etfs)
+          assert len({e['symbol'] for e in etfs}) == len(etfs)
+          print(f'OK — {len(etfs)} funds')
+          EOF
+
+      - name: Classifier behaves on known funds
+        run: python scripts/test_derive.py
+
+      # The dashboard is one file with no build step, so a syntax error ships
+      # straight to production as a blank page.
+      - name: Syntax-check dashboard JavaScript
+        run: |
+          python - <<'EOF'
+          import re, subprocess, sys, tempfile, os, pathlib
+          js = "\n".join(re.findall(
+              r'<script[^>]*>(.*?)</script>',
+              pathlib.Path('index.html').read_text(), re.DOTALL))
+          with tempfile.NamedTemporaryFile(suffix='.js', mode='w', delete=False) as fh:
+              fh.write(js); tmp = fh.name
+          r = subprocess.run(['node', '--check', tmp], capture_output=True, text=True)
+          os.unlink(tmp)
+          if r.returncode:
+              print(r.stderr, file=sys.stderr); sys.exit(1)
+          print('JS syntax OK')
+          EOF

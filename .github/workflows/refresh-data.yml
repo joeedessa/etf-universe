@@ -1,0 +1,62 @@
+name: Refresh ETF universe
+
+# One pass a weekday evening, after the Nasdaq screener has settled to
+# end-of-day values. Cron is UTC and ignores DST, so 01:30 UTC Tue–Sat lands
+# at 21:30 ET in summer and 20:30 ET in winter — comfortably after the close
+# either way. This is a daily list, not a live quote feed; intraday passes
+# would add churn without adding information.
+on:
+  schedule:
+    - cron: '30 1 * * 2-6'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: etf-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Standard library only — no pip install step to break.
+      - name: Fetch ETF universe
+        run: python scripts/fetch_etfs.py
+
+      - name: Validate output
+        run: |
+          python - <<'EOF'
+          import json, sys
+          etfs = json.load(open('data/etfs.json'))
+          meta = json.load(open('data/meta.json'))
+          assert isinstance(etfs, list), 'etfs.json is not a list'
+          assert len(etfs) >= 3000, f'only {len(etfs)} funds — refusing'
+          assert meta['count'] == len(etfs), 'meta count disagrees with etfs.json'
+          required = {'symbol', 'name', 'issuer', 'category', 'region', 'leverage'}
+          missing = [e for e in etfs if not required.issubset(e)]
+          assert not missing, f'{len(missing)} records missing required fields'
+          dupes = len(etfs) - len({e['symbol'] for e in etfs})
+          assert dupes == 0, f'{dupes} duplicate tickers'
+          print(f'OK — {len(etfs)} funds, {len(meta["issuers"])} sponsors')
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes — nothing to commit"
+          else
+            git commit -m "chore: ETF universe refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase origin main
+            git push
+          fi

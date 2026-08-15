@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%234F46E5%22%2F%3E%3Cg%20fill%3D%22%23fff%22%3E%3Crect%20x%3D%227%22%20y%3D%2217%22%20width%3D%224%22%20height%3D%229%22%20rx%3D%221%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2212%22%20width%3D%224%22%20height%3D%2214%22%20rx%3D%221%22%2F%3E%3Crect%20x%3D%2221%22%20y%3D%226%22%20width%3D%224%22%20height%3D%2220%22%20rx%3D%221%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<title>ETF Universe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --color-text-primary:#16181D;--color-text-secondary:#3D424D;--color-text-tertiary:#70757F;
+  --color-background-primary:#FFFFFF;--color-background-secondary:#F5F5F2;
+  --color-border-tertiary:#E7E6E1;--color-border-secondary:#D3D2CC;
+  --accent:#4F46E5;--paper:#FBFAF7;
+  --shadow-1:0 1px 2px rgba(22,24,29,.05);
+  --shadow-2:0 4px 16px rgba(22,24,29,.08),0 1px 3px rgba(22,24,29,.05);
+  --up:#16A34A;--dn:#E24B4A;
+  --chip-bg:#EEEEFB;--chip-t:#3730C9;
+}
+:root[data-theme="dark"]{
+  --color-text-primary:#EDEDE8;--color-text-secondary:#C2C4C9;--color-text-tertiary:#8B8E96;
+  --color-background-primary:#1E2025;--color-background-secondary:#26282E;
+  --color-border-tertiary:#33363D;--color-border-secondary:#454850;
+  --accent:#8B85F0;--paper:#17181C;
+  --shadow-1:0 1px 2px rgba(0,0,0,.4);
+  --shadow-2:0 4px 16px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4);
+  --up:#3DDC84;--dn:#FF7D7B;
+  --chip-bg:#26284A;--chip-t:#A5B4FC;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --color-text-primary:#EDEDE8;--color-text-secondary:#C2C4C9;--color-text-tertiary:#8B8E96;
+    --color-background-primary:#1E2025;--color-background-secondary:#26282E;
+    --color-border-tertiary:#33363D;--color-border-secondary:#454850;
+    --accent:#8B85F0;--paper:#17181C;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4);
+    --shadow-2:0 4px 16px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4);
+    --up:#3DDC84;--dn:#FF7D7B;
+    --chip-bg:#26284A;--chip-t:#A5B4FC;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;padding:0 0 64px;background:var(--paper);color:var(--color-text-primary);
+  font-family:var(--font-sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* ---------- masthead ---------- */
+.mast{padding:12px 18px 10px;border-bottom:.5px solid var(--color-border-tertiary);
+  position:sticky;top:0;z-index:20;background:var(--paper)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mast-word{font-family:var(--font-display);font-size:21px;font-weight:400;letter-spacing:-.01em}
+.mast-word em{color:var(--accent);font-style:italic}
+.mast-sub{font-size:10px;color:var(--color-text-tertiary);letter-spacing:.06em;
+  text-transform:uppercase;margin-top:2px}
+.mast-right{display:flex;align-items:center;gap:10px}
+.mast-date{font-size:11px;color:var(--color-text-tertiary);font-family:var(--font-mono)}
+.tbtn{border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-secondary);border-radius:7px;padding:5px 9px;font-size:12px;cursor:pointer;
+  font-family:var(--font-sans);line-height:1}
+.tbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:9px;
+  padding:14px 18px 0;max-width:1420px;margin:0 auto}
+.stat{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);
+  border-radius:9px;padding:9px 11px;box-shadow:var(--shadow-1)}
+.stat-v{font-family:var(--font-mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat-l{font-size:9.5px;color:var(--color-text-tertiary);text-transform:uppercase;
+  letter-spacing:.06em;margin-top:2px}
+
+/* ---------- controls ---------- */
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  padding:14px 18px 10px;max-width:1420px;margin:0 auto}
+.search{flex:1 1 230px;min-width:180px;position:relative}
+.search input{width:100%;padding:8px 11px;border-radius:8px;font-size:13px;
+  border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);font-family:var(--font-sans)}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--chip-bg)}
+select{padding:8px 9px;border-radius:8px;font-size:12.5px;cursor:pointer;
+  border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);font-family:var(--font-sans);max-width:190px}
+select:focus{outline:none;border-color:var(--accent)}
+.reset{border:none;background:none;color:var(--accent);font-size:12px;cursor:pointer;
+  padding:6px 4px;font-family:var(--font-sans)}
+.reset:hover{text-decoration:underline}
+.count{padding:0 18px 8px;max-width:1420px;margin:0 auto;font-size:11.5px;
+  color:var(--color-text-tertiary);font-family:var(--font-mono)}
+
+/* ---------- table ---------- */
+.wrap{max-width:1420px;margin:0 auto;padding:0 18px}
+.tbl-scroll{overflow-x:auto;border:.5px solid var(--color-border-tertiary);
+  border-radius:11px;background:var(--color-background-primary);box-shadow:var(--shadow-1)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+thead th{position:sticky;top:0;background:var(--color-background-secondary);
+  font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);
+  font-weight:600;text-align:left;padding:9px 10px;white-space:nowrap;cursor:pointer;
+  border-bottom:.5px solid var(--color-border-tertiary);user-select:none;z-index:5}
+thead th:hover{color:var(--accent)}
+thead th.num,td.num{text-align:right}
+thead th .ind{color:var(--accent);font-size:9px}
+tbody td{padding:8px 10px;border-bottom:.5px solid var(--color-border-tertiary);
+  vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--color-background-secondary)}
+.tick{font-family:var(--font-mono);font-weight:600;font-size:12.5px;color:var(--accent);
+  text-decoration:none;white-space:nowrap}
+.tick:hover{text-decoration:underline}
+.nm{color:var(--color-text-secondary);max-width:400px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.iss{color:var(--color-text-tertiary);font-size:12px;white-space:nowrap}
+.chip{display:inline-block;background:var(--chip-bg);color:var(--chip-t);border-radius:5px;
+  padding:2px 6px;font-size:10.5px;font-weight:500;white-space:nowrap}
+.lev{font-family:var(--font-mono);font-size:11.5px;font-weight:600}
+.lev.n{color:var(--color-text-tertiary);font-weight:400}
+.num{font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.na{color:var(--color-text-tertiary)}
+.empty{padding:44px 18px;text-align:center;color:var(--color-text-tertiary);font-size:13px}
+.more{padding:14px;text-align:center;color:var(--color-text-tertiary);font-size:11.5px;
+  font-family:var(--font-mono)}
+
+/* ---------- footer ---------- */
+.note{max-width:1420px;margin:18px auto 0;padding:0 18px;font-size:11.5px;
+  color:var(--color-text-tertiary);line-height:1.65}
+.note strong{color:var(--color-text-secondary);font-weight:600}
+.note a{color:var(--accent)}
+
+@media(max-width:760px){
+  .mast-word{font-size:18px}
+  .stats{grid-template-columns:repeat(auto-fit,minmax(104px,1fr))}
+  .stat-v{font-size:16px}
+  .wrap,.controls,.stats,.count,.note{padding-left:12px;padding-right:12px}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="mast-top">
+    <div>
+      <div class="mast-word">ETF <em>Universe</em></div>
+      <div class="mast-sub" id="sub">US-listed exchange-traded funds</div>
+    </div>
+    <div class="mast-right">
+      <span class="mast-date" id="asof">—</span>
+      <button class="tbtn" id="theme" type="button">Dark</button>
+    </div>
+  </div>
+</header>
+
+<section class="stats" id="stats"></section>
+
+<section class="controls">
+  <div class="search">
+    <input id="q" type="search" placeholder="Search ticker or fund name…" autocomplete="off" spellcheck="false">
+  </div>
+  <select id="f-cat"><option value="">All categories</option></select>
+  <select id="f-reg"><option value="">All regions</option></select>
+  <select id="f-iss"><option value="">All sponsors</option></select>
+  <select id="f-lev">
+    <option value="">Any leverage</option>
+    <option value="plain">Unlevered (1x) only</option>
+    <option value="lev">Leveraged (2x / 3x)</option>
+    <option value="inv">Inverse / short</option>
+  </select>
+  <select id="sort">
+    <option value="symbol">Sort: Ticker A–Z</option>
+    <option value="name">Sort: Name A–Z</option>
+    <option value="chg-d">Sort: Today's % ↓</option>
+    <option value="chg-a">Sort: Today's % ↑</option>
+    <option value="yr-d">Sort: 1-year % ↓</option>
+    <option value="yr-a">Sort: 1-year % ↑</option>
+    <option value="px-d">Sort: Price ↓</option>
+  </select>
+  <button class="reset" id="reset" type="button">Reset</button>
+</section>
+
+<div class="count" id="count">Loading…</div>
+
+<div class="wrap">
+  <div class="tbl-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th data-sk="symbol">Ticker</th>
+          <th data-sk="name">Fund</th>
+          <th data-sk="issuer">Sponsor</th>
+          <th data-sk="category">Category</th>
+          <th data-sk="region">Region</th>
+          <th data-sk="leverage" class="num">Lev</th>
+          <th data-sk="price" class="num">Price</th>
+          <th data-sk="changePct" class="num">Today</th>
+          <th data-sk="oneYearPct" class="num">1 Year</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div class="more" id="more"></div>
+</div>
+
+<p class="note">
+  <strong>Source.</strong> Fund list and quotes from the public Nasdaq ETF screener, refreshed
+  each weekday after the US close. Prices are end-of-day and unadjusted.
+  <br>
+  <strong>Derived fields.</strong> Sponsor, category, region and leverage are inferred from the
+  fund's name, not from a filings database — the screener does not publish them. They are
+  accurate enough to filter on and wrong often enough that you should confirm against the fund's
+  own fact sheet before acting. Expense ratios, AUM and holdings are not available from this
+  source and are deliberately absent rather than estimated.
+  <br>
+  <strong>Not investment advice.</strong> Nothing here is a recommendation to buy or sell any security.
+</p>
+
+<script>
+(function(){
+  "use strict";
+
+  var PAGE = 150;          // rows appended per scroll batch
+  var all = [], view = [], shown = 0, meta = {};
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ---------- theme ---------- */
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem("etf-theme"); } catch (e) {}
+  if (saved) root.setAttribute("data-theme", saved);
+
+  function isDark(){
+    var t = root.getAttribute("data-theme");
+    if (t) return t === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function paintTheme(){ $("theme").textContent = isDark() ? "Light" : "Dark"; }
+  $("theme").addEventListener("click", function(){
+    var next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("etf-theme", next); } catch (e) {}
+    paintTheme();
+  });
+  paintTheme();
+
+  /* ---------- formatting ---------- */
+  function fmtNum(v, dp){
+    if (v === null || v === undefined) return null;
+    return v.toFixed(dp).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  function pctCell(v){
+    if (v === null || v === undefined) return '<td class="num na">—</td>';
+    var cls = v > 0 ? "up" : (v < 0 ? "dn" : "");
+    var sign = v > 0 ? "+" : "";
+    return '<td class="num ' + cls + '">' + sign + v.toFixed(2) + "%</td>";
+  }
+  function levLabel(l){
+    if (l === 1) return '<td class="num lev n">—</td>';
+    var txt = (l < 0 ? "-" : "") + Math.abs(l) + "x";
+    return '<td class="num lev ' + (l < 0 ? "dn" : "up") + '">' + txt + "</td>";
+  }
+  function esc(s){
+    return String(s).replace(/[&<>"]/g, function(c){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
+    });
+  }
+
+  /* ---------- filtering ---------- */
+  function apply(){
+    var q = $("q").value.trim().toLowerCase();
+    var cat = $("f-cat").value, reg = $("f-reg").value;
+    var iss = $("f-iss").value, lev = $("f-lev").value;
+
+    view = all.filter(function(r){
+      if (cat && r.category !== cat) return false;
+      if (reg && r.region !== reg) return false;
+      if (iss && r.issuer !== iss) return false;
+      if (lev === "plain" && r.leverage !== 1) return false;
+      if (lev === "lev" && Math.abs(r.leverage) === 1) return false;
+      if (lev === "inv" && r.leverage >= 0) return false;
+      if (q && r.symbol.toLowerCase().indexOf(q) === -1 &&
+               r.name.toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+
+    sortView();
+    shown = 0;
+    $("rows").innerHTML = "";
+    $("count").textContent =
+      view.length.toLocaleString() + " of " + all.length.toLocaleString() + " funds";
+    append();
+  }
+
+  function sortView(){
+    var s = $("sort").value;
+    // Funds with no quote sort last regardless of direction — a missing price
+    // is not a low price, and letting nulls win the "worst 1-year" sort would
+    // fill the top of the table with funds that simply have no history.
+    function byNum(key, dir){
+      return function(a, b){
+        var x = a[key], y = b[key];
+        if (x === null || x === undefined) return 1;
+        if (y === null || y === undefined) return -1;
+        return dir * (y - x);
+      };
+    }
+    if (s === "symbol") view.sort(function(a,b){ return a.symbol < b.symbol ? -1 : a.symbol > b.symbol ? 1 : 0; });
+    else if (s === "name") view.sort(function(a,b){ return a.name.localeCompare(b.name); });
+    else if (s === "chg-d") view.sort(byNum("changePct", 1));
+    else if (s === "chg-a") view.sort(byNum("changePct", -1));
+    else if (s === "yr-d") view.sort(byNum("oneYearPct", 1));
+    else if (s === "yr-a") view.sort(byNum("oneYearPct", -1));
+    else if (s === "px-d") view.sort(byNum("price", 1));
+  }
+
+  /* ---------- rendering ---------- */
+  function append(){
+    var slice = view.slice(shown, shown + PAGE);
+    var html = slice.map(function(r){
+      var px = fmtNum(r.price, 2);
+      return "<tr>" +
+        '<td><a class="tick" target="_blank" rel="noopener" href="https://www.nasdaq.com/market-activity/etf/' +
+          encodeURIComponent(r.symbol.toLowerCase()) + '">' + esc(r.symbol) + "</a></td>" +
+        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) + "</td>" +
+        '<td class="iss">' + esc(r.issuer) + "</td>" +
+        '<td><span class="chip">' + esc(r.category) + "</span></td>" +
+        '<td class="iss">' + esc(r.region) + "</td>" +
+        levLabel(r.leverage) +
+        (px === null ? '<td class="num na">—</td>' : '<td class="num">$' + px + "</td>") +
+        pctCell(r.changePct) +
+        pctCell(r.oneYearPct) +
+      "</tr>";
+    }).join("");
+
+    $("rows").insertAdjacentHTML("beforeend", html);
+    shown += slice.length;
+
+    if (!view.length) {
+      $("more").innerHTML = '<div class="empty">No funds match these filters.</div>';
+    } else if (shown < view.length) {
+      $("more").textContent = "Showing " + shown.toLocaleString() +
+        " — scroll for more";
+    } else {
+      $("more").textContent = "End of list — " + shown.toLocaleString() + " funds";
+    }
+  }
+
+  // Append the next batch as the bottom of the list comes into view. 5,000+
+  // rows rendered at once locks up mobile Safari for several seconds.
+  //
+  // Observed rather than scroll-driven: a scroll handler only fires once the
+  // page is actually scrollable, so a filter matching 200 funds on a tall
+  // display would render its first 150 and strand the rest with no scrollbar
+  // to trigger the rest. The observer re-fires while the sentinel stays
+  // visible, so it keeps filling until the viewport is covered.
+  // Both triggers are wired, not one as a fallback for the other: the observer
+  // only re-fires when the intersection state CHANGES, and append() already
+  // no-ops once the list is exhausted, so the scroll handler costs nothing and
+  // removes any dependency on that re-fire timing.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting && shown < view.length) append();
+    }, { rootMargin: "600px" }).observe($("more"));
+  }
+  window.addEventListener("scroll", function(){
+    if (shown >= view.length) return;
+    var doc = document.documentElement;
+    if (doc.scrollHeight - window.scrollY - window.innerHeight < 900) append();
+  }, { passive: true });
+
+  /* ---------- setup ---------- */
+  function fillSelect(el, counts){
+    var frag = document.createDocumentFragment();
+    Object.keys(counts).forEach(function(k){
+      var o = document.createElement("option");
+      o.value = k;
+      o.textContent = k + " (" + counts[k].toLocaleString() + ")";
+      frag.appendChild(o);
+    });
+    el.appendChild(frag);
+  }
+
+  function statTile(v, l){
+    return '<div class="stat"><div class="stat-v">' + v +
+           '</div><div class="stat-l">' + l + "</div></div>";
+  }
+
+  function paintStats(){
+    var up = 0, down = 0;
+    all.forEach(function(r){
+      if (r.changePct > 0) up++;
+      else if (r.changePct < 0) down++;
+    });
+    var sponsors = Object.keys(meta.issuers || {}).length;
+    $("stats").innerHTML =
+      statTile(all.length.toLocaleString(), "Listed ETFs") +
+      statTile(sponsors.toLocaleString(), "Sponsors") +
+      statTile(Object.keys(meta.categories || {}).length, "Categories") +
+      statTile((meta.leveredCount || 0).toLocaleString(), "Leveraged") +
+      statTile((meta.inverseCount || 0).toLocaleString(), "Inverse") +
+      statTile('<span class="up">' + up.toLocaleString() + "</span> / " +
+               '<span class="dn">' + down.toLocaleString() + "</span>", "Up / down");
+  }
+
+  ["q","f-cat","f-reg","f-iss","f-lev","sort"].forEach(function(id){
+    var el = $(id);
+    el.addEventListener(id === "q" ? "input" : "change", apply);
+  });
+  $("reset").addEventListener("click", function(){
+    $("q").value = "";
+    ["f-cat","f-reg","f-iss","f-lev"].forEach(function(id){ $(id).value = ""; });
+    $("sort").value = "symbol";
+    apply();
+  });
+
+  // Header click sorts by that column, toggling direction on the numeric ones.
+  var SORTABLE = { changePct:["chg-d","chg-a"], oneYearPct:["yr-d","yr-a"],
+                   price:["px-d","px-d"], symbol:["symbol","symbol"],
+                   name:["name","name"] };
+  Array.prototype.forEach.call(document.querySelectorAll("thead th"), function(th){
+    th.addEventListener("click", function(){
+      var pair = SORTABLE[th.getAttribute("data-sk")];
+      if (!pair) return;
+      $("sort").value = ($("sort").value === pair[0]) ? pair[1] : pair[0];
+      apply();
+    });
+  });
+
+  Promise.all([
+    fetch("data/etfs.json").then(function(r){ return r.json(); }),
+    fetch("data/meta.json").then(function(r){ return r.json(); })
+  ]).then(function(res){
+    all = res[0];
+    meta = res[1];
+
+    $("asof").textContent = meta.priceAsOf ? "Prices " + meta.priceAsOf : "";
+    $("sub").textContent = "US-listed exchange-traded funds · " +
+      all.length.toLocaleString() + " funds";
+
+    fillSelect($("f-cat"), meta.categories || {});
+    fillSelect($("f-reg"), meta.regions || {});
+    fillSelect($("f-iss"), meta.issuers || {});
+
+    paintStats();
+    apply();
+  }).catch(function(err){
+    $("count").textContent = "";
+    $("more").innerHTML = '<div class="empty">Could not load fund data. ' +
+      esc(err && err.message ? err.message : "Unknown error") + "</div>";
+  });
+})();
+</script>
+</body>
+</html>
