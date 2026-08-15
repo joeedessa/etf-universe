@@ -12,10 +12,21 @@ No build step, no dependencies, no API keys. GitHub Actions refreshes the data
 and commits it; GitHub Pages serves the page.
 
 Filter by sponsor, category, region and leverage; search by ticker or name; sort
-by today's move, one-year return or price. Category, region and leverage are
-multi-select chips; sponsor is a searchable checklist, since there are 498 of
-them. Leverage selections are a union — picking Leveraged and Inverse returns
-760 funds, not 900, because -3x funds are both.
+by today's move, one-year return or price. All four filters are multi-select
+dropdowns, and the sponsor one is searchable since there are 498 of them.
+Leverage selections are a union — picking Leveraged and Inverse returns 760
+funds, not 900, because -3x funds are both.
+
+### Favourites
+
+Star any fund to add it to a watchlist, and use the Favourites button to show
+only those. Favourites live in `localStorage` on your own device — nothing is
+uploaded, and the site has no backend to upload it to. They survive reloads and
+are untouched by Reset, which clears filters only.
+
+Because a starred fund can sit in a category the default view hides, turning on
+Favourites reports how many are being held back and offers to reveal them,
+rather than quietly showing a shorter watchlist than you saved.
 
 ### The default view
 
