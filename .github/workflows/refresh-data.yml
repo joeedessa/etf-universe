@@ -31,6 +31,13 @@ jobs:
       - name: Fetch ETF universe
         run: python scripts/fetch_etfs.py
 
+      # data/inception.json is a permanent cache — a first trading day never
+      # changes — so this only looks up funds listed since the last run. The
+      # cap is a backstop against a bad day turning into thousands of calls;
+      # anything beyond it is simply picked up by tomorrow's run.
+      - name: Top up inception dates
+        run: python scripts/fetch_inception.py --limit 300
+
       - name: Validate output
         run: |
           python - <<'EOF'
@@ -45,7 +52,13 @@ jobs:
           assert not missing, f'{len(missing)} records missing required fields'
           dupes = len(etfs) - len({e['symbol'] for e in etfs})
           assert dupes == 0, f'{dupes} duplicate tickers'
-          print(f'OK — {len(etfs)} funds, {len(meta["issuers"])} sponsors')
+          import re
+          bad = [e['symbol'] for e in etfs if e.get('inception')
+                 and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', e['inception'])]
+          assert not bad, f'malformed inception dates: {bad[:5]}'
+          known = sum(1 for e in etfs if e.get('inception'))
+          print(f'OK — {len(etfs)} funds, {len(meta["issuers"])} sponsors, '
+                f'{known} inception dates')
           EOF
 
       - name: Commit if changed

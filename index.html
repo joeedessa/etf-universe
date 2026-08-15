@@ -142,7 +142,7 @@ th.sth,td.std{width:30px;padding-left:12px;padding-right:0;text-align:center}
 .wrap{max-width:1420px;margin:0 auto;padding:0 18px}
 .tbl-scroll{overflow-x:auto;border:.5px solid var(--color-border-tertiary);
   border-radius:11px;background:var(--color-background-primary);box-shadow:var(--shadow-1)}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
 thead th{position:sticky;top:0;background:var(--color-background-secondary);
   font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);
   font-weight:600;text-align:left;padding:9px 10px;white-space:nowrap;cursor:pointer;
@@ -166,6 +166,7 @@ tbody tr:hover{background:var(--color-background-secondary)}
 .lev.n{color:var(--color-text-tertiary);font-weight:400}
 .num{font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
 .up{color:var(--up)}.dn{color:var(--dn)}
+.dt{color:var(--color-text-tertiary);font-size:11.5px}
 .na{color:var(--color-text-tertiary)}
 .empty{padding:44px 18px;text-align:center;color:var(--color-text-tertiary);font-size:13px}
 .more{padding:14px;text-align:center;color:var(--color-text-tertiary);font-size:11.5px;
@@ -262,6 +263,8 @@ tbody tr:hover{background:var(--color-background-secondary)}
     <option value="yr-d">Sort: 1-year % ↓</option>
     <option value="yr-a">Sort: 1-year % ↑</option>
     <option value="px-d">Sort: Price ↓</option>
+    <option value="new">Sort: Newest listing</option>
+    <option value="old">Sort: Oldest listing</option>
   </select>
   <button class="reset" id="reset" type="button">Reset</button>
 </section>
@@ -280,6 +283,7 @@ tbody tr:hover{background:var(--color-background-secondary)}
           <th data-sk="issuer">Sponsor</th>
           <th data-sk="category">Category</th>
           <th data-sk="region">Region</th>
+          <th data-sk="inception" class="num">Listed</th>
           <th data-sk="leverage" class="num">Lev</th>
           <th data-sk="price" class="num">Price</th>
           <th data-sk="changePct" class="num">Today</th>
@@ -295,6 +299,10 @@ tbody tr:hover{background:var(--color-background-secondary)}
 <p class="note">
   <strong>Source.</strong> Fund list and quotes from the public Nasdaq ETF screener, refreshed
   each weekday after the US close. Prices are end-of-day and unadjusted.
+  <br>
+  <strong>Listed.</strong> The fund's first trading day, taken from the earliest bar in its
+  price history. Prospectus inception can precede it by a few days, and a fund that changed
+  sponsor or exchange may show the later of the two dates rather than its original launch.
   <br>
   <strong>Derived fields.</strong> Sponsor, category, region and leverage are inferred from the
   fund's name, not from a filings database — the screener does not publish them. They are
@@ -468,6 +476,16 @@ tbody tr:hover{background:var(--color-background-secondary)}
         return dir * (y - x);
       };
     }
+    // ISO dates compare correctly as strings; absent dates sort last either way,
+    // so "oldest listing" does not open with a page of funds we have no date for.
+    function byDate(key, dir){
+      return function(a, b){
+        var x = a[key], y = b[key];
+        if (!x) return 1;
+        if (!y) return -1;
+        return x < y ? dir : x > y ? -dir : 0;
+      };
+    }
     if (s === "symbol") view.sort(function(a,b){ return a.symbol < b.symbol ? -1 : a.symbol > b.symbol ? 1 : 0; });
     else if (s === "name") view.sort(function(a,b){ return a.name.localeCompare(b.name); });
     else if (s === "chg-d") view.sort(byNum("changePct", 1));
@@ -475,6 +493,8 @@ tbody tr:hover{background:var(--color-background-secondary)}
     else if (s === "yr-d") view.sort(byNum("oneYearPct", 1));
     else if (s === "yr-a") view.sort(byNum("oneYearPct", -1));
     else if (s === "px-d") view.sort(byNum("price", 1));
+    else if (s === "new") view.sort(byDate("inception", 1));
+    else if (s === "old") view.sort(byDate("inception", -1));
   }
 
   /* ---------- rendering ---------- */
@@ -494,6 +514,9 @@ tbody tr:hover{background:var(--color-background-secondary)}
         '<td class="iss">' + esc(r.issuer) + "</td>" +
         '<td><span class="chip">' + esc(r.category) + "</span></td>" +
         '<td class="iss">' + esc(r.region) + "</td>" +
+        (r.inception
+          ? '<td class="num dt" title="First trading day">' + esc(r.inception) + "</td>"
+          : '<td class="num na">—</td>') +
         levLabel(r.leverage) +
         (px === null ? '<td class="num na">—</td>' : '<td class="num">$' + px + "</td>") +
         pctCell(r.changePct) +
@@ -642,6 +665,9 @@ tbody tr:hover{background:var(--color-background-secondary)}
       statTile(Object.keys(meta.categories || {}).length, "Categories") +
       statTile((meta.leveredCount || 0).toLocaleString(), "Leveraged") +
       statTile((meta.inverseCount || 0).toLocaleString(), "Inverse") +
+      (meta.launchedThisYear
+        ? statTile(meta.launchedThisYear.toLocaleString(), "Listed this year")
+        : "") +
       statTile('<span class="up">' + up.toLocaleString() + "</span> / " +
                '<span class="dn">' + down.toLocaleString() + "</span>", "Up / down");
   }
@@ -737,7 +763,7 @@ tbody tr:hover{background:var(--color-background-secondary)}
   // Header click sorts by that column, toggling direction on the numeric ones.
   var SORTABLE = { changePct:["chg-d","chg-a"], oneYearPct:["yr-d","yr-a"],
                    price:["px-d","px-d"], symbol:["symbol","symbol"],
-                   name:["name","name"] };
+                   name:["name","name"], inception:["new","old"] };
   Array.prototype.forEach.call(document.querySelectorAll("thead th"), function(th){
     th.addEventListener("click", function(){
       var pair = SORTABLE[th.getAttribute("data-sk")];

@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-15T09:48:14Z",
-  "priceAsOf": "8/14/2026 8:00:00 PM",
+  "generated": "2026-08-15T11:17:41Z",
+  "priceAsOf": "8/13/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5261,
   "derived": [
@@ -530,5 +530,9 @@
     "Developed ex-US": 358,
     "Emerging markets": 270,
     "Global": 256
-  }
+  },
+  "inceptionKnown": 5259,
+  "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
+  "oldestFund": "1993",
+  "launchedThisYear": 640
 }

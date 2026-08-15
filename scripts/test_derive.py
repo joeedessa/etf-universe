@@ -53,6 +53,24 @@ NAME_CASES = [
     ("ETF Opportunities Trust T-Rex 2X Long Apple Daily Target ETF",
      "T-Rex 2X Long Apple Daily Target ETF"),
     ("Vanguard S&P 500 ETF", None),
+
+    # Nasdaq concatenates two fund names. Identical halves: keep the complete
+    # copy, since the second is clipped at 61 chars.
+    ("Archer Growth ETF Archer Growth ETF", "Archer Growth ETF"),
+    ("Gabelli Love Our Planet & People ETF Gabelli Love Our Planet &",
+     "Gabelli Love Our Planet & People ETF"),
+    # Diverging halves: the SECOND is the fund this ticker actually is.
+    ("Tradr 2X Long CIEN Daily ETF Tradr 2X Long SK hynix Daily ETF",
+     "Tradr 2X Long SK hynix Daily ETF"),
+    ("Tradr 2X Long CIEN Daily ETF Tradr 2X Short SK hynix Daily ETF",
+     "Tradr 2X Short SK hynix Daily ETF"),
+    # Trailing words that are part of the fund's identity must survive; these
+    # are the names a blanket "split on ETF" rule would destroy.
+    ("Innovator U.S. Equity Buffer ETF - April", None),
+    ("PGIM S&P 500 Buffer 12 ETF - August", None),
+    ("Goldman Sachs Physical Gold ETF Shares", None),
+    ("Bitwise Bitcoin ETF Common Shares of Beneficial Interest", None),
+    ("AIM ETF Products Trust AllianzIM U.S. Equity Buffer15 ETF", None),
 ]
 
 ISSUER_CASES = [

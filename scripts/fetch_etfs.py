@@ -118,6 +118,33 @@ def _strip(name: str, prefix_len: int, truncated: bool) -> str:
     return candidate if _plausible_fund(candidate, truncated) else name
 
 
+# Nasdaq ships some names as two fund names run together, either the same one
+# twice ("Archer Growth ETF Archer Growth ETF") or a stale sibling followed by
+# the real one ("Tradr 2X Long CIEN Daily ETF Tradr 2X Long SK hynix Daily
+# ETF" -- SKHA is the SK hynix fund, not the CIEN one).
+#
+# The tell is the tail restarting with the same word the name opened with.
+# Splitting on any mid-string "ETF" WITHOUT that check would wreck 299 legitimate
+# names -- "Innovator U.S. Equity Buffer ETF - April", "Goldman Sachs Physical
+# Gold ETF Shares" -- whose trailing words are part of the fund's identity.
+CONCAT_SPLIT = re.compile(r"\bETF\s+(?=\S)")
+
+
+def dedupe_concatenated(name: str) -> str:
+    m = CONCAT_SPLIT.search(name)
+    if not m:
+        return name
+    head, tail = name[:m.end()].strip(), name[m.end():].strip()
+    if not head or not tail:
+        return name
+    if head.split()[0].lower() != tail.split()[0].lower():
+        return name
+    # A tail that is a prefix of the head is the same name clipped by the
+    # 61-char limit, so the head is the complete copy. A tail that diverges is
+    # a different fund -- and the one this ticker actually is.
+    return head if head.lower().startswith(tail.lower()) else tail
+
+
 def clean_name(name: str) -> str:
     original = name
     # Nasdaq clips companyName at 61 characters, so long names arrive with the
@@ -133,6 +160,7 @@ def clean_name(name: str) -> str:
     if m:
         name = _strip(name, m.end(), truncated)
 
+    name = dedupe_concatenated(name)
     name = re.sub(r"\s+", " ", name).strip(" -,")
     return name if len(name) >= 8 else original
 

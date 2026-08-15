@@ -50,7 +50,19 @@ name**:
 | Field | Source |
 |---|---|
 | Ticker, fund name, price, today's %, 1-year % | Nasdaq screener |
+| Listed (first trading day) | Earliest bar in the fund's price history |
 | Sponsor, category, region, leverage | Inferred from the fund name |
+
+The **Listed** column is the fund's first trading day, not its prospectus
+inception — the latter is not published in bulk anywhere free. The two are
+usually within days of each other; spot checks match known listing dates to the
+day (SPY 1993-01-29, QQQ 1999-03-10, GLD 2004-11-18, IBIT 2024-01-11). A fund
+that changed sponsor or exchange can show the later date rather than its
+original launch, so treat old funds with more suspicion than new ones.
+
+Because a first trading day never changes, `data/inception.json` is a permanent
+cache. The expensive pass is paid once; each scheduled run then looks up only
+the funds listed since the last one.
 
 Name inference is accurate enough to filter on and wrong often enough that you
 should confirm against the fund's own fact sheet before acting on it. A fund
@@ -74,7 +86,9 @@ Prices are end-of-day and unadjusted. Nothing here is investment advice.
 index.html                     the dashboard — one self-contained file
 data/etfs.json                 one record per fund (generated)
 data/meta.json                 counts, breakdowns, timestamps (generated)
+data/inception.json            permanent ticker -> first-trading-day cache
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
+scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/test_derive.py         regression tests for the derived fields
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
 .github/workflows/ci.yml             validates data, tests, JS syntax
@@ -83,10 +97,13 @@ scripts/test_derive.py         regression tests for the derived fields
 ## Running it locally
 
 ```bash
-python3 scripts/fetch_etfs.py && python3 -m http.server 8791
+python3 scripts/fetch_etfs.py && python3 scripts/fetch_inception.py && python3 -m http.server 8791
 ```
 
 Then open http://localhost:8791.
+
+`fetch_inception.py` looks up at most 300 funds per run by default. To rebuild
+the cache from empty — roughly 5,000 lookups, tens of minutes — pass `--all`.
 
 ## Changing the taxonomy
 
