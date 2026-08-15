@@ -87,6 +87,56 @@ select:focus{outline:none;border-color:var(--accent)}
 .reset{border:none;background:none;color:var(--accent);font-size:12px;cursor:pointer;
   padding:6px 4px;font-family:var(--font-sans)}
 .reset:hover{text-decoration:underline}
+
+/* ---------- filter chips ---------- */
+.fbar{max-width:1420px;margin:0 auto;padding:2px 18px 0}
+.frow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:9px}
+.flabel{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--color-text-tertiary);font-weight:600;flex:0 0 auto;margin-right:1px}
+.fsep{flex:0 0 auto;width:1px;align-self:stretch;background:var(--color-border-tertiary);margin:0 5px}
+.chip-t{display:inline-flex;align-items:center;gap:5px;cursor:pointer;line-height:1.5;
+  border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-secondary);border-radius:999px;padding:4px 10px;font-size:12px;
+  font-family:var(--font-sans)}
+.chip-t:hover{border-color:var(--accent);color:var(--accent)}
+.chip-t .cn{font-family:var(--font-mono);font-size:10px;color:var(--color-text-tertiary)}
+.chip-t.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip-t.on:hover{color:#fff;opacity:.9}
+.chip-t.on .cn{color:rgba(255,255,255,.72)}
+.chip-t.all{font-weight:600}
+
+/* ---------- sponsor picker ---------- */
+.pick{position:relative;flex:0 0 auto}
+.pick-btn{border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);border-radius:8px;padding:8px 10px;font-size:12.5px;
+  cursor:pointer;font-family:var(--font-sans);white-space:nowrap}
+.pick-btn:hover{border-color:var(--accent)}
+.pick-btn.active{border-color:var(--accent);color:var(--accent)}
+.pick-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:40;width:300px;
+  background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);
+  border-radius:10px;box-shadow:var(--shadow-2);padding:9px}
+.pick-panel input{width:100%;padding:7px 9px;border-radius:7px;font-size:12.5px;
+  border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);font-family:var(--font-sans)}
+.pick-panel input:focus{outline:none;border-color:var(--accent)}
+.pick-list{max-height:258px;overflow-y:auto;margin-top:7px}
+.pick-item{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:6px;
+  font-size:12.5px;cursor:pointer;color:var(--color-text-secondary)}
+.pick-item:hover{background:var(--color-background-secondary)}
+.pick-item input{width:auto;margin:0;accent-color:var(--accent)}
+.pick-item .cn{margin-left:auto;font-family:var(--font-mono);font-size:10px;
+  color:var(--color-text-tertiary)}
+.pick-none{padding:14px 6px;text-align:center;color:var(--color-text-tertiary);font-size:12px}
+.pick-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  margin-top:7px;padding-top:7px;border-top:.5px solid var(--color-border-tertiary);
+  font-size:11px;color:var(--color-text-tertiary)}
+.linkb{border:none;background:none;color:var(--accent);cursor:pointer;font-size:11.5px;
+  padding:0;font-family:var(--font-sans)}
+.linkb:hover{text-decoration:underline}
+
+/* ---------- default-view hint ---------- */
+.hint{max-width:1420px;margin:0 auto;padding:0 18px 4px;font-size:11.5px;
+  color:var(--color-text-tertiary);line-height:1.5}
 .count{padding:0 18px 8px;max-width:1420px;margin:0 auto;font-size:11.5px;
   color:var(--color-text-tertiary);font-family:var(--font-mono)}
 
@@ -158,15 +208,19 @@ tbody tr:hover{background:var(--color-background-secondary)}
   <div class="search">
     <input id="q" type="search" placeholder="Search ticker or fund name…" autocomplete="off" spellcheck="false">
   </div>
-  <select id="f-cat"><option value="">All categories</option></select>
-  <select id="f-reg"><option value="">All regions</option></select>
-  <select id="f-iss"><option value="">All sponsors</option></select>
-  <select id="f-lev">
-    <option value="">Any leverage</option>
-    <option value="plain">Unlevered (1x) only</option>
-    <option value="lev">Leveraged (2x / 3x)</option>
-    <option value="inv">Inverse / short</option>
-  </select>
+
+  <div class="pick">
+    <button class="pick-btn" id="iss-btn" type="button" aria-expanded="false">All sponsors ▾</button>
+    <div class="pick-panel" id="iss-panel" hidden>
+      <input id="iss-q" type="search" placeholder="Search sponsors…" autocomplete="off" spellcheck="false">
+      <div class="pick-list" id="iss-list"></div>
+      <div class="pick-foot">
+        <span id="iss-n">All sponsors</span>
+        <button class="linkb" id="iss-clear" type="button">Clear</button>
+      </div>
+    </div>
+  </div>
+
   <select id="sort">
     <option value="symbol">Sort: Ticker A–Z</option>
     <option value="name">Sort: Name A–Z</option>
@@ -179,6 +233,16 @@ tbody tr:hover{background:var(--color-background-secondary)}
   <button class="reset" id="reset" type="button">Reset</button>
 </section>
 
+<div class="fbar">
+  <div class="frow" id="cat-chips"><span class="flabel">Category</span></div>
+  <div class="frow">
+    <span class="flabel">Region</span><span id="reg-chips" style="display:contents"></span>
+    <span class="fsep"></span>
+    <span class="flabel">Leverage</span><span id="lev-chips" style="display:contents"></span>
+  </div>
+</div>
+
+<div class="hint" id="hint"></div>
 <div class="count" id="count">Loading…</div>
 
 <div class="wrap">
@@ -267,29 +331,79 @@ tbody tr:hover{background:var(--color-background-secondary)}
     });
   }
 
+  /* ---------- filter state ---------- */
+
+  // Categories hidden on first load. The default view is meant to answer
+  // "what can I actually invest in as a fund" — these five are either a
+  // different asset class question entirely or, in the case of single-stock
+  // and derivative-income wrappers, thousands of tickers on a few underlyings
+  // that drown out everything else. All of them are one click away.
+  var DEFAULT_HIDDEN = ["Crypto", "Currency", "Single stock",
+                        "Fixed income", "Derivative income"];
+
+  // Deliberately overlapping, with OR semantics across selections: a -3x fund
+  // is both leveraged and inverse, and someone filtering for either should
+  // find it.
+  var LEV_DEFS = [
+    { v:"plain", label:"Unlevered",  test:function(r){ return r.leverage === 1; } },
+    { v:"lev",   label:"Leveraged",  test:function(r){ return Math.abs(r.leverage) > 1; } },
+    { v:"inv",   label:"Inverse",    test:function(r){ return r.leverage < 0; } }
+  ];
+
+  // Objects-as-sets. An EMPTY group means "no constraint", so clearing a
+  // filter never yields an empty table.
+  var sel = { cat:{}, reg:{}, lev:{}, iss:{} };
+  var defaultCats = [], sponsorList = [];
+
+  function setSize(o){ return Object.keys(o).length; }
+  function toggleKey(o, k){ if (o[k]) { delete o[k]; } else { o[k] = 1; } }
+
+  function levMatch(r){
+    for (var i = 0; i < LEV_DEFS.length; i++) {
+      if (sel.lev[LEV_DEFS[i].v] && LEV_DEFS[i].test(r)) return true;
+    }
+    return false;
+  }
+
   /* ---------- filtering ---------- */
   function apply(){
     var q = $("q").value.trim().toLowerCase();
-    var cat = $("f-cat").value, reg = $("f-reg").value;
-    var iss = $("f-iss").value, lev = $("f-lev").value;
+    var nCat = setSize(sel.cat), nReg = setSize(sel.reg);
+    var nLev = setSize(sel.lev), nIss = setSize(sel.iss);
 
     view = all.filter(function(r){
-      if (cat && r.category !== cat) return false;
-      if (reg && r.region !== reg) return false;
-      if (iss && r.issuer !== iss) return false;
-      if (lev === "plain" && r.leverage !== 1) return false;
-      if (lev === "lev" && Math.abs(r.leverage) === 1) return false;
-      if (lev === "inv" && r.leverage >= 0) return false;
+      if (nCat && !sel.cat[r.category]) return false;
+      if (nReg && !sel.reg[r.region]) return false;
+      if (nIss && !sel.iss[r.issuer]) return false;
+      if (nLev && !levMatch(r)) return false;
       if (q && r.symbol.toLowerCase().indexOf(q) === -1 &&
                r.name.toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
+
+    // Searching a ticker that sits in a hidden category otherwise returns a
+    // flat "no funds match" — the default view silently swallowing an exact
+    // ticker match is the one way this page can look broken while working.
+    var hiddenHits = 0;
+    if (q && nCat) {
+      hiddenHits = all.filter(function(r){
+        if (sel.cat[r.category]) return false;
+        if (nReg && !sel.reg[r.region]) return false;
+        if (nIss && !sel.iss[r.issuer]) return false;
+        if (nLev && !levMatch(r)) return false;
+        return r.symbol.toLowerCase().indexOf(q) !== -1 ||
+               r.name.toLowerCase().indexOf(q) !== -1;
+      }).length;
+    }
 
     sortView();
     shown = 0;
     $("rows").innerHTML = "";
     $("count").textContent =
       view.length.toLocaleString() + " of " + all.length.toLocaleString() + " funds";
+    paintChips();
+    paintSponsorBtn();
+    paintHint(hiddenHits);
     append();
   }
 
@@ -370,16 +484,91 @@ tbody tr:hover{background:var(--color-background-secondary)}
     if (doc.scrollHeight - window.scrollY - window.innerHeight < 900) append();
   }, { passive: true });
 
-  /* ---------- setup ---------- */
-  function fillSelect(el, counts){
-    var frag = document.createDocumentFragment();
-    Object.keys(counts).forEach(function(k){
-      var o = document.createElement("option");
-      o.value = k;
-      o.textContent = k + " (" + counts[k].toLocaleString() + ")";
-      frag.appendChild(o);
+  /* ---------- chips ---------- */
+
+  // Counts are computed from the full universe, not the current result set, so
+  // a chip's number does not shift as you toggle its neighbours.
+  function countBy(key){
+    var m = {};
+    all.forEach(function(r){ m[r[key]] = (m[r[key]] || 0) + 1; });
+    return m;
+  }
+  function byCountDesc(m){
+    return Object.keys(m).sort(function(a, b){
+      return m[b] - m[a] || (a < b ? -1 : a > b ? 1 : 0);
     });
-    el.appendChild(frag);
+  }
+
+  function buildChips(el, group, items){
+    el.insertAdjacentHTML("beforeend",
+      '<button type="button" class="chip-t all" data-g="' + group + '" data-v="__all">All</button>' +
+      items.map(function(it){
+        return '<button type="button" class="chip-t" data-g="' + group +
+          '" data-v="' + esc(it.v) + '">' + esc(it.label) +
+          '<span class="cn">' + it.count.toLocaleString() + "</span></button>";
+      }).join(""));
+  }
+
+  function paintChips(){
+    Array.prototype.forEach.call(document.querySelectorAll(".chip-t"), function(b){
+      var g = b.getAttribute("data-g"), v = b.getAttribute("data-v");
+      var on = (v === "__all") ? setSize(sel[g]) === 0 : !!sel[g][v];
+      if (on) b.classList.add("on"); else b.classList.remove("on");
+    });
+  }
+
+  function paintHint(hiddenHits){
+    var showAll = ' — <button class="linkb" id="showall" type="button">' +
+                  "show every category</button>";
+
+    // A search with matches outside the visible categories takes priority:
+    // that is the moment the filter is actively hiding something you asked for.
+    if (hiddenHits) {
+      $("hint").innerHTML = hiddenHits.toLocaleString() + " more " +
+        (hiddenHits === 1 ? "fund matches" : "funds match") +
+        " in hidden categories" + showAll;
+      return;
+    }
+
+    // Otherwise only speak up while a default exclusion is actually in force.
+    var hidden = setSize(sel.cat)
+      ? DEFAULT_HIDDEN.filter(function(c){ return !sel.cat[c]; })
+      : [];
+    $("hint").innerHTML = hidden.length
+      ? "Default view hides " + hidden.join(", ").toLowerCase() + showAll
+      : "";
+  }
+
+  /* ---------- sponsor picker ---------- */
+  function renderSponsors(q){
+    q = (q || "").toLowerCase();
+    var items = sponsorList.filter(function(s){
+      return !q || s.v.toLowerCase().indexOf(q) !== -1;
+    });
+    $("iss-list").innerHTML = items.length
+      ? items.map(function(s){
+          return '<label class="pick-item"><input type="checkbox" data-iss="' +
+            esc(s.v) + '"' + (sel.iss[s.v] ? " checked" : "") + "><span>" +
+            esc(s.v) + '</span><span class="cn">' + s.count.toLocaleString() +
+            "</span></label>";
+        }).join("")
+      : '<div class="pick-none">No sponsors match.</div>';
+  }
+
+  function paintSponsorBtn(){
+    var n = setSize(sel.iss);
+    var label = n === 0 ? "All sponsors"
+              : n === 1 ? Object.keys(sel.iss)[0]
+              : n + " sponsors";
+    $("iss-btn").textContent = label + " ▾";
+    if (n) $("iss-btn").classList.add("active");
+    else $("iss-btn").classList.remove("active");
+    $("iss-n").textContent = n === 0 ? "All sponsors" : n + " selected";
+  }
+
+  function closePicker(){
+    $("iss-panel").hidden = true;
+    $("iss-btn").setAttribute("aria-expanded", "false");
   }
 
   function statTile(v, l){
@@ -404,14 +593,59 @@ tbody tr:hover{background:var(--color-background-secondary)}
                '<span class="dn">' + down.toLocaleString() + "</span>", "Up / down");
   }
 
-  ["q","f-cat","f-reg","f-iss","f-lev","sort"].forEach(function(id){
-    var el = $(id);
-    el.addEventListener(id === "q" ? "input" : "change", apply);
-  });
-  $("reset").addEventListener("click", function(){
+  $("q").addEventListener("input", apply);
+  $("sort").addEventListener("change", apply);
+
+  function resetFilters(){
     $("q").value = "";
-    ["f-cat","f-reg","f-iss","f-lev"].forEach(function(id){ $(id).value = ""; });
+    sel = { cat:{}, reg:{}, lev:{}, iss:{} };
+    defaultCats.forEach(function(c){ sel.cat[c] = 1; });
     $("sort").value = "symbol";
+    $("iss-q").value = "";
+    renderSponsors("");
+    apply();
+  }
+  $("reset").addEventListener("click", resetFilters);
+
+  // Chips and the "show every category" link are both re-rendered, so they are
+  // handled by delegation rather than per-element listeners.
+  document.addEventListener("click", function(e){
+    var t = e.target;
+
+    if (t.id === "showall") { sel.cat = {}; apply(); return; }
+
+    var chip = t.closest ? t.closest(".chip-t") : null;
+    if (chip) {
+      var g = chip.getAttribute("data-g"), v = chip.getAttribute("data-v");
+      if (v === "__all") sel[g] = {}; else toggleKey(sel[g], v);
+      apply();
+      return;
+    }
+
+    if (t === $("iss-btn")) {
+      var open = $("iss-panel").hidden;
+      $("iss-panel").hidden = !open;
+      $("iss-btn").setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) $("iss-q").focus();
+      return;
+    }
+    if (!$("iss-panel").hidden && !$("iss-panel").contains(t)) closePicker();
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && !$("iss-panel").hidden) closePicker();
+  });
+
+  $("iss-q").addEventListener("input", function(){ renderSponsors(this.value); });
+  $("iss-list").addEventListener("change", function(e){
+    var v = e.target.getAttribute && e.target.getAttribute("data-iss");
+    if (!v) return;
+    if (e.target.checked) sel.iss[v] = 1; else delete sel.iss[v];
+    apply();
+  });
+  $("iss-clear").addEventListener("click", function(){
+    sel.iss = {};
+    renderSponsors($("iss-q").value);
     apply();
   });
 
@@ -439,9 +673,28 @@ tbody tr:hover{background:var(--color-background-secondary)}
     $("sub").textContent = "US-listed exchange-traded funds · " +
       all.length.toLocaleString() + " funds";
 
-    fillSelect($("f-cat"), meta.categories || {});
-    fillSelect($("f-reg"), meta.regions || {});
-    fillSelect($("f-iss"), meta.issuers || {});
+    var cats = countBy("category"), regs = countBy("region"), isss = countBy("issuer");
+
+    buildChips($("cat-chips"), "cat", byCountDesc(cats).map(function(k){
+      return { v:k, label:k, count:cats[k] };
+    }));
+    buildChips($("reg-chips"), "reg", byCountDesc(regs).map(function(k){
+      return { v:k, label:k, count:regs[k] };
+    }));
+    buildChips($("lev-chips"), "lev", LEV_DEFS.map(function(d){
+      return { v:d.v, label:d.label,
+               count:all.filter(d.test).length };
+    }));
+
+    sponsorList = byCountDesc(isss).map(function(k){ return { v:k, count:isss[k] }; });
+    renderSponsors("");
+
+    // Seed the default selection from the categories that actually exist, so a
+    // renamed or retired category cannot leave the default view empty.
+    defaultCats = Object.keys(cats).filter(function(c){
+      return DEFAULT_HIDDEN.indexOf(c) === -1;
+    });
+    defaultCats.forEach(function(c){ sel.cat[c] = 1; });
 
     paintStats();
     apply();

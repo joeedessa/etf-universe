@@ -12,7 +12,23 @@ No build step, no dependencies, no API keys. GitHub Actions refreshes the data
 and commits it; GitHub Pages serves the page.
 
 Filter by sponsor, category, region and leverage; search by ticker or name; sort
-by today's move, one-year return or price.
+by today's move, one-year return or price. Category, region and leverage are
+multi-select chips; sponsor is a searchable checklist, since there are 498 of
+them. Leverage selections are a union — picking Leveraged and Inverse returns
+760 funds, not 900, because -3x funds are both.
+
+### The default view
+
+On load the page hides **crypto, currency, single stock, fixed income and
+derivative income** — 1,948 of the 5,261 funds — leaving 3,313 diversified
+funds. Single-stock and derivative-income wrappers are the reason: there are
+now ~950 of them, many being a dozen tickers on one underlying, and they crowd
+out everything else in an A–Z list.
+
+Every exclusion is one click away, and the page says so rather than hiding it.
+If a search matches funds inside a hidden category, the hint reports the count
+and offers to reveal them — searching `T-Rex` returning a bare "no funds match"
+would be the page looking broken while working correctly.
 
 ## What the data is, and is not
 

@@ -58,7 +58,8 @@ UMBRELLA_TRUSTS = [
     "Two Roads Shared Trust", "Listed Funds Trust", "EA Series Trust",
     "World Funds Trust", "Ultimus Managers Trust", "Trust for Advised Portfolios",
     "The RBB Fund", "Starboard Investment Trust", "Unified Series Trust",
-    "Elevation Series Trust", "Trust I", "Trust II",
+    "Elevation Series Trust", "ETF Opportunities Trust",
+    "Exchange Listed Funds Trust", "Trust I", "Trust II",
 ]
 
 # "<Sponsor words> Trust <numeral> <real fund name>". The leading span is
@@ -216,46 +217,103 @@ SINGLE_STOCK_SHAPE = re.compile(
     r"|\boption\s+income\s+strategy\b",
     re.I,
 )
-# Tickers that denote an index or basket, not a company.
+# Tickers that denote an index, basket or asset — not a company.
 INDEX_TICKERS = {
     "QQQ", "SPY", "SPX", "NDX", "DIA", "IWM", "DJIA", "SMH", "TLT", "GLD",
     "SLV", "IBIT", "ETHA", "XLE", "XLF", "XLK", "SOXX", "EEM", "EFA", "VIX",
     "ARKK", "TQQQ", "USO", "UNG", "HYG", "LQD", "AGG", "BND", "MSCI", "FTSE",
     "ESG", "ETF", "ETN", "USA", "US", "REIT", "TIPS", "ICE", "SP", "AI",
+    "BTC", "ETH", "XRP", "SOL", "TI",
 }
 CAPS_TOKEN = re.compile(r"\b([A-Z]{2,5})\b")
 
+# A parenthesised ticker names the single underlying outright:
+# "Kurv Yield Premium Strategy Apple (AAPL) ETF".
+PAREN_TICKER = re.compile(r"\(([A-Z]{1,5})\)")
+
+# Underlyings spelled out rather than ticker'd. Without these, "T-Rex 2X Long
+# Apple Daily Target ETF" reads as diversified equity — which matters more now
+# that the default view hides single-stock funds, since anything the detector
+# misses lands in "Broad equity" instead.
+SINGLE_STOCK_COMPANY = re.compile(
+    r"\b(apple|tesla|nvidia|microsoft|amazon|alphabet|google|netflix|"
+    r"coinbase|microstrategy|palantir|broadcom|berkshire|salesforce|"
+    r"spacex|robinhood|rivian|lucid|intel|qualcomm|oracle|adobe|paypal|"
+    r"uber|walmart|disney|boeing|starbucks|pinterest|snowflake|"
+    r"eli lilly|novo nordisk|taiwan semiconductor|super micro|arm holdings|"
+    r"advanced micro devices|meta platforms)\b",
+    re.I,
+)
+
 
 def is_single_stock(name: str) -> bool:
+    paren = PAREN_TICKER.search(name)
+    if paren and paren.group(1) not in INDEX_TICKERS:
+        return True
     if not SINGLE_STOCK_SHAPE.search(name):
         return False
-    return any(t not in INDEX_TICKERS for t in CAPS_TOKEN.findall(name))
+    if any(t not in INDEX_TICKERS for t in CAPS_TOKEN.findall(name)):
+        return True
+    # Baskets and indices reached here too ("2X Long Magnificent Seven",
+    # "2X Long Innovation 100"), so require a named company rather than
+    # treating every remaining levered wrapper as single-stock.
+    return bool(SINGLE_STOCK_COMPANY.search(name))
 
 
 # ------------------------------------------------------------- leverage
 
-BEAR_WORDS = re.compile(r"\b(inverse|bear|short)\b|ultrashort", re.I)
-# "Short Term", "Short Duration" etc. are maturity words, not direction words.
-SHORT_MATURITY = re.compile(r"\bshort[- ](term|duration|maturity)\b", re.I)
 MULTIPLIER = re.compile(r"(?<![\w.])(-?[1-5](?:\.\d)?)\s*x\b", re.I)
+
+# Unambiguous direction words.
+BEAR_EXPLICIT = re.compile(r"\b(inverse|bear)\b|\bultrashort\b", re.I)
+
+# ...and the trap. Across fixed income, "short" describes MATURITY, not
+# direction: "Vanguard Ultra-Short Bond ETF" is a cash-like bond fund, and
+# reading it as -2x inverse (which this did) is as wrong as a call can be.
+# "Short" is treated as a direction by default and disarmed by this pattern.
+SHORT_AS_MATURITY = re.compile(
+    r"ultra[-\s]?short"
+    r"|\bshort[-\s](term|duration|maturity|dated|intermediate)\b"
+    # "Short <anything> <fixed-income noun>" — VanEck Short High Yield Muni ETF
+    r"|\bshort\b(?=[^,]*\b(bond|muni|municipal|treasur|credit|corporate|"
+    r"government|income|duration|maturity|bill|note|tips|aggregate|"
+    r"securitized|loan|mortgage|grade|yield)\b)",
+    re.I,
+)
+
+
+# The sponsor is the disambiguator. "UltraShort" is spelled identically by
+# ProShares (-2x inverse) and by a dozen bond sponsors (ultra-short DURATION):
+# ProShares UltraShort S&P500 vs Dimensional Ultrashort Fixed Income. Likewise
+# "ProShares Short 20+ Year Treasury" is inverse while "iShares Short Treasury
+# Bond" is not. ProShares is the only issuer using these words directionally,
+# and issues no short-duration bond funds, so gating on it separates the two
+# senses cleanly where spelling cannot.
+DIRECTIONAL_SPONSOR = re.compile(r"\bproshares\b", re.I)
 
 
 def derive_leverage(name: str) -> float:
     """Signed daily multiple. 1.0 = plain long, -1.0 = inverse, 3.0 = 3x long."""
+    directional = bool(DIRECTIONAL_SPONSOR.search(name))
+    maturity = bool(SHORT_AS_MATURITY.search(name)) and not directional
+
     mult = 1.0
     m = MULTIPLIER.search(name)
     if m:
         mult = abs(float(m.group(1)))
-    elif re.search(r"ultrapro", name, re.I):
+    elif re.search(r"\bultrapro\b", name, re.I):
         mult = 3.0
-    elif re.search(r"\bultra(short)?\b", name, re.I):
+    elif re.search(r"\bultrashort\b", name, re.I) and directional:
+        mult = 2.0
+    # A bare "Ultra" means 2x for ProShares, but "Ultra-Short Treasury" is a
+    # duration label and must not pick up a multiplier at all.
+    elif re.search(r"\bultra\b", name, re.I) and not maturity:
         mult = 2.0
 
-    bear = bool(BEAR_WORDS.search(name))
-    if bear and SHORT_MATURITY.search(name) and not re.search(
-        r"\b(inverse|bear)\b|ultrashort", name, re.I
-    ):
-        bear = False
+    bear = bool(BEAR_EXPLICIT.search(name) and directional) or \
+        bool(re.search(r"\b(inverse|bear)\b", name, re.I)) or (
+            bool(re.search(r"\bshort\b", name, re.I)) and not maturity
+        )
     return -mult if bear else mult
 
 

@@ -50,6 +50,8 @@ NAME_CASES = [
     ("SPDR Gold Trust", None),
     ("iShares Gold Trust Micro", None),
     ("Bitwise Bitcoin ETF Trust", None),
+    ("ETF Opportunities Trust T-Rex 2X Long Apple Daily Target ETF",
+     "T-Rex 2X Long Apple Daily Target ETF"),
     ("Vanguard S&P 500 ETF", None),
 ]
 
@@ -77,8 +79,19 @@ CATEGORY_CASES = [
     ("Direxion Daily TSLA Bull 2X ETF", "Single stock"),
     ("Roundhill AAPL WeeklyPay ETF", "Single stock"),
     ("YieldMax MSTR Option Income Strategy ETF", "Single stock"),
-    # ...but a levered INDEX fund is not a single-stock fund.
+    # Underlying spelled out as a company name, or given in parentheses.
+    ("T-Rex 2X Long Apple Daily Target ETF", "Single stock"),
+    ("T-Rex 2X Long NVIDIA Daily Target ETF", "Single stock"),
+    ("Kurv Yield Premium Strategy Apple (AAPL) ETF", "Single stock"),
+    ("Tradr 2X Long SpaceX Daily", "Single stock"),
+    # ...but a levered INDEX or BASKET fund is not a single-stock fund.
     ("ProShares UltraPro QQQ", "Broad equity"),
+    ("Tradr 2X Long SPY Quarterly ETF", "Broad equity"),
+    ("Roundhill Daily 2X Long Magnificent Seven ETF", "Broad equity"),
+    ("Tradr 2X Long Innovation 100 Monthly ETF", "Broad equity"),
+    ("Defiance Daily Target 2X Long Copper Miners ETF", "Sector equity"),
+    # A parenthesised non-company token must not trip the rule.
+    ("Grayscale Bitcoin Trust (BTC) Common Units", "Crypto"),
     # Miners are equities, not the metal.
     ("VanEck Gold Miners ETF", "Sector equity"),
 ]
@@ -98,9 +111,30 @@ LEVERAGE_CASES = [
     ("ProShares UltraShort S&P500", -2.0),
     ("Direxion Daily TSLA Bull 2X ETF", 2.0),
     ("Direxion Daily AAPL Bear 1X ETF", -1.0),
-    # "Short" as a maturity word must not flip the sign.
+    ("ProShares Short S&P500", -1.0),
+    ("ProShares Ultra QQQ", 2.0),
+
+    # "Short" as a MATURITY word must never flip the sign. Every case here was
+    # live on the site: VUSB and VGUS were being published as -2x inverse funds
+    # when they are cash-like ultra-short bond funds.
     ("SPDR Portfolio Short Term Treasury ETF", 1.0),
     ("Vanguard Short-Term Bond ETF", 1.0),
+    ("Vanguard Ultra-Short Bond ETF", 1.0),
+    ("Vanguard Ultra-Short Treasury ETF", 1.0),
+    ("VanEck Short Muni ETF", 1.0),
+    ("VanEck Short High Yield Muni ETF", 1.0),
+    ("JPMorgan Ultra-Short Income ETF", 1.0),
+    ("PIMCO Enhanced Short Maturity Active ETF", 1.0),
+    ("iShares Short Treasury Bond ETF", 1.0),
+    # One-word "Ultrashort" from a bond sponsor is duration, not -2x.
+    ("Dimensional Ultrashort Fixed Income ETF", 1.0),
+    ("DoubleLine Ultrashort Income ETF", 1.0),
+    ("Angel Oak UltraShort Income ETF", 1.0),
+    ("F/m Ultrashort Tax-Free Municipal ETF", 1.0),
+    # ...but the identical word from ProShares is.
+    ("ProShares UltraShort S&P500", -2.0),
+    ("ProShares UltraShort Lehman 20 Year Treasury", -2.0),
+    ("ProShares Short 20+ Year Treasury", -1.0),
 ]
 
 
