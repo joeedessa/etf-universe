@@ -52,6 +52,7 @@ name**:
 | Ticker, fund name, price, today's %, 1-year % | Nasdaq screener |
 | Listed (first trading day) | Earliest bar in the fund's price history |
 | Top 10 holdings | SEC Form N-PORT (quarterly, lagging) |
+| Expense ratio | SEC prospectus risk/return summary XBRL |
 | Sponsor, category, region, leverage | Inferred from the fund name |
 
 The **Listed** column is the fund's first trading day, not its prospectus
@@ -64,6 +65,39 @@ original launch, so treat old funds with more suspicion than new ones.
 Because a first trading day never changes, `data/inception.json` is a permanent
 cache. The expensive pass is paid once; each scheduled run then looks up only
 the funds listed since the last one.
+
+### Comparing funds
+
+Tick the checkbox on up to four rows and press Compare. The table puts fee, net
+assets, listing date, leverage and returns side by side, marking every fund tied
+for the lowest fee, largest size and strongest return.
+
+Below it, **shared top-10 holdings**: which positions the funds have in common
+and at what weight. `IVV` and `VOO` share nine of ten at matching weights;
+`SCHD` shares none with either. Issuer names are normalised before matching —
+filers punctuate the same company differently (`Alphabet, Inc.` vs
+`Alphabet Inc`), and without that step the funds that overlap most report almost
+no overlap at all. Share classes collapse into one issuer, so a fund holding
+both Alphabet A and C shows their combined weight.
+
+This is overlap *within published top-10s*, not true portfolio overlap — the
+full position lists are not in this dataset.
+
+### Expense ratios
+
+Funds tag their fee table in XBRL when they file a prospectus, and the SEC
+republishes those tags quarterly. This is the only free bulk source; N-PORT
+carries holdings but no fees.
+
+A prospectus is filed roughly **annually**, so one quarter holds only a slice of
+the universe — 2026q2 alone covered 932 of our funds. Coverage comes from
+accumulating quarters, and `data/expenses.json` is cumulative: 8 quarters reach
+**4,198 of 5,261 (80%)**, and each run pulls only quarters it has not seen.
+
+Net expense (after waivers) is preferred over gross, since net is what a holder
+pays. The modal states which basis a figure uses. Values above 10% are dropped —
+the raw data contains figures as absurd as 85%, which are mis-tagged rather than
+real.
 
 ### Holdings
 
@@ -93,10 +127,9 @@ suggests.
 
 Two source limitations worth knowing:
 
-- **No expense ratio.** The screener does not carry it, and no free bulk source
-  publishes it. It is absent rather than estimated — a guessed expense ratio is
-  worse than none. (AUM is available, but only for the funds that file N-PORT,
-  so it appears in the holdings drawer rather than as a column.)
+- **Every added field is partial.** Fees cover 80% of funds, holdings 77%,
+  listing dates 99.96%. Missing values render as `—` and sort last; nothing is
+  estimated or filled in, because a guessed fee is worse than a blank one.
 - **Names are truncated at 61 characters** by Nasdaq itself. 461 funds arrive
   with their tails cut off, which is why some rows end mid-word and why a
   classifier keyed on a trailing word can miss them.
@@ -111,9 +144,11 @@ data/etfs.json                 one record per fund (generated)
 data/meta.json                 counts, breakdowns, timestamps (generated)
 data/inception.json            permanent ticker -> first-trading-day cache
 data/holdings.json             top 10 positions per fund (generated)
+data/expenses.json             cumulative ticker -> expense ratio cache
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
 scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
+scripts/fetch_expenses.py      accumulate expense ratios across RR quarters
 scripts/test_derive.py         regression tests for the derived fields
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
 .github/workflows/refresh-holdings.yml  monthly N-PORT check

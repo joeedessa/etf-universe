@@ -142,7 +142,7 @@ th.sth,td.std{width:30px;padding-left:12px;padding-right:0;text-align:center}
 .wrap{max-width:1420px;margin:0 auto;padding:0 18px}
 .tbl-scroll{overflow-x:auto;border:.5px solid var(--color-border-tertiary);
   border-radius:11px;background:var(--color-background-primary);box-shadow:var(--shadow-1)}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:1040px}
 thead th{position:sticky;top:0;background:var(--color-background-secondary);
   font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);
   font-weight:600;text-align:left;padding:9px 10px;white-space:nowrap;cursor:pointer;
@@ -168,11 +168,74 @@ tbody tr:hover{background:var(--color-background-secondary)}
 .up{color:var(--up)}.dn{color:var(--dn)}
 .dt{color:var(--color-text-tertiary);font-size:11.5px}
 tbody tr.row{cursor:pointer}
-.caret{color:var(--color-text-tertiary);font-size:9px;margin-left:6px}
-tr.open .caret{color:var(--accent)}
-tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px}
 .hd-head{font-size:10px;text-transform:uppercase;letter-spacing:.06em;
   color:var(--color-text-tertiary);margin-bottom:8px}
+
+/* ---------- modal ---------- */
+.backdrop{position:fixed;inset:0;z-index:100;background:rgba(16,18,22,.5);
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:36px 14px;overflow-y:auto;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.backdrop[hidden]{display:none}
+.modal{width:100%;max-width:940px;background:var(--color-background-primary);
+  border:.5px solid var(--color-border-secondary);border-radius:14px;
+  box-shadow:0 24px 64px rgba(0,0,0,.32);margin:auto}
+.modal-head{display:flex;align-items:flex-start;gap:14px;padding:16px 18px 13px;
+  border-bottom:.5px solid var(--color-border-tertiary)}
+.modal-tick{font-family:var(--font-mono);font-size:17px;font-weight:600;color:var(--accent)}
+.modal-name{font-size:13.5px;color:var(--color-text-secondary);margin-top:2px;line-height:1.4}
+.modal-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:4px}
+.modal-x{margin-left:auto;border:.5px solid var(--color-border-secondary);
+  background:var(--color-background-primary);color:var(--color-text-secondary);
+  border-radius:7px;width:28px;height:28px;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto}
+.modal-x:hover{border-color:var(--accent);color:var(--accent)}
+.modal-body{padding:15px 18px 18px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+  gap:11px;margin-bottom:18px}
+.fact-l{font-size:9px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--color-text-tertiary)}
+.fact-v{font-family:var(--font-mono);font-size:14px;font-weight:600;margin-top:2px}
+.modal-foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  margin-top:16px;padding-top:12px;border-top:.5px solid var(--color-border-tertiary);
+  font-size:11.5px;color:var(--color-text-tertiary)}
+.modal-foot a{color:var(--accent)}
+.mbtn{border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);border-radius:7px;padding:6px 11px;font-size:12px;
+  cursor:pointer;font-family:var(--font-sans)}
+.mbtn:hover{border-color:var(--accent);color:var(--accent)}
+.mbtn.on{border-color:var(--accent);color:var(--accent);background:var(--chip-bg)}
+
+/* ---------- compare ---------- */
+th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
+.cbx{cursor:pointer;accent-color:var(--accent);margin:0}
+.cmpbar{position:fixed;left:0;right:0;bottom:0;z-index:90;
+  background:var(--color-background-primary);border-top:.5px solid var(--color-border-secondary);
+  box-shadow:0 -6px 20px rgba(0,0,0,.10);padding:10px 16px;
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.cmpbar[hidden]{display:none}
+.cmp-l{font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--color-text-tertiary);margin-right:2px}
+.cmp-chip{display:inline-flex;align-items:center;gap:6px;background:var(--chip-bg);
+  color:var(--chip-t);border-radius:999px;padding:4px 6px 4px 10px;font-size:12px;
+  font-family:var(--font-mono);font-weight:600}
+.cmp-chip button{border:none;background:none;color:inherit;cursor:pointer;
+  font-size:13px;line-height:1;padding:0 2px;opacity:.65}
+.cmp-chip button:hover{opacity:1}
+.cmp-go{border:none;background:var(--accent);color:#fff;border-radius:8px;
+  padding:8px 14px;font-size:12.5px;cursor:pointer;font-family:var(--font-sans);font-weight:600}
+.cmp-go:disabled{opacity:.45;cursor:not-allowed}
+.ctab{width:100%;border-collapse:collapse;font-size:12.5px}
+.ctab th,.ctab td{padding:7px 9px;border-bottom:.5px solid var(--color-border-tertiary);
+  text-align:left;vertical-align:top}
+.ctab thead th{font-size:11px;color:var(--color-text-primary);font-weight:600}
+.ctab tbody th{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--color-text-tertiary);font-weight:600;white-space:nowrap;width:110px}
+.ctab td{font-family:var(--font-mono);font-size:12px}
+.ctab .best{color:var(--up);font-weight:600}
+.ov{margin-top:16px}
+.ov-item{display:flex;gap:8px;font-size:12px;padding:3px 0;
+  border-bottom:.5px solid var(--color-border-tertiary)}
+.ov-item span:last-child{margin-left:auto;font-family:var(--font-mono);
+  color:var(--color-text-tertiary)}
 .hd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:3px 20px;max-width:1000px}
 .hd{display:flex;align-items:baseline;gap:8px;font-size:12px;padding:2px 0}
@@ -277,6 +340,8 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
     <option value="yr-d">Sort: 1-year % ↓</option>
     <option value="yr-a">Sort: 1-year % ↑</option>
     <option value="px-d">Sort: Price ↓</option>
+    <option value="fee-a">Sort: Cheapest fee</option>
+    <option value="fee-d">Sort: Priciest fee</option>
     <option value="new">Sort: Newest listing</option>
     <option value="old">Sort: Oldest listing</option>
   </select>
@@ -292,12 +357,14 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
       <thead>
         <tr>
           <th class="sth" title="Favourites"></th>
+          <th class="cth" title="Compare"></th>
           <th data-sk="symbol">Ticker</th>
           <th data-sk="name">Fund</th>
           <th data-sk="issuer">Sponsor</th>
           <th data-sk="category">Category</th>
           <th data-sk="region">Region</th>
           <th data-sk="inception" class="num">Listed</th>
+          <th data-sk="expense" class="num">Fee</th>
           <th data-sk="leverage" class="num">Lev</th>
           <th data-sk="price" class="num">Price</th>
           <th data-sk="changePct" class="num">Today</th>
@@ -310,9 +377,23 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
   <div class="more" id="more"></div>
 </div>
 
+<div class="backdrop" id="backdrop" hidden><div class="modal" id="modal"></div></div>
+
+<div class="cmpbar" id="cmpbar" hidden>
+  <span class="cmp-l">Compare</span>
+  <span id="cmp-chips"></span>
+  <button class="cmp-go" id="cmp-go" type="button">Compare</button>
+  <button class="reset" id="cmp-clear" type="button">Clear</button>
+</div>
+
 <p class="note">
   <strong>Source.</strong> Fund list and quotes from the public Nasdaq ETF screener, refreshed
   each weekday after the US close. Prices are end-of-day and unadjusted.
+  <br>
+  <strong>Fee.</strong> Total annual operating expense from the fund's own prospectus, as tagged
+  in SEC XBRL. Net of fee waivers where the fund reports a net figure, gross otherwise — the modal
+  says which. Known for 4,198 of 5,261 funds; prospectuses are filed annually, so a fund that has
+  not filed recently may be missing or slightly behind a fee change.
   <br>
   <strong>Holdings.</strong> Click any fund for its ten largest positions, from its SEC Form
   N-PORT filing. These are <em>quarterly and lagging</em> — each drawer shows its own report
@@ -480,6 +561,7 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
       view.length.toLocaleString() + " of " + all.length.toLocaleString() + " funds";
     paintPickers();
     paintFavBtn();
+    paintCmpBar();
     paintHint(hiddenHits);
     append();
   }
@@ -514,6 +596,8 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
     else if (s === "yr-d") view.sort(byNum("oneYearPct", 1));
     else if (s === "yr-a") view.sort(byNum("oneYearPct", -1));
     else if (s === "px-d") view.sort(byNum("price", 1));
+    else if (s === "fee-a") view.sort(byNum("expense", -1));
+    else if (s === "fee-d") view.sort(byNum("expense", 1));
     else if (s === "new") view.sort(byDate("inception", 1));
     else if (s === "old") view.sort(byDate("inception", -1));
   }
@@ -529,16 +613,20 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
           '" data-sym="' + esc(r.symbol) + '" aria-pressed="' + (on ? "true" : "false") +
           '" title="' + (on ? "Remove from favourites" : "Add to favourites") + '">' +
           (on ? "★" : "☆") + "</button></td>" +
-        '<td><a class="tick" target="_blank" rel="noopener" href="https://www.nasdaq.com/market-activity/etf/' +
-          encodeURIComponent(r.symbol.toLowerCase()) + '">' + esc(r.symbol) + "</a></td>" +
-        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) +
-          (holdings[r.symbol] ? '<span class="caret">\u25b8</span>' : "") + "</td>" +
+        '<td class="ctd"><input type="checkbox" class="cbx" data-sym="' + esc(r.symbol) +
+          '"' + (cmp[r.symbol] ? " checked" : "") + ' aria-label="Compare"></td>' +
+        '<td><span class="tick">' + esc(r.symbol) + "</span></td>" +
+        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) + "</td>" +
         '<td class="iss">' + esc(r.issuer) + "</td>" +
         '<td><span class="chip">' + esc(r.category) + "</span></td>" +
         '<td class="iss">' + esc(r.region) + "</td>" +
         (r.inception
           ? '<td class="num dt" title="First trading day">' + esc(r.inception) + "</td>"
           : '<td class="num na">—</td>') +
+        (r.expense === null || r.expense === undefined
+          ? '<td class="num na">—</td>'
+          : '<td class="num" title="' + (r.expenseBasis || "") +
+            ' of fee waivers">' + r.expense.toFixed(2) + "%</td>") +
         levLabel(r.leverage) +
         (px === null ? '<td class="num na">—</td>' : '<td class="num">$' + px + "</td>") +
         pctCell(r.changePct) +
@@ -675,21 +763,236 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
       }).join("") + "</div>";
   }
 
-  function toggleHoldings(row){
-    var next = row.nextElementSibling;
-    if (next && next.className === "detail") {
-      next.parentNode.removeChild(next);
-      row.classList.remove("open");
-      return;
+  /* ---------- modal ---------- */
+  var lastFocus = null;
+
+  function openModal(html){
+    lastFocus = document.activeElement;
+    $("modal").innerHTML = html;
+    $("backdrop").hidden = false;
+    document.body.style.overflow = "hidden";
+    var x = $("modal").querySelector(".modal-x");
+    if (x) x.focus();
+  }
+
+  function closeModal(){
+    $("backdrop").hidden = true;
+    $("modal").innerHTML = "";
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function pct(v){
+    if (v === null || v === undefined) return '<span class="na">—</span>';
+    var cls = v > 0 ? "up" : v < 0 ? "dn" : "";
+    return '<span class="' + cls + '">' + (v > 0 ? "+" : "") + v.toFixed(2) + "%</span>";
+  }
+
+  function fundModal(sym){
+    var r = null;
+    for (var i = 0; i < all.length; i++) if (all[i].symbol === sym) { r = all[i]; break; }
+    if (!r) return;
+    var h = holdings[sym];
+    var inCmp = !!cmp[sym];
+    var facts = [
+      ["Category", esc(r.category)],
+      ["Region", esc(r.region)],
+      ["Fee", r.expense !== null && r.expense !== undefined
+        ? r.expense.toFixed(2) + "%" : '<span class="na">—</span>'],
+      ["Leverage", r.leverage === 1 ? "1x" : (r.leverage < 0 ? "-" : "") +
+        Math.abs(r.leverage) + "x"],
+      ["Listed", r.inception ? esc(r.inception) : '<span class="na">—</span>'],
+      ["Price", r.price !== null && r.price !== undefined
+        ? "$" + fmtNum(r.price, 2) : '<span class="na">—</span>'],
+      ["Today", pct(r.changePct)],
+      ["1 year", pct(r.oneYearPct)],
+      ["Net assets", h && h.netAssets ? money(h.netAssets) : '<span class="na">—</span>']
+    ];
+    return '<div class="modal-head"><div>' +
+        '<div class="modal-tick">' + esc(r.symbol) + "</div>" +
+        '<div class="modal-name">' + esc(r.name) + "</div>" +
+        '<div class="modal-sub">' + esc(r.issuer) +
+          (r.expenseBasis ? " · fee is " + esc(r.expenseBasis) + " of waivers" : "") +
+        "</div></div>" +
+        '<button class="modal-x" type="button" data-close aria-label="Close">×</button>' +
+      "</div>" +
+      '<div class="modal-body">' +
+        '<div class="facts">' + facts.map(function(f){
+          return '<div><div class="fact-l">' + f[0] + '</div><div class="fact-v">' +
+            f[1] + "</div></div>";
+        }).join("") + "</div>" +
+        holdingsHtml(sym) +
+        '<div class="modal-foot">' +
+          '<button class="mbtn' + (inCmp ? " on" : "") + '" type="button" data-cmp="' +
+            esc(sym) + '">' + (inCmp ? "✓ In compare" : "+ Add to compare") + "</button>" +
+          '<button class="mbtn" type="button" data-fav="' + esc(sym) + '">' +
+            (favs[sym] ? "★ Favourited" : "☆ Favourite") + "</button>" +
+          '<a target="_blank" rel="noopener" href="https://www.nasdaq.com/market-activity/etf/' +
+            encodeURIComponent(sym.toLowerCase()) + '">View on Nasdaq ↗</a>' +
+        "</div>" +
+      "</div>";
+  }
+
+  /* ---------- compare ---------- */
+  var cmp = {};
+  var CMP_MAX = 4;   // beyond four columns the table stops being readable
+
+  function cmpList(){ return Object.keys(cmp); }
+
+  // Strip punctuation, legal suffixes and share-class markers so the same
+  // issuer matches across filers with different house style.
+  var LEGAL = new RegExp("\\b(INC|INCORPORATED|CORP|CORPORATION|CO|COMPANY|LTD|" +
+    "LIMITED|PLC|LLC|LP|NV|SA|AG|SE|THE|CLASS [A-C]|CL [A-C]|" +
+    "COMMON STOCK|COMMON SHARES|ORD|ADR|REIT)\\b", "g");
+  function normName(s){
+    return String(s).toUpperCase()
+      .replace(/[.,'\/&-]/g, " ")
+      .replace(LEGAL, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function paintCmpBar(){
+    var list = cmpList();
+    $("cmpbar").hidden = list.length === 0;
+    $("cmp-chips").innerHTML = list.map(function(s){
+      return '<span class="cmp-chip">' + esc(s) +
+        '<button type="button" data-uncmp="' + esc(s) + '" aria-label="Remove">×</button></span>';
+    }).join("");
+    $("cmp-go").disabled = list.length < 2;
+    $("cmp-go").textContent = list.length < 2
+      ? "Pick 2+" : "Compare " + list.length;
+    Array.prototype.forEach.call(document.querySelectorAll(".cbx"), function(b){
+      b.checked = !!cmp[b.getAttribute("data-sym")];
+    });
+  }
+
+  function setCmp(sym, on){
+    if (on) {
+      if (cmpList().length >= CMP_MAX && !cmp[sym]) return false;
+      cmp[sym] = 1;
+    } else {
+      delete cmp[sym];
     }
-    var tr = document.createElement("tr");
-    tr.className = "detail";
-    var td = document.createElement("td");
-    td.colSpan = row.children.length;
-    td.innerHTML = holdingsHtml(row.getAttribute("data-sym"));
-    tr.appendChild(td);
-    row.parentNode.insertBefore(tr, row.nextSibling);
-    row.classList.add("open");
+    paintCmpBar();
+    return true;
+  }
+
+  function cmpRow(label, cells, best){
+    return "<tr><th>" + label + "</th>" + cells.map(function(c, i){
+      return '<td class="' + (best && best[i] ? "best" : "") + '">' + c + "</td>";
+    }).join("") + "</tr>";
+  }
+
+  // Flags every fund tied for the win, not just the first. Marking one of two
+  // funds that both charge 0.03% implies a difference that is not there.
+  function bestOf(vals, lowerWins){
+    var best = null;
+    vals.forEach(function(v){
+      if (v === null || v === undefined) return;
+      if (best === null || (lowerWins ? v < best : v > best)) best = v;
+    });
+    if (best === null) return null;
+    return vals.map(function(v){ return v !== null && v !== undefined && v === best; });
+  }
+
+  function compareModal(){
+    var syms = cmpList();
+    var funds = syms.map(function(s){
+      for (var i = 0; i < all.length; i++) if (all[i].symbol === s) return all[i];
+      return null;
+    }).filter(Boolean);
+    if (funds.length < 2) return;
+
+    var fees = funds.map(function(f){ return f.expense; });
+    var yrs = funds.map(function(f){ return f.oneYearPct; });
+    var days = funds.map(function(f){ return f.changePct; });
+    var aum = funds.map(function(f){
+      var h = holdings[f.symbol]; return h && h.netAssets ? h.netAssets : null;
+    });
+
+    var head = "<tr><th></th>" + funds.map(function(f){
+      return "<th>" + esc(f.symbol) + '<div style="font-weight:400;color:var(--color-text-tertiary);' +
+        'font-size:10.5px;margin-top:2px">' + esc(f.name.slice(0, 40)) + "</div></th>";
+    }).join("") + "</tr>";
+
+    var body =
+      cmpRow("Sponsor", funds.map(function(f){ return esc(f.issuer); }), null) +
+      cmpRow("Category", funds.map(function(f){ return esc(f.category); }), null) +
+      cmpRow("Region", funds.map(function(f){ return esc(f.region); }), null) +
+      cmpRow("Fee", fees.map(function(v){
+        return v === null || v === undefined ? '<span class="na">—</span>' : v.toFixed(2) + "%";
+      }), bestOf(fees, true)) +
+      cmpRow("Net assets", aum.map(function(v){
+        return v ? money(v) : '<span class="na">—</span>';
+      }), bestOf(aum, false)) +
+      cmpRow("Listed", funds.map(function(f){
+        return f.inception ? esc(f.inception) : '<span class="na">—</span>';
+      }), null) +
+      cmpRow("Leverage", funds.map(function(f){
+        return f.leverage === 1 ? "1x" : (f.leverage < 0 ? "-" : "") + Math.abs(f.leverage) + "x";
+      }), null) +
+      cmpRow("Today", days.map(pct), bestOf(days, false)) +
+      cmpRow("1 year", yrs.map(pct), bestOf(yrs, false));
+
+    // Overlap across the funds' top-10s. Not a true portfolio overlap — it is
+    // bounded by what N-PORT publishes here — so it is labelled as top-10 only.
+    //
+    // Names must be normalised before matching. Filers punctuate the same
+    // issuer differently ("Alphabet, Inc." vs "Alphabet Inc"), which made
+    // IVV/VOO/VTI — funds holding nearly identical mega-caps — report almost
+    // no overlap at all.
+    var counts = {}, weights = {}, labels = {};
+    funds.forEach(function(f){
+      var h = holdings[f.symbol];
+      if (!h) return;
+      var seen = {};
+      h.top.forEach(function(x){
+        var k = normName(x.name);
+        if (!k) return;
+        if (!labels[k]) labels[k] = x.name;
+        weights[k] = weights[k] || {};
+        // Share classes collapse to one issuer, so sum rather than overwrite:
+        // a fund holding both Alphabet A and C has that much exposure to it.
+        weights[k][f.symbol] = (weights[k][f.symbol] || 0) + x.pct;
+        seen[k] = 1;
+      });
+      // Counted once per fund, not once per position.
+      Object.keys(seen).forEach(function(k){ counts[k] = (counts[k] || 0) + 1; });
+    });
+    var shared = Object.keys(counts).filter(function(k){ return counts[k] > 1; })
+      .sort(function(a, b){ return counts[b] - counts[a]; });
+
+    var withHoldings = funds.filter(function(f){ return holdings[f.symbol]; }).length;
+    var overlap = '<div class="ov"><div class="hd-head">Shared top-10 holdings</div>';
+    if (withHoldings < 2) {
+      overlap += '<div class="hd-none">Needs N-PORT holdings for at least two of ' +
+        "these funds; " + withHoldings + " of " + funds.length + " have them.</div>";
+    } else if (!shared.length) {
+      overlap += '<div class="hd-none">No overlap in their top-10 positions.</div>';
+    } else {
+      overlap += shared.slice(0, 12).map(function(k){
+        var w = funds.map(function(f){
+          var v = weights[k][f.symbol];
+          return v === undefined ? "—" : v.toFixed(1) + "%";
+        }).join(" · ");
+        return '<div class="ov-item"><span>' + esc(labels[k] || k) +
+          "</span><span>" + w + "</span></div>";
+      }).join("");
+    }
+    overlap += "</div>";
+
+    return '<div class="modal-head"><div>' +
+        '<div class="modal-tick">Compare</div>' +
+        '<div class="modal-name">' + funds.length + " funds side by side</div></div>" +
+        '<button class="modal-x" type="button" data-close aria-label="Close">×</button></div>' +
+      '<div class="modal-body">' +
+        '<div style="overflow-x:auto"><table class="ctab"><thead>' + head +
+        "</thead><tbody>" + body + "</tbody></table></div>" +
+        overlap +
+        '<div class="modal-foot">Green marks the lowest fee, largest fund and ' +
+        "strongest return among those compared — not a recommendation.</div>" +
+      "</div>";
   }
 
   function paintFavBtn(){
@@ -768,10 +1071,54 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
 
   // Picker panels, the star buttons and the "show every category" link are all
   // re-rendered, so they go through delegation rather than per-element listeners.
+  $("cmp-clear").addEventListener("click", function(){ cmp = {}; paintCmpBar(); });
+  $("cmp-go").addEventListener("click", function(){
+    var html = compareModal();
+    if (html) openModal(html);
+  });
+
   document.addEventListener("click", function(e){
     var t = e.target;
 
+    // --- modal-scoped controls, before anything else can claim the click
+    if (t.hasAttribute && t.hasAttribute("data-close")) { closeModal(); return; }
+    if (t === $("backdrop")) { closeModal(); return; }
+
+    var cmpBtn = t.getAttribute && t.getAttribute("data-cmp");
+    if (cmpBtn) {
+      var added = setCmp(cmpBtn, !cmp[cmpBtn]);
+      if (!added && !cmp[cmpBtn]) {
+        t.textContent = "Compare holds " + CMP_MAX;
+        return;
+      }
+      t.textContent = cmp[cmpBtn] ? "✓ In compare" : "+ Add to compare";
+      t.className = "mbtn" + (cmp[cmpBtn] ? " on" : "");
+      return;
+    }
+    var favBtn = t.getAttribute && t.getAttribute("data-fav");
+    if (favBtn) {
+      if (favs[favBtn]) delete favs[favBtn]; else favs[favBtn] = 1;
+      saveFavs();
+      t.textContent = favs[favBtn] ? "★ Favourited" : "☆ Favourite";
+      paintFavBtn();
+      // Keep the row behind the modal honest about its own star.
+      var live = document.querySelector('.star[data-sym="' + favBtn + '"]');
+      if (live) {
+        live.className = "star" + (favs[favBtn] ? " on" : "");
+        live.textContent = favs[favBtn] ? "★" : "☆";
+      }
+      if (favOnly) apply();
+      return;
+    }
+    var un = t.getAttribute && t.getAttribute("data-uncmp");
+    if (un) { setCmp(un, false); return; }
+
     if (t.id === "showall") { sel.cat = {}; apply(); return; }
+
+    if (t.className === "cbx") {
+      if (!setCmp(t.getAttribute("data-sym"), t.checked)) t.checked = false;
+      return;
+    }
 
     var star = t.closest ? t.closest(".star") : null;
     if (star) {
@@ -795,8 +1142,8 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
     }
 
     var row = t.closest ? t.closest("tr.row") : null;
-    if (row && !(t.closest && t.closest("a"))) {   // the ticker link still navigates
-      toggleHoldings(row);
+    if (row) {
+      openModal(fundModal(row.getAttribute("data-sym")));
       return;
     }
 
@@ -828,7 +1175,9 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
   });
 
   document.addEventListener("keydown", function(e){
-    if (e.key === "Escape") closePickers();
+    if (e.key !== "Escape") return;
+    if (!$("backdrop").hidden) { closeModal(); return; }
+    closePickers();
   });
 
   $("iss-q").addEventListener("input", function(){ renderPick("iss", this.value); });
@@ -845,7 +1194,8 @@ tr.detail td{background:var(--color-background-secondary);padding:12px 14px 14px
   // Header click sorts by that column, toggling direction on the numeric ones.
   var SORTABLE = { changePct:["chg-d","chg-a"], oneYearPct:["yr-d","yr-a"],
                    price:["px-d","px-d"], symbol:["symbol","symbol"],
-                   name:["name","name"], inception:["new","old"] };
+                   name:["name","name"], inception:["new","old"],
+                   expense:["fee-a","fee-d"] };
   Array.prototype.forEach.call(document.querySelectorAll("thead th"), function(th){
     th.addEventListener("click", function(){
       var pair = SORTABLE[th.getAttribute("data-sk")];

@@ -38,6 +38,11 @@ jobs:
       - name: Top up inception dates
         run: python scripts/fetch_inception.py --limit 300
 
+      # Prospectus fee tags publish quarterly; the script skips quarters it has
+      # already scanned, so most runs do nothing here.
+      - name: Top up expense ratios
+        run: python scripts/fetch_expenses.py --quarters 8
+
       - name: Validate output
         run: |
           python - <<'EOF'

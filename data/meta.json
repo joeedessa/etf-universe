@@ -537,5 +537,18 @@
   "launchedThisYear": 640,
   "holdingsKnown": 4042,
   "holdingsSource": "SEC Form N-PORT 2026q2",
-  "holdingsAsOf": "2026-04-30"
+  "holdingsAsOf": "2026-04-30",
+  "expenseKnown": 4198,
+  "expenseSource": "SEC prospectus risk/return summary XBRL",
+  "expenseQuarters": [
+    "2024q4",
+    "2025q1",
+    "2025q2",
+    "2025q3",
+    "2025q4",
+    "2026q1",
+    "2026q2",
+    "2026q3"
+  ],
+  "expenseMedian": 0.5
 }
