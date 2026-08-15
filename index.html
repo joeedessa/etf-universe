@@ -236,13 +236,18 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   border-bottom:.5px solid var(--color-border-tertiary)}
 .ov-item span:last-child{margin-left:auto;font-family:var(--font-mono);
   color:var(--color-text-tertiary)}
-.hd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:3px 20px;max-width:1000px}
-.hd{display:flex;align-items:baseline;gap:8px;font-size:12px;padding:2px 0}
+/* One position per row, ranked. A multi-column grid reads left-to-right while
+   the list is ordered top-to-bottom, so the ranking became impossible to
+   follow — vertical height is the cheaper cost. */
+.hd-grid{display:block;max-width:560px}
+.hd{display:flex;align-items:baseline;gap:10px;font-size:12.5px;padding:6px 0;
+  border-bottom:.5px solid var(--color-border-tertiary)}
+.hd:last-child{border-bottom:none}
+.hd-r{font-family:var(--font-mono);font-size:11px;color:var(--color-text-tertiary);
+  width:18px;flex:0 0 auto;text-align:right}
 .hd-n{color:var(--color-text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hd-p{margin-left:auto;font-family:var(--font-mono);font-size:11.5px;
-  color:var(--color-text-primary);font-weight:600}
-.hd-bar{height:3px;border-radius:2px;background:var(--accent);opacity:.5;margin-top:3px}
+.hd-p{margin-left:auto;font-family:var(--font-mono);font-size:12px;
+  color:var(--color-text-primary);font-weight:600;flex:0 0 auto}
 .hd-none{font-size:12px;color:var(--color-text-tertiary);line-height:1.6}
 .na{color:var(--color-text-tertiary)}
 .empty{padding:44px 18px;text-align:center;color:var(--color-text-tertiary);font-size:13px}
@@ -741,10 +746,6 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
         "(SPY, DIA) file 10-Ks rather than N-PORT — and mostly hold a single " +
         "asset in any case.</div>";
     }
-    // Levered and swap-based funds report notional against net assets, so a
-    // single line can exceed 100%. Scale the bars to the largest position
-    // rather than to 100, or those rows render as a wall of full-width bars.
-    var max = h.top.reduce(function(m, x){ return Math.max(m, x.pct); }, 0) || 1;
     var sum = h.top.reduce(function(m, x){ return m + x.pct; }, 0);
     // A sum above 100% is not a bug: swap-based funds report notional, so the
     // positions can add to several times net assets. Saying "458.9% of assets
@@ -755,11 +756,10 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     return '<div class="hd-head">Top ' + h.top.length + " · as of " +
         esc(h.asOf) + (h.netAssets ? " · " + money(h.netAssets) + " net assets" : "") +
         tail + "</div>" +
-      '<div class="hd-grid">' + h.top.map(function(x){
-        return "<div><div class=\"hd\"><span class=\"hd-n\">" + esc(x.name) +
-          '</span><span class="hd-p">' + x.pct.toFixed(2) + "%</span></div>" +
-          '<div class="hd-bar" style="width:' +
-          Math.max(2, (x.pct / max) * 100).toFixed(1) + '%"></div></div>';
+      '<div class="hd-grid">' + h.top.map(function(x, i){
+        return '<div class="hd"><span class="hd-r">' + (i + 1) +
+          '</span><span class="hd-n">' + esc(x.name) +
+          '</span><span class="hd-p">' + x.pct.toFixed(2) + "%</span></div>";
       }).join("") + "</div>";
   }
 
