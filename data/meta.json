@@ -1,8 +1,8 @@
 {
-  "generated": "2026-08-29T08:08:22Z",
-  "priceAsOf": "8/27/2026 8:00:00 PM",
+  "generated": "2026-09-01T06:35:07Z",
+  "priceAsOf": "8/28/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5245,
+  "count": 5243,
   "derived": [
     "issuer",
     "category",
@@ -47,7 +47,7 @@
     "Schwab": 33,
     "KraneShares": 32,
     "Avantis": 31,
-    "Harbor": 30,
+    "Harbor": 28,
     "Capital Group": 25,
     "Nuveen": 24,
     "PIMCO": 24,
@@ -515,7 +515,7 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 2148,
+    "Broad equity": 2147,
     "Fixed income": 846,
     "Sector equity": 568,
     "Single stock": 492,
@@ -525,20 +525,20 @@
     "Alternatives": 100,
     "Commodity": 93,
     "Real estate": 56,
-    "Multi-asset": 51,
+    "Multi-asset": 50,
     "Currency": 24
   },
   "regions": {
-    "US": 4360,
+    "US": 4358,
     "Developed ex-US": 359,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5243,
+  "inceptionKnown": 5241,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 658,
-  "expenseKnown": 4181,
+  "expenseKnown": 4179,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
