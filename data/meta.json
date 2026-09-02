@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-01T06:35:07Z",
-  "priceAsOf": "8/28/2026 8:00:00 PM",
+  "generated": "2026-09-02T06:12:37Z",
+  "priceAsOf": "9/1/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5243,
+  "count": 5245,
   "derived": [
     "issuer",
     "category",
@@ -12,7 +12,7 @@
   "leveredCount": 639,
   "inverseCount": 167,
   "issuers": {
-    "iShares": 471,
+    "iShares": 470,
     "First Trust": 307,
     "Invesco": 241,
     "Innovator": 177,
@@ -47,7 +47,7 @@
     "Schwab": 33,
     "KraneShares": 32,
     "Avantis": 31,
-    "Harbor": 28,
+    "Harbor": 31,
     "Capital Group": 25,
     "Nuveen": 24,
     "PIMCO": 24,
@@ -515,8 +515,8 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 2147,
-    "Fixed income": 846,
+    "Broad equity": 2150,
+    "Fixed income": 845,
     "Sector equity": 568,
     "Single stock": 492,
     "Derivative income": 448,
@@ -529,16 +529,16 @@
     "Currency": 24
   },
   "regions": {
-    "US": 4358,
+    "US": 4360,
     "Developed ex-US": 359,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5241,
+  "inceptionKnown": 5243,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 658,
-  "expenseKnown": 4179,
+  "launchedThisYear": 661,
+  "expenseKnown": 4178,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
