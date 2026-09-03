@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-02T06:12:37Z",
+  "generated": "2026-09-03T05:43:55Z",
   "priceAsOf": "9/1/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5245,
+  "count": 5250,
   "derived": [
     "issuer",
     "category",
@@ -43,11 +43,11 @@
     "Simplify": 42,
     "Xtrackers": 42,
     "Calamos": 39,
+    "Harbor": 36,
     "T-Rex": 35,
     "Schwab": 33,
     "KraneShares": 32,
     "Avantis": 31,
-    "Harbor": 31,
     "Capital Group": 25,
     "Nuveen": 24,
     "PIMCO": 24,
@@ -515,7 +515,7 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 2150,
+    "Broad equity": 2154,
     "Fixed income": 845,
     "Sector equity": 568,
     "Single stock": 492,
@@ -525,19 +525,19 @@
     "Alternatives": 100,
     "Commodity": 93,
     "Real estate": 56,
-    "Multi-asset": 50,
+    "Multi-asset": 51,
     "Currency": 24
   },
   "regions": {
-    "US": 4360,
+    "US": 4365,
     "Developed ex-US": 359,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5243,
+  "inceptionKnown": 5248,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 661,
+  "launchedThisYear": 664,
   "expenseKnown": 4178,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
@@ -550,5 +550,8 @@
     "2026q2",
     "2026q3"
   ],
-  "expenseMedian": 0.5
+  "expenseMedian": 0.5,
+  "holdingsKnown": 4042,
+  "holdingsSource": "SEC Form N-PORT 2026q2",
+  "holdingsAsOf": "2026-04-30"
 }

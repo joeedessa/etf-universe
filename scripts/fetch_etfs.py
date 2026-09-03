@@ -531,7 +531,20 @@ def main():
 
     levered = [r for r in records if abs(r["leverage"]) != 1.0]
     inverse = [r for r in records if r["leverage"] < 0]
-    meta = {
+    # MERGE rather than overwrite. fetch_holdings.py, fetch_expenses.py and
+    # fetch_inception.py each add their own keys here, and only the latter two
+    # run after this script in the nightly workflow. Rebuilding the file from
+    # scratch silently dropped holdingsSource every night, which defeated the
+    # monthly holdings job's "already processed this quarter" guard and made it
+    # re-download 420 MB every run.
+    meta = {}
+    meta_path = DATA / "meta.json"
+    if meta_path.exists():
+        try:
+            meta = json.loads(meta_path.read_text())
+        except ValueError:
+            meta = {}
+    meta.update({
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "priceAsOf": as_of,
         "source": "Nasdaq ETF screener (public endpoint)",
@@ -542,8 +555,8 @@ def main():
         "issuers": tally(records, "issuer"),
         "categories": tally(records, "category"),
         "regions": tally(records, "region"),
-    }
-    (DATA / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+    })
+    meta_path.write_text(json.dumps(meta, indent=2) + "\n")
 
     print(f"wrote {len(records)} ETFs  (as of {as_of})")
     print(f"  categories: {meta['categories']}")
