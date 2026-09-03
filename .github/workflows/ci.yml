@@ -36,14 +36,23 @@ jobs:
         run: |
           python - <<'EOF'
           import re, subprocess, sys, tempfile, os, pathlib
-          js = "\n".join(re.findall(
-              r'<script[^>]*>(.*?)</script>',
-              pathlib.Path('index.html').read_text(), re.DOTALL))
-          with tempfile.NamedTemporaryFile(suffix='.js', mode='w', delete=False) as fh:
-              fh.write(js); tmp = fh.name
-          r = subprocess.run(['node', '--check', tmp], capture_output=True, text=True)
-          os.unlink(tmp)
-          if r.returncode:
-              print(r.stderr, file=sys.stderr); sys.exit(1)
-          print('JS syntax OK')
+          # Each page is checked SEPARATELY: both are IIFEs declaring the same
+          # top-level names, so concatenating them collides.
+          failed = False
+          for name in ['index.html', 'portfolio.html']:
+              path = pathlib.Path(name)
+              if not path.exists():
+                  print(f'skip (absent): {name}'); continue
+              js = "\n".join(re.findall(r'<script[^>]*>(.*?)</script>',
+                                        path.read_text(), re.DOTALL))
+              with tempfile.NamedTemporaryFile(suffix='.js', mode='w', delete=False) as fh:
+                  fh.write(js); tmp = fh.name
+              r = subprocess.run(['node', '--check', tmp], capture_output=True, text=True)
+              os.unlink(tmp)
+              if r.returncode:
+                  print(f'JS syntax error in {name}:\n{r.stderr}', file=sys.stderr)
+                  failed = True
+              else:
+                  print(f'JS syntax OK: {name}')
+          sys.exit(1 if failed else 0)
           EOF

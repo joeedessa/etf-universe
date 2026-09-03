@@ -66,6 +66,34 @@ Because a first trading day never changes, `data/inception.json` is a permanent
 cache. The expensive pass is paid once; each scheduled run then looks up only
 the funds listed since the last one.
 
+### Portfolio builder
+
+`portfolio.html` models a blend of any funds in the universe. Add funds by
+ticker or name, then weight them:
+
+- **Equal weight** — the remainder goes to the last row so the total is exactly
+  100%, not 99.99%
+- **Weight by fund size** — proportional to net assets, for the funds that
+  publish them
+- **Normalise to 100%** — rescale whatever you have typed
+- or type weights by hand
+
+It reports blended fee, annual cost in dollars against a portfolio value you
+set, weighted one-year and one-day moves, effective leverage, and the split by
+category and region. Below that, **look-through**: each fund's published top-10
+positions combined and weighted by its share of the portfolio, so you can see
+what the blend actually owns and where it doubles up.
+
+Three things it deliberately does not do: renormalise weights behind your back
+(a total that is not 100% is flagged and every figure is scaled to what you
+actually entered), count a fund with no published fee as free (averages are
+taken over the covered weight, and the tile says how much that is), or present
+the weighted one-year figure as a backtest — it assumes today's weights held
+all year with no rebalancing, which is a hypothetical, not history.
+
+It recommends nothing. It applies your weights and reports the arithmetic.
+The portfolio is saved in `localStorage` on your device.
+
 ### Comparing funds
 
 Tick the checkbox on up to four rows and press Compare. The table puts fee, net
@@ -140,6 +168,7 @@ Prices are end-of-day and unadjusted. Nothing here is investment advice.
 
 ```
 index.html                     the dashboard — one self-contained file
+portfolio.html                 portfolio builder / weight modelling
 data/etfs.json                 one record per fund (generated)
 data/meta.json                 counts, breakdowns, timestamps (generated)
 data/inception.json            permanent ticker -> first-trading-day cache
@@ -150,6 +179,7 @@ scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
 scripts/fetch_expenses.py      accumulate expense ratios across RR quarters
 scripts/test_derive.py         regression tests for the derived fields
+scripts/serve.py               local static server for previewing
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
 .github/workflows/refresh-holdings.yml  monthly N-PORT check
 .github/workflows/ci.yml             validates data, tests, JS syntax
