@@ -551,7 +551,9 @@
     "2026q3"
   ],
   "expenseMedian": 0.5,
-  "holdingsKnown": 4042,
+  "holdingsKnown": 4044,
   "holdingsSource": "SEC Form N-PORT 2026q2",
-  "holdingsAsOf": "2026-04-30"
+  "holdingsAsOf": "2026-04-30",
+  "newCount": 218,
+  "newWindowDays": 90
 }

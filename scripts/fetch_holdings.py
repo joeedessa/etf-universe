@@ -51,6 +51,31 @@ TOP_N = 10
 # Positions below this are noise in a top-10 list and mostly reflect rounding.
 MIN_PCT = 0.01
 
+# Rollups are computed over EVERY position, not just the top ten. A top-10 list
+# covers about a third of a broad fund, which is fine for "what does it hold"
+# and useless for "how concentrated is it" -- the question a portfolio actually
+# turns on. Aggregating at fetch time keeps the published file small while
+# describing 100% of each fund.
+ROLLUP_KEEP = 8          # entries per dimension before the tail becomes "Other"
+ROLLUP_MIN_PCT = 0.5
+
+# N-PORT ships these as codes.
+ASSET_LABEL = {
+    "EC": "Equity (common)", "EP": "Equity (preferred)", "DBT": "Debt",
+    "RE": "Real estate", "LON": "Loan", "COMM": "Commodity",
+    "STIV": "Short-term / cash", "SN": "Structured note",
+    "ABS-MBS": "Mortgage-backed", "ABS-ABCP": "Asset-backed CP",
+    "ABS-O": "Asset-backed (other)", "DE": "Derivative",
+    "DFE": "Derivative (equity)", "DIR": "Derivative (rates)",
+    "DCR": "Derivative (credit)", "DFC": "Derivative (FX)",
+    "DCO": "Derivative (commodity)", "RA": "Repo", "UST": "US Treasury",
+}
+ISSUER_LABEL = {
+    "CORP": "Corporate", "MUN": "Municipal", "UST": "US Treasury",
+    "USGA": "US govt agency", "USGSE": "US govt-sponsored",
+    "NUSS": "Non-US sovereign", "RGS": "Registered fund", "PS": "Private fund",
+}
+
 
 def sec_get(url):
     req = urllib.request.Request(url, headers=SEC_HEADERS)
@@ -125,6 +150,26 @@ def parse_sec_date(v):
         return None
 
 
+def condense(d, labels=None):
+    """Largest slices by weight, with the tail summed into "Other".
+
+    Sorted by ABSOLUTE weight so a large short position is not buried below
+    trivial longs, but the reported value keeps its sign.
+    """
+    if not d:
+        return {}
+    items = sorted(d.items(), key=lambda kv: -abs(kv[1]))
+    out, tail = {}, 0.0
+    for key, pct in items:
+        if len(out) < ROLLUP_KEEP and abs(pct) >= ROLLUP_MIN_PCT:
+            out[(labels or {}).get(key, key)] = round(pct, 2)
+        else:
+            tail += pct
+    if abs(tail) >= 0.05:
+        out["Other"] = round(tail, 2)
+    return out
+
+
 def build(zip_path, quarter):
     etfs = json.loads((DATA / "etfs.json").read_text())
     wanted = {e["symbol"] for e in etfs}
@@ -162,6 +207,8 @@ def build(zip_path, quarter):
     # Top-N heap per accession. Only the funds we care about are tracked, so
     # this stays small even though the source table is ~870 MB.
     heaps = {acc: [] for acc in keep}
+    roll = {acc: {"country": {}, "asset": {}, "issuer": {}, "n": 0, "pct": 0.0}
+            for acc in keep}
     scanned = 0
     for r in rows(zf, "FUND_REPORTED_HOLDING.tsv"):
         scanned += 1
@@ -170,7 +217,21 @@ def build(zip_path, quarter):
         if h is None:
             continue
         pct = to_float(r.get("PERCENTAGE"))
-        if pct is None or pct < MIN_PCT:
+        if pct is None:
+            continue
+
+        # Every position counts toward the rollups, including the small ones a
+        # top-10 list drops and the negative ones a short position contributes.
+        agg = roll[acc]
+        agg["n"] += 1
+        agg["pct"] += pct
+        for dim, col in (("country", "INVESTMENT_COUNTRY"),
+                         ("asset", "ASSET_CAT"),
+                         ("issuer", "ISSUER_TYPE")):
+            key = (r.get(col) or "").strip() or "Unknown"
+            agg[dim][key] = agg[dim].get(key, 0.0) + pct
+
+        if pct < MIN_PCT:
             continue
         name = (r.get("ISSUER_NAME") or "").strip()
         if not name:
@@ -189,10 +250,15 @@ def build(zip_path, quarter):
         top = sorted(heaps.get(acc, []), key=lambda e: -e[0])
         if not top:
             continue
+        agg = roll.get(acc, {})
         record = {
             "asOf": d.isoformat(),
             "netAssets": round(net) if net else None,
+            "positions": agg.get("n", 0),
             "top": [{"name": n, "pct": round(p, 2)} for p, n, _ in top],
+            "byCountry": condense(agg.get("country", {})),
+            "byAsset": condense(agg.get("asset", {}), ASSET_LABEL),
+            "byIssuer": condense(agg.get("issuer", {}), ISSUER_LABEL),
         }
         for symbol in by_series[sid]:
             out[symbol] = record

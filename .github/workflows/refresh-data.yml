@@ -43,6 +43,11 @@ jobs:
       - name: Top up expense ratios
         run: python scripts/fetch_expenses.py --quarters 8
 
+      # Records first-seen dates so newly listed funds can be tagged. Must run
+      # after the universe is rebuilt and before validation.
+      - name: Tag newly listed funds
+        run: python scripts/track_new.py
+
       - name: Validate output
         run: |
           python - <<'EOF'

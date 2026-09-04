@@ -103,6 +103,14 @@ th.sth,td.std{width:30px;padding-left:12px;padding-right:0;text-align:center}
   font-size:14px;color:var(--color-border-secondary)}
 .star:hover{color:var(--star)}
 .star.on{color:var(--star)}
+.newtag{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:4px;
+  font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  background:var(--up);color:#fff;vertical-align:1px}
+.new-btn{border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);border-radius:8px;padding:8px 10px;font-size:12.5px;
+  cursor:pointer;font-family:var(--font-sans);white-space:nowrap}
+.new-btn:hover{border-color:var(--up)}
+.new-btn.active{border-color:var(--up);color:var(--up)}
 
 /* ---------- multi-select pickers ---------- */
 .pick{position:relative;flex:0 0 auto}
@@ -250,6 +258,11 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
 .hd-p{margin-left:auto;font-family:var(--font-mono);font-size:12px;
   color:var(--color-text-primary);font-weight:600;flex:0 0 auto}
 .hd-none{font-size:12px;color:var(--color-text-tertiary);line-height:1.6}
+.rollup{display:flex;flex-wrap:wrap;gap:6px}
+.rchip{display:inline-flex;align-items:baseline;gap:6px;background:var(--color-background-secondary);
+  border:.5px solid var(--color-border-tertiary);border-radius:6px;padding:3px 8px;font-size:11.5px;
+  color:var(--color-text-secondary)}
+.rchip b{font-family:var(--font-mono);font-size:11px;color:var(--color-text-primary)}
 .na{color:var(--color-text-tertiary)}
 .empty{padding:44px 18px;text-align:center;color:var(--color-text-tertiary);font-size:13px}
 .more{padding:14px;text-align:center;color:var(--color-text-tertiary);font-size:11.5px;
@@ -338,6 +351,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   </div>
 
   <button class="fav-btn" id="fav-btn" type="button" aria-pressed="false">☆ Favourites</button>
+  <button class="new-btn" id="new-btn" type="button" aria-pressed="false">New</button>
 
   <select id="sort">
     <option value="symbol">Sort: Ticker A–Z</option>
@@ -426,6 +440,11 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
 (function(){
   "use strict";
 
+  // Revalidate data files rather than trusting the cache: these are
+  // rebuilt nightly and a stale copy renders as wrong numbers, not as
+  // an error. 304s keep it cheap.
+  var REVALIDATE = { cache: "no-cache" };
+
   var PAGE = 150;          // rows appended per scroll batch
   var all = [], view = [], shown = 0, meta = {}, holdings = {};
 
@@ -495,7 +514,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   // Objects-as-sets. An EMPTY group means "no constraint", so clearing a
   // filter never yields an empty table.
   var sel = { cat:{}, reg:{}, lev:{}, iss:{} };
-  var defaultCats = [], items = {}, favOnly = false;
+  var defaultCats = [], items = {}, favOnly = false, newOnly = false;
 
   var PICKERS = [
     { key:"cat", all:"All categories", unit:"categories" },
@@ -538,6 +557,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     // "what shows" and "what the category filter is holding back".
     function passesRest(r){
       if (favOnly && !favs[r.symbol]) return false;
+      if (newOnly && !r.isNew) return false;
       if (nReg && !sel.reg[r.region]) return false;
       if (nIss && !sel.iss[r.issuer]) return false;
       if (nLev && !levMatch(r)) return false;
@@ -555,7 +575,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     // view silently swallowing something you explicitly asked for is the one
     // way this page can look broken while working correctly.
     var hiddenHits = 0;
-    if (nCat && (q || favOnly)) {
+    if (nCat && (q || favOnly || newOnly)) {
       hiddenHits = all.filter(function(r){
         return !sel.cat[r.category] && passesRest(r);
       }).length;
@@ -568,6 +588,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
       view.length.toLocaleString() + " of " + all.length.toLocaleString() + " funds";
     paintPickers();
     paintFavBtn();
+    paintNewBtn();
     paintCmpBar();
     paintHint(hiddenHits);
     append();
@@ -623,7 +644,9 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
         '<td class="ctd"><input type="checkbox" class="cbx" data-sym="' + esc(r.symbol) +
           '"' + (cmp[r.symbol] ? " checked" : "") + ' aria-label="Compare"></td>' +
         '<td><span class="tick">' + esc(r.symbol) + "</span></td>" +
-        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) + "</td>" +
+        '<td class="nm" title="' + esc(r.name) + '">' + esc(r.name) +
+          (r.isNew ? '<span class="newtag" title="Listed or first seen in the last ' +
+            (meta.newWindowDays || 90) + ' days">New</span>' : "") + "</td>" +
         '<td class="iss">' + esc(r.issuer) + "</td>" +
         '<td><span class="chip">' + esc(r.category) + "</span></td>" +
         '<td class="iss">' + esc(r.region) + "</td>" +
@@ -755,9 +778,17 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     var tail = sum > 100
       ? " · notional exposure, exceeds net assets"
       : " · " + sum.toFixed(1) + "% of net assets";
-    return '<div class="hd-head">Top ' + h.top.length + " · as of " +
-        esc(h.asOf) + (h.netAssets ? " · " + money(h.netAssets) + " net assets" : "") +
-        tail + "</div>" +
+    // The rollups now sit between this line and the position list, so this is a
+    // summary of the filing, not a heading for the list below it.
+    return '<div class="hd-head">As of ' + esc(h.asOf) +
+        (h.netAssets ? " · " + money(h.netAssets) + " net assets" : "") +
+        (h.positions ? " · " + h.positions.toLocaleString() + " positions" : "") +
+        "</div>" +
+      rollupRow("Country", h.byCountry) +
+      rollupRow("Asset class", h.byAsset) +
+      rollupRow("Issuer type", h.byIssuer) +
+      '<div class="hd-head" style="margin-top:14px">Largest ' + h.top.length +
+        " positions" + tail + "</div>" +
       '<div class="hd-grid">' + h.top.map(function(x, i){
         return '<div class="hd"><span class="hd-r">' + (i + 1) +
           '</span><span class="hd-n">' + esc(x.name) +
@@ -788,6 +819,21 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     if (v === null || v === undefined) return '<span class="na">—</span>';
     var cls = v > 0 ? "up" : v < 0 ? "dn" : "";
     return '<span class="' + cls + '">' + (v > 0 ? "+" : "") + v.toFixed(2) + "%</span>";
+  }
+
+  // These rollups cover EVERY position, unlike the top-10 list below them, so
+  // they answer "how concentrated is this" rather than "what does it hold".
+  function rollupRow(label, obj){
+    if (!obj) return "";
+    var keys = Object.keys(obj).filter(function(k){ return k !== "Other"; });
+    if (!keys.length) return "";
+    keys.sort(function(a, b){ return Math.abs(obj[b]) - Math.abs(obj[a]); });
+    return '<div class="hd-head" style="margin-top:12px">' + label +
+      " — all positions</div><div class=\"rollup\">" +
+      keys.slice(0, 6).map(function(k){
+        return '<span class="rchip">' + esc(k) +
+          '<b>' + obj[k].toFixed(1) + "%</b></span>";
+      }).join("") + "</div>";
   }
 
   function fundModal(sym){
@@ -1061,6 +1107,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     sel = { cat:{}, reg:{}, lev:{}, iss:{} };
     defaultCats.forEach(function(c){ sel.cat[c] = 1; });
     favOnly = false;
+    newOnly = false;
     $("sort").value = "symbol";
     $("iss-q").value = "";
     PICKERS.forEach(function(p){ renderPick(p.key, ""); });
@@ -1070,6 +1117,17 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   $("reset").addEventListener("click", resetFilters);
 
   $("fav-btn").addEventListener("click", function(){ favOnly = !favOnly; apply(); });
+  $("new-btn").addEventListener("click", function(){ newOnly = !newOnly; apply(); });
+
+  function paintNewBtn(){
+    var n = meta.newCount || 0;
+    $("new-btn").textContent = "New" + (n ? " " + n.toLocaleString() : "");
+    $("new-btn").title = "Listed or first seen in the last " +
+      (meta.newWindowDays || 90) + " days";
+    $("new-btn").setAttribute("aria-pressed", newOnly ? "true" : "false");
+    if (newOnly) $("new-btn").classList.add("active");
+    else $("new-btn").classList.remove("active");
+  }
 
   // Picker panels, the star buttons and the "show every category" link are all
   // re-rendered, so they go through delegation rather than per-element listeners.
@@ -1208,10 +1266,10 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   });
 
   Promise.all([
-    fetch("data/etfs.json").then(function(r){ return r.json(); }),
-    fetch("data/meta.json").then(function(r){ return r.json(); }),
+    fetch("data/etfs.json", REVALIDATE).then(function(r){ return r.json(); }),
+    fetch("data/meta.json", REVALIDATE).then(function(r){ return r.json(); }),
     // Absent or stale holdings must not take the whole page down with them.
-    fetch("data/holdings.json").then(function(r){ return r.json(); })
+    fetch("data/holdings.json", REVALIDATE).then(function(r){ return r.json(); })
       .catch(function(){ return {}; })
   ]).then(function(res){
     all = res[0];

@@ -78,11 +78,22 @@ ticker or name, then weight them:
 - **Normalise to 100%** — rescale whatever you have typed
 - or type weights by hand
 
+**Save it under a name** and reopen it later; the library holds as many as you
+like, in `localStorage` on your device. Saving is explicit, so experimenting
+with the working sheet never overwrites something you deliberately kept.
+
 It reports blended fee, annual cost in dollars against a portfolio value you
-set, weighted one-year and one-day moves, effective leverage, and the split by
-category and region. Below that, **look-through**: each fund's published top-10
-positions combined and weighted by its share of the portfolio, so you can see
-what the blend actually owns and where it doubles up.
+set, weighted one-year and one-day moves, effective leverage, and concentration.
+
+**Concentration is computed over every position, not the top ten.** N-PORT
+carries `INVESTMENT_COUNTRY`, `ASSET_CAT` and `ISSUER_TYPE` per holding, so the
+fetcher rolls each fund up across its whole portfolio — 507 positions for `IVV`,
+8,878 for `VXUS`, 17,368 for `BND` — and the page combines those by weight. An
+equal-weight VOO/VXUS/BND blend comes out 64.4% United States, 5.1% Japan, 3.2%
+United Kingdom; 66% equity, 26% debt, 7% mortgage-backed; 77% corporate, 16% US
+Treasury. That is real look-through, not a top-10 approximation.
+
+The top-10 list is still there underneath, for "what does it actually own".
 
 Three things it deliberately does not do: renormalise weights behind your back
 (a total that is not 100% is flagged and every figure is scaled to what you
@@ -93,6 +104,20 @@ all year with no rebalancing, which is a hypothetical, not history.
 
 It recommends nothing. It applies your weights and reports the arithmetic.
 The portfolio is saved in `localStorage` on your device.
+
+### Newly listed funds
+
+The nightly run refetches the whole universe, so new listings appear on their
+own — but the file just gets longer, which says nothing about *which* funds are
+new. `scripts/track_new.py` keeps a first-seen date per ticker in
+`data/first_seen.json`; anything listed or first seen in the last 90 days gets a
+**New** badge and can be filtered with the New button.
+
+Seeding matters here. On the first run every ticker is "first seen today",
+which would tag all 5,250 as new, so the backfill uses each fund's listing date
+instead. A fund is tagged on the *earlier* of (first seen, listed), so one that
+listed years ago but only just entered the screener — a re-listing, a ticker
+change, a data fix — is not announced as a new launch.
 
 ### Comparing funds
 

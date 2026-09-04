@@ -194,6 +194,16 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
         <input id="pval" type="text" inputmode="numeric" value="100,000">
       </span>
     </div>
+
+    <div class="schemes" style="margin-top:10px">
+      <span class="sec-h" style="margin:0 4px 0 0">Saved</span>
+      <select id="saved"><option value="">— none —</option></select>
+      <button class="sbtn" id="s-open" type="button">Open</button>
+      <button class="sbtn" id="s-save" type="button">Save as…</button>
+      <button class="sbtn" id="s-update" type="button">Save changes</button>
+      <button class="sbtn" id="s-del" type="button">Delete</button>
+      <span id="savemsg" style="font-size:11.5px;color:var(--color-text-tertiary)"></span>
+    </div>
   </div>
 
   <div class="tbl">
@@ -218,12 +228,30 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
 
   <div class="sec cols">
     <div class="panel">
-      <div class="sec-h">By category</div>
+      <div class="sec-h">Fund category</div>
       <div id="by-cat"></div>
     </div>
     <div class="panel">
-      <div class="sec-h">By region</div>
+      <div class="sec-h">Fund region</div>
       <div id="by-reg"></div>
+    </div>
+  </div>
+
+  <div class="sec cols">
+    <div class="panel">
+      <div class="sec-h">Country exposure — look-through</div>
+      <div id="by-country"></div>
+    </div>
+    <div class="panel">
+      <div class="sec-h">Asset class — look-through</div>
+      <div id="by-asset"></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="panel">
+      <div class="sec-h">Issuer type — look-through</div>
+      <div id="by-issuer"></div>
     </div>
   </div>
 
@@ -260,11 +288,19 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
 (function(){
   "use strict";
 
+  // Revalidate data files rather than trusting the cache: these are
+  // rebuilt nightly and a stale copy renders as wrong numbers, not as
+  // an error. 304s keep it cheap.
+  var REVALIDATE = { cache: "no-cache" };
+
   var $ = function(id){ return document.getElementById(id); };
   var all = [], bySym = {}, holdings = {};
   var rows = [];            // [{sym, weight}]
   var value = 100000;
-  var scheme = "custom";
+  // Equal is the default: a fund added at 0% weight makes every derived
+  // figure below read zero, which reads as a broken page rather than an
+  // empty one.
+  var scheme = "equal";
   var STORE = "etf-portfolio";
 
   /* ---------- theme ---------- */
@@ -314,9 +350,16 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
   }
 
   /* ---------- persistence ---------- */
+  // Two separate stores: the working sheet (restored on every visit) and a
+  // named library. Saving is explicit, so experimenting with the sheet can
+  // never overwrite a portfolio you deliberately kept.
+  var LIB = "etf-portfolios";
+  var openName = "";
+
   function save(){
     try {
-      localStorage.setItem(STORE, JSON.stringify({ rows: rows, value: value }));
+      localStorage.setItem(STORE, JSON.stringify(
+        { rows: rows, value: value, scheme: scheme, openName: openName }));
     } catch (e) {}
   }
   function load(){
@@ -325,9 +368,103 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
       if (raw && Object.prototype.toString.call(raw.rows) === "[object Array]") {
         rows = raw.rows.filter(function(r){ return r && r.sym; });
         if (raw.value > 0) value = raw.value;
+        if (raw.scheme) scheme = raw.scheme;
+        if (raw.openName) openName = raw.openName;
       }
     } catch (e) {}
   }
+
+  function readLib(){
+    try {
+      var l = JSON.parse(localStorage.getItem(LIB) || "{}");
+      return (l && typeof l === "object") ? l : {};
+    } catch (e) { return {}; }
+  }
+  function writeLib(lib){
+    try { localStorage.setItem(LIB, JSON.stringify(lib)); return true; }
+    catch (e) { return false; }   // private browsing / quota
+  }
+
+  function flash(msg){
+    $("savemsg").textContent = msg;
+    if (flash.t) clearTimeout(flash.t);
+    flash.t = setTimeout(function(){ $("savemsg").textContent = ""; }, 3200);
+  }
+
+  function paintSaved(){
+    var lib = readLib();
+    var names = Object.keys(lib).sort(function(a, b){
+      return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
+    });
+    $("saved").innerHTML = '<option value="">' +
+      (names.length ? "— choose —" : "— none saved —") + "</option>" +
+      names.map(function(n){
+        return '<option value="' + esc(n) + '"' +
+          (n === openName ? " selected" : "") + ">" + esc(n) +
+          " (" + lib[n].rows.length + ")</option>";
+      }).join("");
+    $("s-update").disabled = !openName || !lib[openName];
+    $("s-del").disabled = !$("saved").value;
+  }
+
+  function storeAs(name){
+    if (!name) return;
+    var lib = readLib();
+    lib[name] = { rows: rows.map(function(r){ return { sym: r.sym, weight: r.weight }; }),
+                  value: value, scheme: scheme, saved: new Date().toISOString().slice(0, 10) };
+    if (!writeLib(lib)) { flash("Could not save — browser storage is unavailable."); return; }
+    openName = name;
+    paintSaved();
+    save();
+    flash('Saved “' + name + '”.');
+  }
+
+  $("s-save").addEventListener("click", function(){
+    if (!rows.length) { flash("Add a fund first."); return; }
+    var name = (window.prompt("Name this portfolio", openName || "") || "").trim();
+    if (!name) return;
+    if (readLib()[name] &&
+        !window.confirm('“' + name + '” already exists. Replace it?')) return;
+    storeAs(name);
+  });
+
+  $("s-update").addEventListener("click", function(){
+    if (!openName) { flash("Nothing open — use Save as…"); return; }
+    storeAs(openName);
+  });
+
+  $("s-open").addEventListener("click", function(){
+    var name = $("saved").value;
+    if (!name) { flash("Pick a saved portfolio first."); return; }
+    var entry = readLib()[name];
+    if (!entry) { flash("That portfolio is gone."); paintSaved(); return; }
+    rows = entry.rows.filter(function(r){ return r && bySym[r.sym]; });
+    var dropped = entry.rows.length - rows.length;
+    if (entry.value > 0) value = entry.value;
+    setScheme(entry.scheme || "custom");
+    openName = name;
+    $("pval").value = commas(Math.round(value).toString());
+    paintSaved();
+    render();
+    flash('Opened “' + name + '”' +
+      (dropped ? " — " + dropped + " fund" + (dropped > 1 ? "s are" : " is") +
+        " no longer listed and were dropped." : "."));
+  });
+
+  $("s-del").addEventListener("click", function(){
+    var name = $("saved").value;
+    if (!name) return;
+    if (!window.confirm('Delete “' + name + '”? This cannot be undone.')) return;
+    var lib = readLib();
+    delete lib[name];
+    writeLib(lib);
+    if (openName === name) openName = "";
+    paintSaved();
+    save();
+    flash('Deleted “' + name + '”.');
+  });
+
+  $("saved").addEventListener("change", paintSaved);
 
   /* ---------- weighting schemes ---------- */
   function setScheme(name){
@@ -335,6 +472,7 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
     ["equal", "aum"].forEach(function(k){
       $("s-" + k).classList.toggle("on", scheme === k);
     });
+    if (typeof paintSaved === "function") paintSaved();
   }
 
   function applyEqual(){
@@ -405,11 +543,13 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
   function addFund(sym){
     if (!bySym[sym]) return;
     for (var i = 0; i < rows.length; i++) if (rows[i].sym === sym) return;
-    rows.push({ sym: sym, weight: 0 });
+    // In a hand-typed sheet, give the new fund whatever is left to reach 100%
+    // rather than 0% — that is nearly always the intent, and it is visible and
+    // editable either way.
+    var slack = Math.round((100 - totalWeight()) * 100) / 100;
+    rows.push({ sym: sym, weight: scheme === "custom" && slack > 0 ? slack : 0 });
     $("q").value = "";
     $("results").hidden = true;
-    // A new fund with 0% would silently do nothing, so re-run whichever scheme
-    // is active; a custom sheet keeps its numbers and just shows the shortfall.
     if (scheme === "equal") applyEqual();
     else if (scheme === "aum") applyAum();
     else render();
@@ -451,7 +591,13 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
   $("s-aum").addEventListener("click", applyAum);
   $("s-norm").addEventListener("click", applyNormalise);
   $("s-clear").addEventListener("click", function(){
-    rows = []; setScheme("custom"); render();
+    // Back to the default scheme, not to custom. Left in custom, the first
+    // fund added afterwards claimed all 100% of the slack and every later one
+    // got 0% — so clearing and rebuilding produced a 100/0 split.
+    rows = [];
+    openName = "";
+    setScheme("equal");
+    render();
   });
 
   /* ---------- rendering ---------- */
@@ -546,10 +692,123 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
       tile(wDay === null ? "—" : (wDay > 0 ? "+" : "") + wDay.toFixed(2) + "%", "Weighted today") +
       tile((levNum / (tw / 100 || 1)).toFixed(2) + "x", "Effective leverage",
         "weighted daily multiple");
+    // The concentration tiles are appended by paintConcentration() once the
+    // look-through has run. Emitting them here as well rendered them twice on
+    // every render after the first.
 
     breakdown("by-cat", "category");
     breakdown("by-reg", "region");
-    lookthrough(tw);
+    var ctry = rollup("by-country", "byCountry", { label: countryLabel });
+    rollup("by-asset", "byAsset");
+    rollup("by-issuer", "byIssuer");
+    lookthrough(tw);          // sets the largest-position figures
+    paintConcentration(ctry); // ...so this must follow it
+  }
+
+  // Combines a per-fund rollup across the portfolio. Unlike the top-10 list,
+  // these rollups describe 100% of each fund that files N-PORT, so the only
+  // gap is funds with no filing at all — which is reported rather than hidden.
+  function rollup(el, field, opts){
+    opts = opts || {};
+    var agg = {}, covered = 0, missing = [];
+    rows.forEach(function(r){
+      var h = holdings[r.sym];
+      var src = h && h[field];
+      if (!src || !Object.keys(src).length) {
+        if (r.weight > 0) missing.push(r.sym);
+        return;
+      }
+      var w = r.weight / 100;
+      covered += r.weight;
+      Object.keys(src).forEach(function(k){
+        agg[k] = (agg[k] || 0) + w * src[k];
+      });
+    });
+    var keys = Object.keys(agg).sort(function(a, b){ return Math.abs(agg[b]) - Math.abs(agg[a]); });
+    // "Other" is a residual, not a holding — it belongs at the bottom.
+    keys = keys.filter(function(k){ return k !== "Other"; })
+      .concat(keys.indexOf("Other") !== -1 ? ["Other"] : []);
+    if (!keys.length) {
+      $(el).innerHTML = '<div class="empty" style="padding:18px">' +
+        "No fund here has holdings on file.</div>";
+      return null;
+    }
+    var note = "";
+    if (missing.length || covered < totalWeight() - 0.01) {
+      note = '<div class="tile-n" style="margin:0 0 10px">Covers ' +
+        covered.toFixed(1) + "% of the portfolio" +
+        (missing.length ? "; no filing for " + missing.slice(0, 4).map(esc).join(", ") +
+          (missing.length > 4 ? " and " + (missing.length - 4) + " more" : "") : "") + ".</div>";
+    }
+    $(el).innerHTML = note + keys.slice(0, opts.limit || 12).map(function(k){
+      return '<div class="brk"><span class="brk-n">' +
+        esc(opts.label ? opts.label(k) : k) +
+        '</span><span class="brk-p">' + agg[k].toFixed(2) + "%</span></div>";
+    }).join("");
+    return { agg: agg, keys: keys, covered: covered };
+  }
+
+  // Only the codes common enough to be worth spelling out; anything else shows
+  // as its ISO code rather than being guessed at.
+  var COUNTRY = {
+    US:"United States", JP:"Japan", GB:"United Kingdom", CA:"Canada", CN:"China",
+    TW:"Taiwan", HK:"Hong Kong", FR:"France", DE:"Germany", CH:"Switzerland",
+    AU:"Australia", IN:"India", KR:"South Korea", NL:"Netherlands", SE:"Sweden",
+    IT:"Italy", ES:"Spain", DK:"Denmark", BR:"Brazil", MX:"Mexico", SG:"Singapore",
+    IE:"Ireland", FI:"Finland", NO:"Norway", BE:"Belgium", ZA:"South Africa",
+    SA:"Saudi Arabia", AE:"UAE", TH:"Thailand", ID:"Indonesia", MY:"Malaysia",
+    IL:"Israel", NZ:"New Zealand", AT:"Austria", PT:"Portugal", PL:"Poland",
+    KY:"Cayman Islands", BM:"Bermuda", LU:"Luxembourg", JE:"Jersey", GG:"Guernsey",
+    "N/A":"Not stated"
+  };
+  function countryLabel(code){
+    return COUNTRY[code] ? COUNTRY[code] + " (" + code + ")" : code;
+  }
+
+  // Concentration is what a portfolio actually turns on, so it gets its own
+  // numbers rather than being left implicit in a list of percentages.
+  var lastConc = {};
+  function concentrationTiles(){
+    var c = lastConc;
+    var out = "";
+    if (c.positions) {
+      out += '<div class="tile"><div class="tile-v">' + c.positions.toLocaleString() +
+        '</div><div class="tile-l">Underlying positions</div>' +
+        '<div class="tile-n">summed across funds; overlaps counted twice</div></div>';
+    }
+    if (c.topCountry) {
+      out += '<div class="tile"><div class="tile-v">' + c.topCountryPct.toFixed(1) +
+        '%</div><div class="tile-l">Largest country</div>' +
+        '<div class="tile-n">' + esc(c.topCountry) + "</div></div>";
+    }
+    if (c.topName) {
+      out += '<div class="tile"><div class="tile-v">' + c.topNamePct.toFixed(2) +
+        '%</div><div class="tile-l">Largest position</div>' +
+        '<div class="tile-n">' + esc(c.topName) + "</div></div>";
+    }
+    return out;
+  }
+
+  function paintConcentration(ctry){
+    // Deliberately NOT reset: lookthrough() runs first and leaves the largest
+    // position here. Clearing the object wiped it before it could be rendered.
+    var pos = 0;
+    rows.forEach(function(r){
+      var h = holdings[r.sym];
+      if (h && h.positions && r.weight > 0) pos += h.positions;
+    });
+    lastConc.positions = pos;
+    if (ctry && ctry.keys.length) {
+      var k = ctry.keys[0];
+      if (k !== "Other") {
+        lastConc.topCountry = countryLabel(k);
+        lastConc.topCountryPct = ctry.agg[k];
+      }
+    }
+    // Re-render the tiles now that the numbers exist; they are cheap and this
+    // avoids threading concentration through the whole summary path.
+    var extra = concentrationTiles();
+    if (extra) $("tiles").insertAdjacentHTML("beforeend", extra);
   }
 
   function breakdown(el, key){
@@ -583,7 +842,12 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
       });
     });
     var keys = Object.keys(agg).sort(function(a, b){ return agg[b] - agg[a]; }).slice(0, 15);
+    if (keys.length) {
+      lastConc.topName = labels[keys[0]] || keys[0];
+      lastConc.topNamePct = agg[keys[0]];
+    }
     if (!keys.length) {
+      lastConc.topName = null;
       $("lookthrough").innerHTML = '<div class="empty" style="padding:18px">' +
         "None of these funds has holdings on file. Commodity and crypto trusts and unit " +
         "investment trusts do not file N-PORT.</div>";
@@ -628,8 +892,8 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
 
   /* ---------- boot ---------- */
   Promise.all([
-    fetch("data/etfs.json").then(function(r){ return r.json(); }),
-    fetch("data/holdings.json").then(function(r){ return r.json(); }).catch(function(){ return {}; })
+    fetch("data/etfs.json", REVALIDATE).then(function(r){ return r.json(); }),
+    fetch("data/holdings.json", REVALIDATE).then(function(r){ return r.json(); }).catch(function(){ return {}; })
   ]).then(function(res){
     all = res[0];
     holdings = res[1] || {};
@@ -638,7 +902,11 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
     load();
     rows = rows.filter(function(r){ return bySym[r.sym]; });
     $("pval").value = commas(Math.round(value).toString());
-    render();
+    setScheme(scheme);
+    paintSaved();
+    // A restored sheet keeps its own weights; only a brand-new one is seeded.
+    if (!rows.length || totalWeight() > 0) render();
+    else applyEqual();
   }).catch(function(err){
     $("emptymsg").innerHTML = '<div class="empty">Could not load fund data. ' +
       esc(err && err.message ? err.message : "Unknown error") + "</div>";
