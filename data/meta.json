@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-03T06:12:52Z",
-  "priceAsOf": "9/1/2026 8:00:00 PM",
+  "generated": "2026-09-04T06:18:23Z",
+  "priceAsOf": "9/2/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5250,
   "derived": [
@@ -12,7 +12,7 @@
   "leveredCount": 639,
   "inverseCount": 167,
   "issuers": {
-    "iShares": 470,
+    "iShares": 471,
     "First Trust": 307,
     "Invesco": 241,
     "Innovator": 177,
@@ -94,7 +94,6 @@
     "SEI": 11,
     "Strategy Shares": 11,
     "Strive": 11,
-    "Tema": 11,
     "US": 11,
     "VistaShares": 11,
     "abrdn": 11,
@@ -104,6 +103,7 @@
     "Federated Hermes": 10,
     "Janus": 10,
     "Precidian": 10,
+    "Tema": 10,
     "Touchstone": 10,
     "Volatility Shares": 10,
     "AAM": 9,
@@ -515,8 +515,8 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 2154,
-    "Fixed income": 845,
+    "Broad equity": 2153,
+    "Fixed income": 846,
     "Sector equity": 568,
     "Single stock": 492,
     "Derivative income": 448,
@@ -538,7 +538,7 @@
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 664,
-  "expenseKnown": 4178,
+  "expenseKnown": 4177,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
