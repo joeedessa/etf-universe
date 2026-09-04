@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%234F46E5%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2221.5%22%20text-anchor%3D%22middle%22%20fill%3D%22%23fff%22%20font-family%3D%22Helvetica%2CArial%2Csans-serif%22%20font-size%3D%2213%22%20font-weight%3D%22700%22%20letter-spacing%3D%22-0.8%22%3EETF%3C%2Ftext%3E%3C%2Fsvg%3E">
+<title>Tokyo ETFs · ETF Universe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --color-text-primary:#16181D;--color-text-secondary:#3D424D;--color-text-tertiary:#70757F;
+  --color-background-primary:#FFFFFF;--color-background-secondary:#F5F5F2;
+  --color-border-tertiary:#E7E6E1;--color-border-secondary:#D3D2CC;
+  --accent:#4F46E5;--paper:#FBFAF7;
+  --shadow-1:0 1px 2px rgba(22,24,29,.05);
+  --shadow-2:0 4px 16px rgba(22,24,29,.08),0 1px 3px rgba(22,24,29,.05);
+  --up:#16A34A;--dn:#E24B4A;--warn:#C77A0E;
+  --chip-bg:#EEEEFB;--chip-t:#3730C9;
+  --star:#D69211;--star-bg:#FDF4E3;
+}
+:root[data-theme="dark"]{
+  --color-text-primary:#EDEDE8;--color-text-secondary:#C2C4C9;--color-text-tertiary:#8B8E96;
+  --color-background-primary:#1E2025;--color-background-secondary:#26282E;
+  --color-border-tertiary:#33363D;--color-border-secondary:#454850;
+  --accent:#8B85F0;--paper:#17181C;
+  --shadow-1:0 1px 2px rgba(0,0,0,.4);
+  --shadow-2:0 4px 16px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4);
+  --up:#3DDC84;--dn:#FF7D7B;--warn:#F0B23C;
+  --chip-bg:#26284A;--chip-t:#A5B4FC;
+  --star:#F0B23C;--star-bg:#3A2E17;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --color-text-primary:#EDEDE8;--color-text-secondary:#C2C4C9;--color-text-tertiary:#8B8E96;
+    --color-background-primary:#1E2025;--color-background-secondary:#26282E;
+    --color-border-tertiary:#33363D;--color-border-secondary:#454850;
+    --accent:#8B85F0;--paper:#17181C;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4);
+    --shadow-2:0 4px 16px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4);
+    --up:#3DDC84;--dn:#FF7D7B;--warn:#F0B23C;
+    --chip-bg:#26284A;--chip-t:#A5B4FC;
+    --star:#F0B23C;--star-bg:#3A2E17;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;padding:0 0 64px;background:var(--paper);color:var(--color-text-primary);
+  font-family:var(--font-sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+.mast{padding:12px 18px 10px;border-bottom:.5px solid var(--color-border-tertiary);
+  position:sticky;top:0;z-index:20;background:var(--paper)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mast-word{font-family:var(--font-display);font-size:21px;font-weight:400;letter-spacing:-.01em}
+.mast-word em{color:var(--accent);font-style:italic}
+.mast-sub{font-size:10px;color:var(--color-text-tertiary);letter-spacing:.06em;
+  text-transform:uppercase;margin-top:2px}
+.mast-right{display:flex;align-items:center;gap:8px}
+.tbtn{border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-secondary);border-radius:7px;padding:6px 10px;font-size:12px;cursor:pointer;
+  font-family:var(--font-sans);line-height:1.2;text-decoration:none;display:inline-block}
+.tbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 18px}
+.sec{margin-top:18px}
+.sec-h{font-size:10px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--color-text-tertiary);font-weight:600;margin-bottom:9px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 18px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  padding:14px 18px 10px;max-width:1280px;margin:0 auto}
+.search{flex:1 1 240px;min-width:190px}
+.search input{width:100%;padding:8px 11px;border-radius:8px;font-size:13px;
+  border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);font-family:var(--font-sans)}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--chip-bg)}
+select{padding:8px 9px;border-radius:8px;font-size:12.5px;cursor:pointer;
+  border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);font-family:var(--font-sans);max-width:230px}
+select:focus{outline:none;border-color:var(--accent)}
+.reset{border:none;background:none;color:var(--accent);font-size:12px;cursor:pointer;
+  padding:6px 4px;font-family:var(--font-sans)}
+.reset:hover{text-decoration:underline}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px;
+  padding:14px 18px 0;max-width:1280px;margin:0 auto}
+.stat{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);
+  border-radius:9px;padding:9px 11px;box-shadow:var(--shadow-1)}
+.stat-v{font-family:var(--font-mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+.stat-l{font-size:9.5px;color:var(--color-text-tertiary);text-transform:uppercase;
+  letter-spacing:.06em;margin-top:2px}
+.count{padding:0 18px 8px;max-width:1280px;margin:0 auto;font-size:11.5px;
+  color:var(--color-text-tertiary);font-family:var(--font-mono)}
+.tbl{overflow-x:auto;border:.5px solid var(--color-border-tertiary);border-radius:11px;
+  background:var(--color-background-primary);box-shadow:var(--shadow-1)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:860px}
+thead th{position:sticky;top:0;background:var(--color-background-secondary);font-size:9.5px;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);font-weight:600;
+  text-align:left;padding:9px 10px;white-space:nowrap;cursor:pointer;user-select:none;
+  border-bottom:.5px solid var(--color-border-tertiary);z-index:5}
+thead th:hover{color:var(--accent)}
+thead th.num{text-align:right}
+tbody td{padding:8px 10px;border-bottom:.5px solid var(--color-border-tertiary)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--color-background-secondary)}
+td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+.code{font-family:var(--font-mono);font-weight:600;font-size:12.5px;color:var(--accent)}
+.nm{color:var(--color-text-secondary);max-width:340px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.iss{color:var(--color-text-tertiary);font-size:12px;white-space:nowrap}
+.chip{display:inline-block;background:var(--chip-bg);color:var(--chip-t);border-radius:5px;
+  padding:2px 6px;font-size:10.5px;font-weight:500;max-width:230px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
+.na{color:var(--color-text-tertiary)}
+.empty{padding:40px 18px;text-align:center;color:var(--color-text-tertiary);font-size:13px}
+.note{max-width:1280px;margin:20px auto 0;padding:0 18px;font-size:11.5px;
+  color:var(--color-text-tertiary);line-height:1.65}
+.note strong{color:var(--color-text-secondary);font-weight:600}
+.note a{color:var(--accent)}
+@media(max-width:760px){.wrap,.controls,.stats,.count,.note{padding-left:12px;padding-right:12px}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="mast-top">
+    <div>
+      <div class="mast-word">Tokyo <em>ETFs</em></div>
+      <div class="mast-sub" id="sub">Listed on the Tokyo Stock Exchange</div>
+    </div>
+    <div class="mast-right">
+      <a class="tbtn" href="index.html">← US ETFs</a>
+      <a class="tbtn" href="portfolio.html">Portfolio builder</a>
+      <button class="tbtn" id="theme" type="button">Dark</button>
+    </div>
+  </div>
+</header>
+
+<section class="stats" id="stats"></section>
+
+<section class="controls">
+  <div class="search">
+    <input id="q" type="search" placeholder="Search code, fund name or index…" autocomplete="off" spellcheck="false">
+  </div>
+  <select id="f-iss"><option value="">All managers</option></select>
+  <select id="f-idx"><option value="">All indices</option></select>
+  <select id="sort">
+    <option value="code">Sort: Code</option>
+    <option value="fee-a">Sort: Cheapest fee</option>
+    <option value="fee-d">Sort: Priciest fee</option>
+    <option value="new">Sort: Newest listing</option>
+    <option value="old">Sort: Oldest listing</option>
+    <option value="name">Sort: Name A–Z</option>
+  </select>
+  <button class="reset" id="reset" type="button">Reset</button>
+</section>
+
+<div class="count" id="count">Loading…</div>
+
+<div class="wrap">
+  <div class="tbl">
+    <table>
+      <thead>
+        <tr>
+          <th data-sk="code">Code</th>
+          <th data-sk="name">Fund</th>
+          <th data-sk="issuer">Manager</th>
+          <th>Index tracked</th>
+          <th data-sk="listed" class="num">Listed</th>
+          <th class="num">Unit</th>
+          <th data-sk="expense" class="num">Trust fee</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div id="more"></div>
+</div>
+
+<p class="note">
+  <strong>Source.</strong> The Japan Exchange Group's published list of TSE-listed ETF issues,
+  refreshed with the nightly job. Trust fee is the annual management fee stated by JPX,
+  before tax, and is known for every fund here.
+  <br>
+  <strong>What is missing, and why.</strong> There is no price, daily move, one-year return,
+  fund size or holdings on this page. No free source publishes quotes for Tokyo codes — the
+  Nasdaq screener rejects them, and the SEC feeds behind the US page's holdings and expense
+  data cover only funds registered in the United States, which these are not. Those columns are
+  absent rather than estimated.
+  <br>
+  <strong>Why a separate page.</strong> Merged into the US table these funds would be blank
+  under half its columns and would break sorting on price and return. Fee, manager, index and
+  listing date are directly comparable across the two; nothing else is.
+  <br>
+  <strong>Not investment advice.</strong> Nothing here is a recommendation to buy or sell any security.
+</p>
+
+<script>
+(function(){
+  "use strict";
+  var REVALIDATE = { cache: "no-cache" };
+  var $ = function(id){ return document.getElementById(id); };
+  var all = [], view = [], meta = {};
+
+  var root = document.documentElement;
+  try { var t = localStorage.getItem("etf-theme"); if (t) root.setAttribute("data-theme", t); } catch (e) {}
+  function isDark(){
+    var a = root.getAttribute("data-theme");
+    return a ? a === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function paintTheme(){ $("theme").textContent = isDark() ? "Light" : "Dark"; }
+  $("theme").addEventListener("click", function(){
+    var next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("etf-theme", next); } catch (e) {}
+    paintTheme();
+  });
+  paintTheme();
+
+  function esc(s){
+    return String(s).replace(/[&<>"]/g, function(c){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
+    });
+  }
+
+  function apply(){
+    var q = $("q").value.trim().toLowerCase();
+    var iss = $("f-iss").value, idx = $("f-idx").value;
+    view = all.filter(function(f){
+      if (iss && f.issuer !== iss) return false;
+      if (idx && (f.index || "") !== idx) return false;
+      if (q && f.code.indexOf(q) === -1 &&
+               f.name.toLowerCase().indexOf(q) === -1 &&
+               (f.index || "").toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+    sortView();
+    $("count").textContent = view.length.toLocaleString() + " of " +
+      all.length.toLocaleString() + " funds";
+    render();
+  }
+
+  function sortView(){
+    var s = $("sort").value;
+    // Funds with no fee on file sort last either way, so "cheapest" never opens
+    // with a page of unknowns.
+    function byNum(key, dir){
+      return function(a, b){
+        var x = a[key], y = b[key];
+        if (x === null || x === undefined) return 1;
+        if (y === null || y === undefined) return -1;
+        return dir * (y - x);
+      };
+    }
+    function byStr(key, dir){
+      return function(a, b){
+        var x = a[key] || "", y = b[key] || "";
+        if (!x) return 1;
+        if (!y) return -1;
+        return x < y ? -dir : x > y ? dir : 0;
+      };
+    }
+    if (s === "code") view.sort(byStr("code", 1));
+    else if (s === "name") view.sort(function(a,b){ return a.name.localeCompare(b.name); });
+    else if (s === "fee-a") view.sort(byNum("expense", -1));
+    else if (s === "fee-d") view.sort(byNum("expense", 1));
+    else if (s === "new") view.sort(byStr("listed", -1));
+    else if (s === "old") view.sort(byStr("listed", 1));
+  }
+
+  function render(){
+    if (!view.length) {
+      $("rows").innerHTML = "";
+      $("more").innerHTML = '<div class="empty">No fund matches.</div>';
+      return;
+    }
+    $("more").innerHTML = "";
+    $("rows").innerHTML = view.map(function(f){
+      return "<tr>" +
+        '<td><span class="code">' + esc(f.code) + "</span></td>" +
+        '<td class="nm" title="' + esc(f.name) + '">' + esc(f.name) + "</td>" +
+        '<td class="iss">' + esc(f.issuer) + "</td>" +
+        "<td>" + (f.index ? '<span class="chip" title="' + esc(f.index) + '">' +
+          esc(f.index) + "</span>" : '<span class="na">—</span>') + "</td>" +
+        '<td class="num iss">' + (f.listed ? esc(f.listed) : "—") + "</td>" +
+        '<td class="num iss">' + (f.unit ? esc(f.unit) : "—") + "</td>" +
+        '<td class="num">' + (f.expense === null || f.expense === undefined
+          ? '<span class="na">—</span>' : f.expense.toFixed(3) + "%") + "</td>" +
+      "</tr>";
+    }).join("");
+  }
+
+  function fill(el, values){
+    el.innerHTML = el.children[0].outerHTML + values.map(function(v){
+      return '<option value="' + esc(v[0]) + '">' + esc(v[0]) +
+        " (" + v[1] + ")</option>";
+    }).join("");
+  }
+
+  function tally(key){
+    var m = {};
+    all.forEach(function(f){ var k = f[key]; if (k) m[k] = (m[k] || 0) + 1; });
+    return Object.keys(m).sort(function(a, b){ return m[b] - m[a] || (a < b ? -1 : 1); })
+      .map(function(k){ return [k, m[k]]; });
+  }
+
+  ["q","f-iss","f-idx","sort"].forEach(function(id){
+    $(id).addEventListener(id === "q" ? "input" : "change", apply);
+  });
+  $("reset").addEventListener("click", function(){
+    $("q").value = ""; $("f-iss").value = ""; $("f-idx").value = "";
+    $("sort").value = "code"; apply();
+  });
+
+  var SORTABLE = { code:["code","code"], name:["name","name"],
+                   expense:["fee-a","fee-d"], listed:["new","old"] };
+  Array.prototype.forEach.call(document.querySelectorAll("thead th"), function(th){
+    th.addEventListener("click", function(){
+      var pair = SORTABLE[th.getAttribute("data-sk")];
+      if (!pair) return;
+      $("sort").value = ($("sort").value === pair[0]) ? pair[1] : pair[0];
+      apply();
+    });
+  });
+
+  fetch("data/tokyo.json", REVALIDATE).then(function(r){ return r.json(); })
+    .then(function(d){
+      all = d.funds || [];
+      meta = d;
+      $("sub").textContent = "Listed on the Tokyo Stock Exchange · " +
+        all.length.toLocaleString() + " funds";
+      fill($("f-iss"), tally("issuer"));
+      fill($("f-idx"), tally("index"));
+
+      var fees = all.map(function(f){ return f.expense; })
+        .filter(function(v){ return v !== null && v !== undefined; }).sort(function(a,b){ return a-b; });
+      var years = all.map(function(f){ return f.listed; }).filter(Boolean).sort();
+      function stat(v, l){
+        return '<div class="stat"><div class="stat-v">' + v +
+          '</div><div class="stat-l">' + l + "</div></div>";
+      }
+      $("stats").innerHTML =
+        stat(all.length.toLocaleString(), "Listed ETFs") +
+        stat(String(tally("issuer").length), "Managers") +
+        stat(fees.length ? fees[Math.floor(fees.length / 2)].toFixed(3) + "%" : "—", "Median fee") +
+        stat(fees.length ? fees[0].toFixed(3) + "%" : "—", "Cheapest") +
+        stat(years.length ? years[0].slice(0, 4) : "—", "Oldest listing");
+      apply();
+    })
+    .catch(function(err){
+      $("count").textContent = "";
+      $("more").innerHTML = '<div class="empty">Could not load Tokyo fund data. ' +
+        esc(err && err.message ? err.message : "Unknown error") + "</div>";
+    });
+})();
+</script>
+</body>
+</html>

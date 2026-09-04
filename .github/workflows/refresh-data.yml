@@ -48,6 +48,11 @@ jobs:
       - name: Tag newly listed funds
         run: python scripts/track_new.py
 
+      # JPX's issue list changes only when a fund lists or delists, but it is
+      # one cheap page fetch, so it rides along with the nightly run.
+      - name: Refresh Tokyo-listed ETFs
+        run: python scripts/fetch_tokyo.py
+
       - name: Validate output
         run: |
           python - <<'EOF'

@@ -117,6 +117,24 @@ all year with no rebalancing, which is a hypothetical, not history.
 It recommends nothing. It applies your weights and reports the arithmetic.
 The portfolio is saved in `localStorage` on your device.
 
+### Tokyo-listed ETFs
+
+`tokyo.html` lists the 274 ETFs on the Tokyo Stock Exchange, from JPX's own
+published issue table: code, fund name, management company, index tracked,
+listing date, trading unit and trust fee. **Fee coverage is complete** — 274 of
+274, against 80% on the US side — with a median of 0.220%.
+
+There is no price, daily move, one-year return, fund size or holdings, and that
+is not an oversight. No free source publishes quotes for Tokyo codes: the Nasdaq
+screener rejects them, Yahoo rate-limits on sight, Stooq carries no JP symbols,
+and JPX publishes no free quote file. The SEC feeds behind the US page's
+holdings and expense data cover only US-registered funds, which these are not.
+
+It is a separate page for the same reason. Merged into the US table these funds
+would be blank under half its columns and would break sorting on price and
+return. Fee, manager, index and listing date are directly comparable across the
+two; nothing else is.
+
 ### Newly listed funds
 
 The nightly run refetches the whole universe, so new listings appear on their
@@ -206,6 +224,7 @@ Prices are end-of-day and unadjusted. Nothing here is investment advice.
 ```
 index.html                     the dashboard — one self-contained file
 portfolio.html                 portfolio builder / weight modelling
+tokyo.html                     Tokyo Stock Exchange ETF list
 data/etfs.json                 one record per fund (generated)
 data/meta.json                 counts, breakdowns, timestamps (generated)
 data/inception.json            permanent ticker -> first-trading-day cache
@@ -213,11 +232,13 @@ data/holdings.json             top 10 positions per fund (generated)
 data/expenses.json             cumulative ticker -> expense ratio cache
 data/positions/<TICKER>.json   largest 500 positions, fetched on demand
 data/first_seen.json           ticker -> date first seen in the universe
+data/tokyo.json                Tokyo-listed ETFs (generated)
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
 scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
 scripts/fetch_expenses.py      accumulate expense ratios across RR quarters
 scripts/track_new.py           first-seen dates, tags newly listed funds
+scripts/fetch_tokyo.py         parse JPX's listed ETF issue table
 scripts/test_derive.py         regression tests for the derived fields
 scripts/serve.py               local static server for previewing
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
