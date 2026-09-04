@@ -59,6 +59,20 @@ MIN_PCT = 0.01
 ROLLUP_KEEP = 8          # entries per dimension before the tail becomes "Other"
 ROLLUP_MIN_PCT = 0.5
 
+# Full position lists are written one file per fund, fetched on demand by the
+# portfolio page rather than shipped in the main payload. Capped because the
+# uncapped set is ~200 MB of JSON across the universe, which would bloat the
+# repo on every quarterly rebuild. Bond funds are the ones that hit the cap
+# (BND holds 17,368 lines); their shape is already described by the rollups,
+# which cover every position regardless.
+POSITIONS_DIR = DATA / "positions"
+# The LARGEST positions, kept with a bounded heap. Appending the first N rows
+# encountered and sorting those was wrong: a bond fund's file order has nothing
+# to do with position size, so BND's "largest holdings" were an arbitrary slice.
+# A flat minimum threshold is also wrong here -- every line in a 17,000-position
+# bond fund is under 0.01%, which would have left almost nothing.
+POSITIONS_CAP = 500
+
 # N-PORT ships these as codes.
 ASSET_LABEL = {
     "EC": "Equity (common)", "EP": "Equity (preferred)", "DBT": "Debt",
@@ -170,7 +184,28 @@ def condense(d, labels=None):
     return out
 
 
-def build(zip_path, quarter):
+def write_positions(symbols, entries, total):
+    """One file per ticker, so the portfolio page can fetch only what it needs."""
+    POSITIONS_DIR.mkdir(exist_ok=True)
+    shown = sorted(entries, key=lambda e: -e[0])
+    payload = {
+        # Stated rather than implied: a truncated list presented as complete is
+        # worse than one that says what it left out.
+        "total": total,
+        "shown": len(shown),
+        # 4dp is finer than anything the page shows; the raw floats carry
+        # twelve and cost a third of the file size across the universe.
+        "positions": [
+            {"name": n, "pct": round(p, 4), "country": c or None, "asset": a or None}
+            for p, n, c, a in shown],
+    }
+    body = json.dumps(payload, separators=(",", ":")) + "\n"
+    for sym in symbols:
+        (POSITIONS_DIR / f"{sym}.json").write_text(body)
+    return len(body) * len(symbols)
+
+
+def build(zip_path, quarter, want_positions=True):
     etfs = json.loads((DATA / "etfs.json").read_text())
     wanted = {e["symbol"] for e in etfs}
     by_series = series_to_tickers(wanted)
@@ -209,6 +244,8 @@ def build(zip_path, quarter):
     heaps = {acc: [] for acc in keep}
     roll = {acc: {"country": {}, "asset": {}, "issuer": {}, "n": 0, "pct": 0.0}
             for acc in keep}
+    full = {acc: [] for acc in keep} if want_positions else {}
+    counted = {}
     scanned = 0
     for r in rows(zf, "FUND_REPORTED_HOLDING.tsv"):
         scanned += 1
@@ -231,9 +268,19 @@ def build(zip_path, quarter):
             key = (r.get(col) or "").strip() or "Unknown"
             agg[dim][key] = agg[dim].get(key, 0.0) + pct
 
+        name = (r.get("ISSUER_NAME") or "").strip()
+        if want_positions and name:
+            bucket = full[acc]
+            counted[acc] = counted.get(acc, 0) + 1
+            entry = (pct, name, (r.get("INVESTMENT_COUNTRY") or "").strip(),
+                     (r.get("ASSET_CAT") or "").strip())
+            if len(bucket) < POSITIONS_CAP:
+                heapq.heappush(bucket, entry)
+            elif pct > bucket[0][0]:
+                heapq.heapreplace(bucket, entry)
+
         if pct < MIN_PCT:
             continue
-        name = (r.get("ISSUER_NAME") or "").strip()
         if not name:
             continue
         entry = (pct, name, (r.get("ASSET_CAT") or "").strip())
@@ -245,6 +292,7 @@ def build(zip_path, quarter):
             print(f"  {scanned:,} rows", flush=True)
     print(f"  {scanned:,} rows scanned", flush=True)
 
+    written = 0
     out = {}
     for sid, (acc, d, net) in best.items():
         top = sorted(heaps.get(acc, []), key=lambda e: -e[0])
@@ -262,6 +310,9 @@ def build(zip_path, quarter):
         }
         for symbol in by_series[sid]:
             out[symbol] = record
+        if want_positions and full.get(acc):
+            written += write_positions(by_series[sid], full[acc],
+                                       counted.get(acc, len(full[acc])))
 
     (DATA / "holdings.json").write_text(
         json.dumps(dict(sorted(out.items())), separators=(",", ":")) + "\n")
@@ -273,6 +324,9 @@ def build(zip_path, quarter):
     meta["holdingsAsOf"] = dates[-1] if dates else None
     (DATA / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
+    if want_positions:
+        print(f"positions/ — {written / 1024 / 1024:.0f} MB across "
+              f"{len(list(POSITIONS_DIR.glob('*.json')))} files")
     print(f"\ntop-{TOP_N} holdings for {len(out)}/{len(wanted)} funds")
     if dates:
         print(f"report dates {dates[0]} … {dates[-1]}")
@@ -285,6 +339,9 @@ def main():
     ap.add_argument("--quarter", help="e.g. 2026q2 (default: latest available)")
     ap.add_argument("--force", action="store_true",
                     help="rebuild even if this quarter is already processed")
+    ap.add_argument("--no-positions", action="store_true",
+                    help="skip the per-fund full position files")
+    ap.add_argument("--keep-zip", help="save the downloaded ZIP here for reuse")
     args = ap.parse_args()
 
     if not (DATA / "etfs.json").exists():
@@ -306,12 +363,18 @@ def main():
             return 0
 
     if args.zip:
-        return build(pathlib.Path(args.zip), quarter)
+        return build(pathlib.Path(args.zip), quarter, not args.no_positions)
+
+    if args.keep_zip:
+        path = pathlib.Path(args.keep_zip)
+        if not path.exists():
+            download(quarter, path)
+        return build(path, quarter, not args.no_positions)
 
     with tempfile.TemporaryDirectory() as tmp:
         path = pathlib.Path(tmp) / f"{quarter}.zip"
         download(quarter, path)
-        return build(path, quarter)
+        return build(path, quarter, not args.no_positions)
 
 
 if __name__ == "__main__":

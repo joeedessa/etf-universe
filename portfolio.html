@@ -261,6 +261,17 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
       <div id="lookthrough"></div>
     </div>
   </div>
+
+  <div class="sec">
+    <div class="panel">
+      <div class="schemes" style="margin:0 0 4px">
+        <span class="sec-h" style="margin:0">Full holdings</span>
+        <button class="sbtn" id="pull-full" type="button">Pull full holdings</button>
+        <span id="pullmsg" style="font-size:11.5px;color:var(--color-text-tertiary)"></span>
+      </div>
+      <div id="fullholdings"></div>
+    </div>
+  </div>
 </div>
 
 <p class="note">
@@ -445,6 +456,7 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
     openName = name;
     $("pval").value = commas(Math.round(value).toString());
     paintSaved();
+    resetFull();     // a saved portfolio opens without holdings, by design
     render();
     flash('Opened “' + name + '”' +
       (dropped ? " — " + dropped + " fund" + (dropped > 1 ? "s are" : " is") +
@@ -597,6 +609,7 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
     rows = [];
     openName = "";
     setScheme("equal");
+    resetFull();
     render();
   });
 
@@ -862,6 +875,77 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
       return '<div class="brk"><span class="brk-n">' + esc(labels[k]) +
         '</span><span class="brk-p">' + agg[k].toFixed(2) + "%</span></div>";
     }).join("");
+  }
+
+  /* ---------- full holdings, on demand ---------- */
+  // Deliberately NOT loaded with the page, and not stored with a saved
+  // portfolio: this is up to 500 positions per fund across a dozen files, and
+  // it is only worth fetching at the moment someone asks for it.
+  var fullCache = {};
+
+  function fullHoldingsFor(syms){
+    return Promise.all(syms.map(function(sym){
+      if (fullCache[sym]) return Promise.resolve(fullCache[sym]);
+      return fetch("data/positions/" + encodeURIComponent(sym) + ".json", REVALIDATE)
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .catch(function(){ return null; })
+        .then(function(j){ fullCache[sym] = j; return j; });
+    }));
+  }
+
+  $("pull-full").addEventListener("click", function(){
+    var syms = rows.filter(function(r){ return r.weight > 0; })
+                   .map(function(r){ return r.sym; });
+    if (!syms.length) { $("pullmsg").textContent = "Add a fund first."; return; }
+    $("pull-full").disabled = true;
+    $("pullmsg").textContent = "Fetching " + syms.length + " fund" +
+      (syms.length > 1 ? "s" : "") + "…";
+    fullHoldingsFor(syms).then(function(res){
+      $("pull-full").disabled = false;
+      renderFull(syms, res);
+    });
+  });
+
+  function resetFull(){
+    $("fullholdings").innerHTML = "";
+    $("pullmsg").textContent = "";
+  }
+
+  function renderFull(syms, res){
+    var agg = {}, labels = {}, covered = 0, missing = [], truncated = [];
+    syms.forEach(function(sym, i){
+      var data = res[i];
+      var w = 0;
+      rows.forEach(function(r){ if (r.sym === sym) w = r.weight / 100; });
+      if (!data || !data.positions) { missing.push(sym); return; }
+      if (data.shown < data.total) truncated.push(sym + " (" + data.shown + "/" + data.total + ")");
+      data.positions.forEach(function(x){
+        var k = normName(x.name);
+        if (!k) return;
+        if (!labels[k]) labels[k] = x.name;
+        agg[k] = (agg[k] || 0) + w * x.pct;
+        covered += w * x.pct;
+      });
+    });
+    var keys = Object.keys(agg).sort(function(a, b){ return agg[b] - agg[a]; });
+    if (!keys.length) {
+      $("pullmsg").textContent = "";
+      $("fullholdings").innerHTML = '<div class="empty" style="padding:18px">' +
+        "No full holdings on file for these funds.</div>";
+      return;
+    }
+    $("pullmsg").textContent = keys.length.toLocaleString() + " distinct holdings";
+    var note = '<div class="tile-n" style="margin:0 0 10px">Explains ' +
+      covered.toFixed(1) + "% of the portfolio across " +
+      keys.length.toLocaleString() + " distinct holdings" +
+      (truncated.length ? ". Largest 500 only for " + truncated.join(", ") : "") +
+      (missing.length ? ". No file for " + missing.map(esc).join(", ") : "") + ".</div>";
+    $("fullholdings").innerHTML = note + keys.slice(0, 60).map(function(k){
+      return '<div class="brk"><span class="brk-n">' + esc(labels[k]) +
+        '</span><span class="brk-p">' + agg[k].toFixed(3) + "%</span></div>";
+    }).join("") + (keys.length > 60
+      ? '<div class="tile-n" style="margin-top:8px">Showing the largest 60 of ' +
+        keys.length.toLocaleString() + ".</div>" : "");
   }
 
   /* ---------- weight + remove ---------- */

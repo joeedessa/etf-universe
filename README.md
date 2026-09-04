@@ -95,6 +95,18 @@ Treasury. That is real look-through, not a top-10 approximation.
 
 The top-10 list is still there underneath, for "what does it actually own".
 
+**Full holdings are pulled on demand.** The *Pull full holdings* button fetches
+`data/positions/<TICKER>.json` for the funds currently in the sheet — nothing is
+loaded with the page, and a saved portfolio stores no holdings, so reopening one
+and pulling again is a deliberate act. For a VOO/VXUS/BND blend that takes
+coverage from 26% (top-10 only) to **75%**, across 1,002 distinct holdings.
+
+Each file holds the fund's **largest 500** positions and states what it left
+out. The cap matters for bond funds: `BND` reports 17,368 lines, almost all
+under 0.01% of the fund. An earlier version kept the first 500 rows *encountered*
+rather than the largest, which for a bond fund is an arbitrary slice — file
+order has nothing to do with position size.
+
 Three things it deliberately does not do: renormalise weights behind your back
 (a total that is not 100% is flagged and every figure is scaled to what you
 actually entered), count a fund with no published fee as free (averages are
@@ -199,10 +211,13 @@ data/meta.json                 counts, breakdowns, timestamps (generated)
 data/inception.json            permanent ticker -> first-trading-day cache
 data/holdings.json             top 10 positions per fund (generated)
 data/expenses.json             cumulative ticker -> expense ratio cache
+data/positions/<TICKER>.json   largest 500 positions, fetched on demand
+data/first_seen.json           ticker -> date first seen in the universe
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
 scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
 scripts/fetch_expenses.py      accumulate expense ratios across RR quarters
+scripts/track_new.py           first-seen dates, tags newly listed funds
 scripts/test_derive.py         regression tests for the derived fields
 scripts/serve.py               local static server for previewing
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
