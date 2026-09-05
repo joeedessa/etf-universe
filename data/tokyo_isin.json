@@ -1,0 +1,1490 @@
+{
+"1305": {
+"isin": "JP3027620008",
+"associFundCd": "04315017",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ（年１回決算型）"
+},
+"1306": {
+"isin": "JP3027630007",
+"associFundCd": "01312017",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ連動型上場投信"
+},
+"1308": {
+"isin": "JP3039100007",
+"associFundCd": "0231701C",
+"how": "exact",
+"libraryName": "上場インデックスファンドＴＯＰＩＸ"
+},
+"1309": {
+"isin": "JP3046510008",
+"associFundCd": "0131207A",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＣｈｉｎａＡＭＣ・中国株式・上証５０連動型上場投信"
+},
+"1311": {
+"isin": "JP3040140000",
+"associFundCd": "01312024",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ　Ｃｏｒｅ３０連動型上場投信"
+},
+"1319": {
+"isin": "JP3013190008",
+"associFundCd": "01314954",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ日経３００株価指数連動型上場投信"
+},
+"1320": {
+"isin": "JP3027640006",
+"associFundCd": "04314017",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ日経２２５（年１回決算型）"
+},
+"1321": {
+"isin": "JP3027650005",
+"associFundCd": "01311017",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ日経２２５連動型上場投信"
+},
+"1322": {
+"isin": "JP3046760009",
+"associFundCd": "02315084",
+"how": "exact",
+"libraryName": "上場インデックスファンド中国Ａ株（パンダ）Ｅ　Ｆｕｎｄ　ＣＳＩ３００"
+},
+"1325": {
+"isin": "JP3046800003",
+"associFundCd": "01311087",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳブラジル株式指数・ボベスパ連動型上場投信"
+},
+"1328": {
+"isin": "JP3046490003",
+"associFundCd": "01311078",
+"how": "substring",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ金価格連動型上場投信"
+},
+"1329": {
+"isin": "JP3027710007",
+"associFundCd": "48311019",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コア日経２２５ＥＴＦ"
+},
+"1330": {
+"isin": "JP3027660004",
+"associFundCd": "02313017",
+"how": "exact",
+"libraryName": "上場インデックスファンド２２５"
+},
+"1343": {
+"isin": "JP3047010008",
+"associFundCd": "01314089",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ東証ＲＥＩＴ指数連動型上場投信"
+},
+"1345": {
+"isin": "JP3047030006",
+"associFundCd": "0231208A",
+"how": "exact",
+"libraryName": "上場インデックスファンドＪリート（東証ＲＥＩＴ指数）隔月分配型"
+},
+"1346": {
+"isin": "JP3047040005",
+"associFundCd": "03312092",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ日経２２５上場投信"
+},
+"1348": {
+"isin": "JP3047060003",
+"associFundCd": "03311095",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳトピックス上場投信"
+},
+"1364": {
+"isin": "JP3047840008",
+"associFundCd": "4831114C",
+"how": "exact",
+"libraryName": "ｉシェアーズＪＰＸ日経４００ＥＴＦ"
+},
+"1369": {
+"isin": "JP3047890003",
+"associFundCd": "47311151",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ日経２２５"
+},
+"1397": {
+"isin": "JP3047920008",
+"associFundCd": "79311153",
+"how": "exact",
+"libraryName": "ＳＭＤＡＭ日経２２５上場投信"
+},
+"1398": {
+"isin": "JP3047930007",
+"associFundCd": "79312153",
+"how": "exact",
+"libraryName": "ＳＭＤＡＭ東証ＲＥＩＴ指数上場投信"
+},
+"1399": {
+"isin": "JP3048170009",
+"associFundCd": "0231415B",
+"how": "exact",
+"libraryName": "上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ"
+},
+"1473": {
+"isin": "JP3048090009",
+"associFundCd": "47311159",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦトピックス"
+},
+"1474": {
+"isin": "JP3048100006",
+"associFundCd": "47312159",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ　ＪＰＸ日経４００"
+},
+"1475": {
+"isin": "JP3048120004",
+"associFundCd": "4831115A",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コアＴＯＰＩＸ　ＥＴＦ"
+},
+"1476": {
+"isin": "JP3048130003",
+"associFundCd": "4831215A",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コアＪリートＥＴＦ"
+},
+"1477": {
+"isin": "JP3048140002",
+"associFundCd": "4831315A",
+"how": "exact",
+"libraryName": "ｉシェアーズＭＳＣＩ日本株最小分散ＥＴＦ"
+},
+"1478": {
+"isin": "JP3048150001",
+"associFundCd": "4831415A",
+"how": "exact",
+"libraryName": "ｉシェアーズＭＳＣＩジャパン高配当利回りＥＴＦ"
+},
+"1479": {
+"isin": "JP3048220002",
+"associFundCd": "04317165",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株人材設備投資指数"
+},
+"1480": {
+"isin": "JP3048230001",
+"associFundCd": "01312165",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ野村企業価値分配指数連動型上場投信"
+},
+"1481": {
+"isin": "JP3048240000",
+"associFundCd": "02312165",
+"how": "exact",
+"libraryName": "上場インデックスファンド日本経済貢献株"
+},
+"1482": {
+"isin": "JP3048250009",
+"associFundCd": "48313165",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コア米国債７－１０年ＥＴＦ（為替ヘッジあり）"
+},
+"1483": {
+"isin": "JP3048260008",
+"associFundCd": "48311166",
+"how": "exact",
+"libraryName": "ｉシェアーズＪＰＸ／Ｓ＆Ｐ設備・人材投資ＥＴＦ"
+},
+"1484": {
+"isin": "JP3048270007",
+"associFundCd": "47311166",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ　ＪＰＸ／Ｓ＆Ｐ設備・人材投資指数"
+},
+"1485": {
+"isin": "JP3048280006",
+"associFundCd": "03312166",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　ＪＡＰＡＮ設備・人材積極投資企業２００上場投信"
+},
+"1486": {
+"isin": "JP3048330009",
+"associFundCd": "02318168",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国債券（為替ヘッジなし）"
+},
+"1487": {
+"isin": "JP3048340008",
+"associFundCd": "02319168",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国債券（為替ヘッジあり）"
+},
+"1488": {
+"isin": "JP3048350007",
+"associFundCd": "0431316A",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ東証ＲＥＩＴ指数"
+},
+"1489": {
+"isin": "JP3048390003",
+"associFundCd": "01314172",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ日経平均高配当株５０指数連動型上場投信"
+},
+"1490": {
+"isin": "JP3048400000",
+"associFundCd": "02315173",
+"how": "exact",
+"libraryName": "上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ（βヘッジ）"
+},
+"1493": {
+"isin": "JP3048430007",
+"associFundCd": "47312175",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ　ＪＰＸ日経中小型"
+},
+"1494": {
+"isin": "JP3048440006",
+"associFundCd": "47313175",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ高配当日本株"
+},
+"1495": {
+"isin": "JP3048450005",
+"associFundCd": "02314176",
+"how": "exact",
+"libraryName": "上場インデックスファンドアジアリート"
+},
+"1496": {
+"isin": "JP3048460004",
+"associFundCd": "48312178",
+"how": "exact",
+"libraryName": "ｉシェアーズ米ドル建て投資適格社債ＥＴＦ（為替ヘッジあり）"
+},
+"1497": {
+"isin": "JP3048470003",
+"associFundCd": "48313178",
+"how": "exact",
+"libraryName": "ｉシェアーズ米ドル建てハイイールド社債ＥＴＦ（為替ヘッジあり）"
+},
+"1498": {
+"isin": "JP3048600005",
+"associFundCd": "4731917B",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ　ＥＳＧ"
+},
+"1499": {
+"isin": "JP3048670008",
+"associFundCd": "0331717C",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ日本株高配当７０マーケットニュートラル上場投信"
+},
+"1545": {
+"isin": "JP3047240001",
+"associFundCd": "01313108",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＮＡＳＤＡＱ－１００（為替ヘッジなし）連動型上場投信"
+},
+"1546": {
+"isin": "JP3047250000",
+"associFundCd": "01314108",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳダウ・ジョーンズ工業株３０種平均株価（為替ヘッジなし）連動型上場投信"
+},
+"1547": {
+"isin": "JP3047260009",
+"associFundCd": "0231110A",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国株式（Ｓ＆Ｐ５００）"
+},
+"1550": {
+"isin": "JP3047290006",
+"associFundCd": "0331610B",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ海外株式（ＭＳＣＩコクサイ）上場投信"
+},
+"1551": {
+"isin": "JP3047300003",
+"associFundCd": "9D31110C",
+"how": "exact",
+"libraryName": "東証スタンダードＴＯＰ２０ＥＴＦ"
+},
+"1554": {
+"isin": "JP3047330000",
+"associFundCd": "02312113",
+"how": "exact",
+"libraryName": "上場インデックスファンド世界株式（ＭＳＣＩ　ＡＣＷＩ）除く日本"
+},
+"1555": {
+"isin": "JP3047340009",
+"associFundCd": "02313113",
+"how": "exact",
+"libraryName": "上場インデックスファンド豪州リート（Ｓ＆Ｐ／ＡＳＸ２００　Ａ－ＲＥＩＴ）"
+},
+"1559": {
+"isin": "JP3047360007",
+"associFundCd": "01312115",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳタイ株式ＳＥＴ５０指数連動型上場投信"
+},
+"1560": {
+"isin": "JP3047370006",
+"associFundCd": "01313115",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＦＴＳＥブルサ・マレーシアＫＬＣＩ連動型上場投信"
+},
+"1563": {
+"isin": "JP3047400001",
+"associFundCd": "9D31111B",
+"how": "exact",
+"libraryName": "東証グロース・コアＥＴＦ"
+},
+"1566": {
+"isin": "JP3047420009",
+"associFundCd": "02311121",
+"how": "exact",
+"libraryName": "上場インデックスファンド新興国債券"
+},
+"1577": {
+"isin": "JP3047560002",
+"associFundCd": "01313133",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ野村日本株高配当７０連動型上場投信"
+},
+"1578": {
+"isin": "JP3047570001",
+"associFundCd": "02315133",
+"how": "exact",
+"libraryName": "上場インデックスファンド日経２２５（ミニ）"
+},
+"1585": {
+"isin": "JP3047620004",
+"associFundCd": "0431G139",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ　Ｅｘ－Ｆｉｎａｎｃｉａｌｓ"
+},
+"1586": {
+"isin": "JP3047630003",
+"associFundCd": "02315139",
+"how": "exact",
+"libraryName": "上場インデックスファンドＴＯＰＩＸ　Ｅｘ－Ｆｉｎａｎｃｉａｌｓ"
+},
+"1591": {
+"isin": "JP3047670009",
+"associFundCd": "01319141",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経インデックス４００連動型上場投信"
+},
+"1592": {
+"isin": "JP3047680008",
+"associFundCd": "02312141",
+"how": "exact",
+"libraryName": "上場インデックスファンドＪＰＸ日経インデックス４００"
+},
+"1593": {
+"isin": "JP3047690007",
+"associFundCd": "03312142",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　ＪＰＸ日経インデックス４００上場投信"
+},
+"1595": {
+"isin": "JP3047700004",
+"associFundCd": "25311143",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信東証ＲＥＩＴ指数"
+},
+"1596": {
+"isin": "JP3047710003",
+"associFundCd": "25312143",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ＴＯＰＩＸ　Ｅｘ－Ｆｉｎａｎｃｉａｌｓ"
+},
+"1597": {
+"isin": "JP3047720002",
+"associFundCd": "03313142",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　Ｊリート上場投信"
+},
+"1599": {
+"isin": "JP3047740000",
+"associFundCd": "04315143",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００"
+},
+"1615": {
+"isin": "JP3040170007",
+"associFundCd": "01315024",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ東証銀行業株価指数連動型上場投信"
+},
+"1617": {
+"isin": "JP3046560003",
+"associFundCd": "01315083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ食品（ＴＯＰＩＸ－１７）上場投信"
+},
+"1618": {
+"isin": "JP3046570002",
+"associFundCd": "01316083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳエネルギー資源（ＴＯＰＩＸ－１７）上場投信"
+},
+"1619": {
+"isin": "JP3046580001",
+"associFundCd": "01317083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ建設・資材（ＴＯＰＩＸ－１７）上場投信"
+},
+"1620": {
+"isin": "JP3046590000",
+"associFundCd": "01318083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ素材・化学（ＴＯＰＩＸ－１７）上場投信"
+},
+"1621": {
+"isin": "JP3046600007",
+"associFundCd": "01319083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ医薬品（ＴＯＰＩＸ－１７）上場投信"
+},
+"1622": {
+"isin": "JP3046610006",
+"associFundCd": "0131A083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ自動車・輸送機（ＴＯＰＩＸ－１７）上場投信"
+},
+"1623": {
+"isin": "JP3046620005",
+"associFundCd": "0131B083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ鉄鋼・非鉄（ＴＯＰＩＸ－１７）上場投信"
+},
+"1624": {
+"isin": "JP3046630004",
+"associFundCd": "0131C083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ機械（ＴＯＰＩＸ－１７）上場投信"
+},
+"1625": {
+"isin": "JP3046640003",
+"associFundCd": "0131D083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ電機・精密（ＴＯＰＩＸ－１７）上場投信"
+},
+"1626": {
+"isin": "JP3046650002",
+"associFundCd": "0131E083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ情報通信・サービスその他（ＴＯＰＩＸ－１７）上場投信"
+},
+"1627": {
+"isin": "JP3046660001",
+"associFundCd": "0131F083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ電力・ガス（ＴＯＰＩＸ－１７）上場投信"
+},
+"1628": {
+"isin": "JP3046670000",
+"associFundCd": "0131G083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ運輸・物流（ＴＯＰＩＸ－１７）上場投信"
+},
+"1629": {
+"isin": "JP3046680009",
+"associFundCd": "0131H083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ商社・卸売（ＴＯＰＩＸ－１７）上場投信"
+},
+"1630": {
+"isin": "JP3046690008",
+"associFundCd": "0131I083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ小売（ＴＯＰＩＸ－１７）上場投信"
+},
+"1631": {
+"isin": "JP3046700005",
+"associFundCd": "0131J083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ銀行（ＴＯＰＩＸ－１７）上場投信"
+},
+"1632": {
+"isin": "JP3046710004",
+"associFundCd": "0131K083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ金融（除く銀行）（ＴＯＰＩＸ－１７）上場投信"
+},
+"1633": {
+"isin": "JP3046720003",
+"associFundCd": "0131L083",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ不動産（ＴＯＰＩＸ－１７）上場投信"
+},
+"1651": {
+"isin": "JP3048490001",
+"associFundCd": "04316179",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ高配当４０指数"
+},
+"1652": {
+"isin": "JP3048500007",
+"associFundCd": "04319179",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株女性活躍指数（ＷＩＮ）"
+},
+"1653": {
+"isin": "JP3048510006",
+"associFundCd": "04318179",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＭＳＣＩジャパンＥＳＧセレクト・リーダーズ指数"
+},
+"1654": {
+"isin": "JP3048520005",
+"associFundCd": "04317179",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＦＴＳＥ　ＪＰＸ　Ｂｌｏｓｓｏｍ　Ｊａｐａｎ　Ｉｎｄｅｘ"
+},
+"1655": {
+"isin": "JP3048530004",
+"associFundCd": "48312179",
+"how": "exact",
+"libraryName": "ｉシェアーズＳ＆Ｐ５００米国株ＥＴＦ"
+},
+"1656": {
+"isin": "JP3048540003",
+"associFundCd": "48311179",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コア米国債７－１０年ＥＴＦ"
+},
+"1657": {
+"isin": "JP3048550002",
+"associFundCd": "48313179",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コアＭＳＣＩ先進国株（除く日本）ＥＴＦ"
+},
+"1658": {
+"isin": "JP3048560001",
+"associFundCd": "48314179",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コアＭＳＣＩ新興国株ＥＴＦ"
+},
+"1659": {
+"isin": "JP3048570000",
+"associFundCd": "48315179",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国リートＥＴＦ"
+},
+"1660": {
+"isin": "JP3048580009",
+"associFundCd": "0331817A",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ高利回りＪリート上場投信"
+},
+"1671": {
+"isin": "JP3047080001",
+"associFundCd": "9D311097",
+"how": "substring",
+"libraryName": "ＷＴＩ原油価格連動型上場投信"
+},
+"1677": {
+"isin": "JP3047090000",
+"associFundCd": "02311099",
+"how": "exact",
+"libraryName": "上場インデックスファンド海外債券（ＦＴＳＥ　ＷＧＢＩ）毎月分配型"
+},
+"1678": {
+"isin": "JP3047100007",
+"associFundCd": "0131209B",
+"how": "substring",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳインド株式指数・Ｎｉｆｔｙ５０連動型上場投信"
+},
+"1679": {
+"isin": "JP3047110006",
+"associFundCd": "9D31109C",
+"how": "exact",
+"libraryName": "Ｓｉｍｐｌｅ－Ｘ　ＮＹダウ・ジョーンズ・インデックス上場投信"
+},
+"1680": {
+"isin": "JP3047120005",
+"associFundCd": "02311101",
+"how": "exact",
+"libraryName": "上場インデックスファンド海外先進国株式（ＭＳＣＩ－ＫＯＫＵＳＡＩ）"
+},
+"1681": {
+"isin": "JP3047130004",
+"associFundCd": "02312101",
+"how": "exact",
+"libraryName": "上場インデックスファンド海外新興国株式（ＭＳＣＩエマージング）"
+},
+"1698": {
+"isin": "JP3047170000",
+"associFundCd": "02311105",
+"how": "exact",
+"libraryName": "上場インデックスファンド日本高配当（東証配当フォーカス１００）"
+},
+"1699": {
+"isin": "JP3047180009",
+"associFundCd": "01311105",
+"how": "substring",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＮＯＭＵＲＡ原油インデックス連動型上場投信"
+},
+"2011": {
+"isin": "JP3050220007",
+"associFundCd": "7931123B",
+"how": "substring",
+"libraryName": "ＳＭＤＡＭ　Ａｃｔｉｖｅ　ＥＴＦ日本高配当株式"
+},
+"2012": {
+"isin": "JP3050230006",
+"associFundCd": "48311241",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国債０－３ヶ月ＥＴＦ"
+},
+"2013": {
+"isin": "JP3050240005",
+"associFundCd": "48312241",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国高配当株ＥＴＦ"
+},
+"2014": {
+"isin": "JP3050250004",
+"associFundCd": "48313241",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国連続増配株ＥＴＦ"
+},
+"2015": {
+"isin": "JP3050260003",
+"associFundCd": "04312241",
+"how": "substring",
+"libraryName": "ｉＦｒｅｅＥＴＦ米国国債７－１０年（為替ヘッジなし）"
+},
+"2016": {
+"isin": "JP3050270002",
+"associFundCd": "04313241",
+"how": "substring",
+"libraryName": "ｉＦｒｅｅＥＴＦ米国国債７－１０年（為替ヘッジあり）"
+},
+"2017": {
+"isin": "JP3050280001",
+"associFundCd": "04314241",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＪＰＸプライム１５０"
+},
+"2018": {
+"isin": "JP3050290000",
+"associFundCd": "B5311241",
+"how": "exact",
+"libraryName": "グローバルＸ　ＵＳ　ＲＥＩＴ・トップ２０ＥＴＦ"
+},
+"2019": {
+"isin": "JP3050300007",
+"associFundCd": "B5312241",
+"how": "exact",
+"libraryName": "グローバルＸ米国優先証券ＥＴＦ（隔月分配型）"
+},
+"2080": {
+"isin": "JP3049980000",
+"associFundCd": "9D311239",
+"how": "substring",
+"libraryName": "ＰＢＲ１倍割れ解消推進ＥＴＦ"
+},
+"2081": {
+"isin": "JP3049990009",
+"associFundCd": "9D312239",
+"how": "substring",
+"libraryName": "政策保有解消推進ＥＴＦ"
+},
+"2082": {
+"isin": "JP3050000003",
+"associFundCd": "9D313239",
+"how": "substring",
+"libraryName": "投資家経営者一心同体ＥＴＦ"
+},
+"2083": {
+"isin": "JP3050010002",
+"associFundCd": "01312239",
+"how": "substring",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ日本成長株アクティブ上場投信"
+},
+"2084": {
+"isin": "JP3050020001",
+"associFundCd": "01311239",
+"how": "substring",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ日本高配当株アクティブ上場投信"
+},
+"2085": {
+"isin": "JP3050030000",
+"associFundCd": "03312239",
+"how": "substring",
+"libraryName": "ＭＡＸＩＳ高配当日本株アクティブ上場投信"
+},
+"2086": {
+"isin": "JP3050040009",
+"associFundCd": "25314239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信Ｓ＆Ｐ５００（為替ヘッジあり）"
+},
+"2087": {
+"isin": "JP3050050008",
+"associFundCd": "25315239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ＮＡＳＤＡＱ１００（為替ヘッジあり）"
+},
+"2088": {
+"isin": "JP3050060007",
+"associFundCd": "25316239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ＮＹダウ３０（為替ヘッジあり）"
+},
+"2089": {
+"isin": "JP3050070006",
+"associFundCd": "25317239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ＤＡＸ（為替ヘッジあり）"
+},
+"2090": {
+"isin": "JP3050080005",
+"associFundCd": "25311239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信米国国債７－１０年（為替ヘッジあり）"
+},
+"2091": {
+"isin": "JP3050090004",
+"associFundCd": "25312239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ドイツ国債７－１０年（為替ヘッジあり）"
+},
+"2092": {
+"isin": "JP3050100001",
+"associFundCd": "25313239",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信フランス国債７－１０年（為替ヘッジあり）"
+},
+"2093": {
+"isin": "JP3050110000",
+"associFundCd": "0231123A",
+"how": "substring",
+"libraryName": "上場Ｔｒａｃｅｒｓ米国債０－２年ラダー（為替ヘッジなし）"
+},
+"2095": {
+"isin": "JP3050130008",
+"associFundCd": "B531123A",
+"how": "exact",
+"libraryName": "グローバルＸ　Ｓ＆Ｐ５００配当貴族ＥＴＦ（為替ヘッジあり）"
+},
+"2096": {
+"isin": "JP3050140007",
+"associFundCd": "B531223A",
+"how": "exact",
+"libraryName": "グローバルＸオフィス・Ｊ－ＲＥＩＴ　ＥＴＦ"
+},
+"2097": {
+"isin": "JP3050150006",
+"associFundCd": "B531323A",
+"how": "exact",
+"libraryName": "グローバルＸレジデンシャル・Ｊ－ＲＥＩＴ　ＥＴＦ"
+},
+"2098": {
+"isin": "JP3050160005",
+"associFundCd": "B531423A",
+"how": "exact",
+"libraryName": "グローバルＸホテル＆リテール・Ｊ－ＲＥＩＴ　ＥＴＦ"
+},
+"2235": {
+"isin": "JP3049780004",
+"associFundCd": "0231122C",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国株式（ダウ平均）為替ヘッジなし"
+},
+"2236": {
+"isin": "JP3049790003",
+"associFundCd": "B5311231",
+"how": "exact",
+"libraryName": "グローバルＸ　Ｓ＆Ｐ５００配当貴族ＥＴＦ"
+},
+"2241": {
+"isin": "JP3049840006",
+"associFundCd": "03314233",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　ＮＹダウ上場投信"
+},
+"2242": {
+"isin": "JP3049850005",
+"associFundCd": "03313233",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　ＮＹダウ上場投信（為替ヘッジあり）"
+},
+"2243": {
+"isin": "JP3049860004",
+"associFundCd": "B5311234",
+"how": "exact",
+"libraryName": "グローバルＸ半導体ＥＴＦ"
+},
+"2244": {
+"isin": "JP3049870003",
+"associFundCd": "B5312234",
+"how": "exact",
+"libraryName": "グローバルＸ　ＵＳテック・トップ２０ＥＴＦ"
+},
+"2245": {
+"isin": "JP3049880002",
+"associFundCd": "01311234",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳブルームバーグ・ドイツ国債（７－１０年）インデックス（為替ヘッジあり）連動型上場投信"
+},
+"2247": {
+"isin": "JP3049900008",
+"associFundCd": "04312235",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　Ｓ＆Ｐ５００（為替ヘッジなし）"
+},
+"2248": {
+"isin": "JP3049910007",
+"associFundCd": "04313235",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　Ｓ＆Ｐ５００（為替ヘッジあり）"
+},
+"2250": {
+"isin": "JP3049930005",
+"associFundCd": "48311236",
+"how": "exact",
+"libraryName": "ｉシェアーズＭＳＣＩジャパン気候変動アクションＥＴＦ"
+},
+"2252": {
+"isin": "JP3049950003",
+"associFundCd": "B5311237",
+"how": "exact",
+"libraryName": "グローバルＸ　Ｍｏｒｎｉｎｇｓｔａｒ米国中小型Ｍｏａｔ　ＥＴＦ"
+},
+"2253": {
+"isin": "JP3049960002",
+"associFundCd": "B5312237",
+"how": "exact",
+"libraryName": "グローバルＸスーパーディビィデンド－ＵＳ　ＥＴＦ"
+},
+"2254": {
+"isin": "JP3049970001",
+"associFundCd": "B5313237",
+"how": "exact",
+"libraryName": "グローバルＸチャイナＥＶ＆バッテリーＥＴＦ"
+},
+"2255": {
+"isin": "JP3050170004",
+"associFundCd": "4831423B",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国債２０年超ＥＴＦ"
+},
+"2256": {
+"isin": "JP3050180003",
+"associFundCd": "4831523B",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国総合債券ＥＴＦ"
+},
+"2257": {
+"isin": "JP3050190002",
+"associFundCd": "4831323B",
+"how": "exact",
+"libraryName": "ｉシェアーズ米ドル建て投資適格社債ＥＴＦ"
+},
+"2258": {
+"isin": "JP3050200009",
+"associFundCd": "4831223B",
+"how": "exact",
+"libraryName": "ｉシェアーズ米ドル建てハイイールド社債ＥＴＦ"
+},
+"2259": {
+"isin": "JP3050210008",
+"associFundCd": "4831623B",
+"how": "exact",
+"libraryName": "ｉシェアーズフランス国債７－１０年ＥＴＦ（為替ヘッジあり）"
+},
+"2510": {
+"isin": "JP3048610004",
+"associFundCd": "0131E17C",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ国内債券・ＮＯＭＵＲＡ－ＢＰＩ総合連動型上場投信"
+},
+"2511": {
+"isin": "JP3048620003",
+"associFundCd": "0131F17C",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ外国債券・ＦＴＳＥ世界国債インデックス（除く日本・為替ヘッジなし）連動型上場投信"
+},
+"2512": {
+"isin": "JP3048630002",
+"associFundCd": "0131G17C",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ外国債券・ＦＴＳＥ世界国債インデックス（除く日本・為替ヘッジあり）連動型上場投信"
+},
+"2513": {
+"isin": "JP3048640001",
+"associFundCd": "0131H17C",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ外国株式・ＭＳＣＩ－ＫＯＫＵＳＡＩ指数（為替ヘッジなし）連動型上場投信"
+},
+"2514": {
+"isin": "JP3048650000",
+"associFundCd": "0131I17C",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ外国株式・ＭＳＣＩ－ＫＯＫＵＳＡＩ指数（為替ヘッジあり）連動型上場投信"
+},
+"2515": {
+"isin": "JP3048660009",
+"associFundCd": "0131J17C",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ外国ＲＥＩＴ・Ｓ＆Ｐ先進国ＲＥＩＴ指数（除く日本・為替ヘッジなし）連動型上場投信"
+},
+"2516": {
+"isin": "JP3048700003",
+"associFundCd": "9D311181",
+"how": "exact",
+"libraryName": "東証グロース２５０ＥＴＦ"
+},
+"2517": {
+"isin": "JP3048710002",
+"associFundCd": "03314184",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　Ｊリート・コア上場投信"
+},
+"2518": {
+"isin": "JP3048720001",
+"associFundCd": "01311185",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＭＳＣＩ日本株女性活躍指数（セレクト）連動型上場投信"
+},
+"2519": {
+"isin": "JP3048730000",
+"associFundCd": "01312187",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ新興国債券・Ｊ．Ｐ．モルガン・エマージング・マーケット・ボンド・インデックス・プラス（為替ヘッジなし）連動型上場投信"
+},
+"2520": {
+"isin": "JP3048740009",
+"associFundCd": "01311187",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ新興国株式・ＭＳＣＩエマージング・マーケット・インデックス（為替ヘッジなし）連動型上場投信"
+},
+"2521": {
+"isin": "JP3048760007",
+"associFundCd": "02311187",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国株式（Ｓ＆Ｐ５００）為替ヘッジあり"
+},
+"2522": {
+"isin": "JP3048790004",
+"associFundCd": "4831118B",
+"how": "exact",
+"libraryName": "ｉシェアーズオートメーション＆ロボットＥＴＦ"
+},
+"2523": {
+"isin": "JP3048800001",
+"associFundCd": "03312191",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳトピックス（除く金融）上場投信"
+},
+"2524": {
+"isin": "JP3048830008",
+"associFundCd": "25311192",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ＴＯＰＩＸ"
+},
+"2525": {
+"isin": "JP3048840007",
+"associFundCd": "25314192",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信日経２２５"
+},
+"2526": {
+"isin": "JP3048850006",
+"associFundCd": "25313192",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信ＪＰＸ日経４００"
+},
+"2527": {
+"isin": "JP3048860005",
+"associFundCd": "25312192",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信東証ＲＥＩＴ　Ｃｏｒｅ指数"
+},
+"2528": {
+"isin": "JP3048870004",
+"associFundCd": "04311192",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ東証ＲＥＩＴ　Ｃｏｒｅ指数"
+},
+"2529": {
+"isin": "JP3048890002",
+"associFundCd": "01312194",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ野村株主還元７０連動型上場投信"
+},
+"2530": {
+"isin": "JP3048900009",
+"associFundCd": "03311196",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ　ＨｕａＡｎ中国株式（上海１８０Ａ株）上場投信"
+},
+"2552": {
+"isin": "JP3048910008",
+"associFundCd": "02311196",
+"how": "exact",
+"libraryName": "上場インデックスファンドＪリート（東証ＲＥＩＴ指数）隔月分配型（ミニ）"
+},
+"2553": {
+"isin": "JP3048920007",
+"associFundCd": "47311196",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ南方中国Ａ株ＣＳＩ５００"
+},
+"2554": {
+"isin": "JP3048930006",
+"associFundCd": "01312196",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳブルームバーグ米国投資適格社債（１－１０年）インデックス（為替ヘッジあり）連動型上場投信"
+},
+"2555": {
+"isin": "JP3048940005",
+"associFundCd": "9D311197",
+"how": "exact",
+"libraryName": "東証ＲＥＩＴ　ＥＴＦ"
+},
+"2556": {
+"isin": "JP3048950004",
+"associFundCd": "47311198",
+"how": "exact",
+"libraryName": "Ｏｎｅ　ＥＴＦ東証ＲＥＩＴ指数"
+},
+"2557": {
+"isin": "JP3048970002",
+"associFundCd": "7931119C",
+"how": "exact",
+"libraryName": "ＳＭＤＡＭトピックス上場投信"
+},
+"2558": {
+"isin": "JP3048980001",
+"associFundCd": "03312201",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ米国株式（Ｓ＆Ｐ５００）上場投信"
+},
+"2559": {
+"isin": "JP3048990000",
+"associFundCd": "03313201",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ全世界株式（オール・カントリー）上場投信"
+},
+"2560": {
+"isin": "JP3049010006",
+"associFundCd": "03315202",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳカーボン・エフィシェント日本株上場投信"
+},
+"2561": {
+"isin": "JP3049020005",
+"associFundCd": "48313202",
+"how": "exact",
+"libraryName": "ｉシェアーズ・コア日本国債ＥＴＦ"
+},
+"2562": {
+"isin": "JP3049030004",
+"associFundCd": "02311203",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国株式（ダウ平均）為替ヘッジあり"
+},
+"2563": {
+"isin": "JP3049040003",
+"associFundCd": "48311206",
+"how": "exact",
+"libraryName": "ｉシェアーズＳ＆Ｐ５００米国株ＥＴＦ（為替ヘッジあり）"
+},
+"2564": {
+"isin": "JP3049050002",
+"associFundCd": "B5311208",
+"how": "exact",
+"libraryName": "グローバルＸ　ＭＳＣＩスーパーディビィデンド－日本株式　ＥＴＦ"
+},
+"2565": {
+"isin": "JP3049060001",
+"associFundCd": "B5312208",
+"how": "exact",
+"libraryName": "グローバルＸロジスティクス・Ｊ－ＲＥＩＴ　ＥＴＦ"
+},
+"2566": {
+"isin": "JP3049070000",
+"associFundCd": "02312209",
+"how": "exact",
+"libraryName": "上場インデックスファンド日経ＥＳＧリート"
+},
+"2567": {
+"isin": "JP3049080009",
+"associFundCd": "25311209",
+"how": "exact",
+"libraryName": "ＮＺＡＭ上場投信Ｓ＆Ｐ／ＪＰＸカーボン・エフィシェント指数"
+},
+"2568": {
+"isin": "JP3049090008",
+"associFundCd": "02313209",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国株式（ＮＡＳＤＡＱ１００）為替ヘッジなし"
+},
+"2569": {
+"isin": "JP3049100005",
+"associFundCd": "02314209",
+"how": "exact",
+"libraryName": "上場インデックスファンド米国株式（ＮＡＳＤＡＱ１００）為替ヘッジあり"
+},
+"2620": {
+"isin": "JP3049120003",
+"associFundCd": "4831120A",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国債１－３年ＥＴＦ"
+},
+"2621": {
+"isin": "JP3049130002",
+"associFundCd": "4831220A",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国債２０年超ＥＴＦ（為替ヘッジあり）"
+},
+"2622": {
+"isin": "JP3049140001",
+"associFundCd": "4831320A",
+"how": "exact",
+"libraryName": "ｉシェアーズ米ドル建て新興国債券ＥＴＦ（為替ヘッジあり）"
+},
+"2623": {
+"isin": "JP3049150000",
+"associFundCd": "4831420A",
+"how": "exact",
+"libraryName": "ｉシェアーズユーロ建て投資適格社債ＥＴＦ（為替ヘッジあり）"
+},
+"2624": {
+"isin": "JP3049160009",
+"associFundCd": "0431120B",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ日経２２５（年４回決算型）"
+},
+"2625": {
+"isin": "JP3049170008",
+"associFundCd": "0431220B",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ（年４回決算型）"
+},
+"2626": {
+"isin": "JP3049210002",
+"associFundCd": "B5311211",
+"how": "exact",
+"libraryName": "グローバルＸデジタル・イノベーション－日本株式ＥＴＦ"
+},
+"2627": {
+"isin": "JP3049220001",
+"associFundCd": "B5312211",
+"how": "exact",
+"libraryName": "グローバルＸ　ｅコマース－日本株式ＥＴＦ"
+},
+"2628": {
+"isin": "JP3049230000",
+"associFundCd": "04311213",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ中国科創板５０（ＳＴＡＲ５０）"
+},
+"2629": {
+"isin": "JP3049240009",
+"associFundCd": "04312213",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ中国グレーターベイエリア・イノベーション１００（ＧＢＡ１００）"
+},
+"2630": {
+"isin": "JP3049180007",
+"associFundCd": "03313212",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ米国株式（Ｓ＆Ｐ５００）上場投信（為替ヘッジあり）"
+},
+"2631": {
+"isin": "JP3049190006",
+"associFundCd": "03314212",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳナスダック１００上場投信"
+},
+"2632": {
+"isin": "JP3049200003",
+"associFundCd": "03315212",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳナスダック１００上場投信（為替ヘッジあり）"
+},
+"2633": {
+"isin": "JP3049250008",
+"associFundCd": "01316213",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　Ｓ＆Ｐ５００指数（為替ヘッジなし）連動型上場投信"
+},
+"2634": {
+"isin": "JP3049260007",
+"associFundCd": "01315213",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　Ｓ＆Ｐ５００指数（為替ヘッジあり）連動型上場投信"
+},
+"2636": {
+"isin": "JP3049280005",
+"associFundCd": "B5311213",
+"how": "exact",
+"libraryName": "グローバルＸ　ＭＳＣＩガバナンス・クオリティ－日本株式ＥＴＦ"
+},
+"2637": {
+"isin": "JP3049290004",
+"associFundCd": "B5312213",
+"how": "exact",
+"libraryName": "グローバルＸクリーンテック－日本株式ＥＴＦ"
+},
+"2638": {
+"isin": "JP3049300001",
+"associFundCd": "B5311216",
+"how": "exact",
+"libraryName": "グローバルＸロボティクス＆ＡＩ－日本株式ＥＴＦ"
+},
+"2639": {
+"isin": "JP3049310000",
+"associFundCd": "B5312216",
+"how": "exact",
+"libraryName": "グローバルＸバイオ＆メドテック－日本株式ＥＴＦ"
+},
+"2640": {
+"isin": "JP3049320009",
+"associFundCd": "B5313216",
+"how": "exact",
+"libraryName": "グローバルＸゲーム＆アニメ－日本株式ＥＴＦ"
+},
+"2641": {
+"isin": "JP3049330008",
+"associFundCd": "B5314216",
+"how": "exact",
+"libraryName": "グローバルＸグローバルリーダーズ－日本株式ＥＴＦ"
+},
+"2642": {
+"isin": "JP3049340007",
+"associFundCd": "64311216",
+"how": "exact",
+"libraryName": "ＳＭＴ　ＥＴＦカーボン・エフィシェント日本株"
+},
+"2643": {
+"isin": "JP3049350006",
+"associFundCd": "01313217",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＭＳＣＩジャパンカントリー指数（セレクト）連動型上場投信"
+},
+"2644": {
+"isin": "JP3049360005",
+"associFundCd": "B5311219",
+"how": "exact",
+"libraryName": "グローバルＸ半導体関連－日本株式ＥＴＦ"
+},
+"2645": {
+"isin": "JP3049370004",
+"associFundCd": "B5312219",
+"how": "exact",
+"libraryName": "グローバルＸレジャー＆エンターテインメント－日本株式ＥＴＦ"
+},
+"2646": {
+"isin": "JP3049380003",
+"associFundCd": "B5313219",
+"how": "exact",
+"libraryName": "グローバルＸメタルビジネス－日本株式ＥＴＦ"
+},
+"2647": {
+"isin": "JP3049390002",
+"associFundCd": "0131121A",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳブルームバーグ米国国債（７－１０年）インデックス（為替ヘッジなし）連動型上場投信"
+},
+"2648": {
+"isin": "JP3049400009",
+"associFundCd": "0131221A",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳブルームバーグ米国国債（７－１０年）インデックス（為替ヘッジあり）連動型上場投信"
+},
+"2649": {
+"isin": "JP3049450004",
+"associFundCd": "48311221",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国政府系機関ジニーメイＭＢＳ　ＥＴＦ（為替ヘッジあり）"
+},
+"2836": {
+"isin": "JP3049410008",
+"associFundCd": "B531121C",
+"how": "exact",
+"libraryName": "グローバルＸフィンテック－日本株式ＥＴＦ"
+},
+"2837": {
+"isin": "JP3049420007",
+"associFundCd": "B531221C",
+"how": "exact",
+"libraryName": "グローバルＸ中小型リーダーズ－日本株式ＥＴＦ"
+},
+"2838": {
+"isin": "JP3049430006",
+"associFundCd": "0331121C",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ米国国債７－１０年上場投信（為替ヘッジなし）"
+},
+"2839": {
+"isin": "JP3049440005",
+"associFundCd": "0331221C",
+"how": "exact",
+"libraryName": "ＭＡＸＩＳ米国国債７－１０年上場投信（為替ヘッジあり）"
+},
+"2840": {
+"isin": "JP3049460003",
+"associFundCd": "04314221",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００（為替ヘッジなし）"
+},
+"2841": {
+"isin": "JP3049470002",
+"associFundCd": "04313221",
+"how": "exact",
+"libraryName": "ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００（為替ヘッジあり）"
+},
+"2843": {
+"isin": "JP3049490000",
+"associFundCd": "02311222",
+"how": "exact",
+"libraryName": "上場インデックスファンド豪州国債（為替ヘッジあり）"
+},
+"2844": {
+"isin": "JP3049500006",
+"associFundCd": "02312222",
+"how": "exact",
+"libraryName": "上場インデックスファンド豪州国債（為替ヘッジなし）"
+},
+"2845": {
+"isin": "JP3049520004",
+"associFundCd": "01311223",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳ　ＮＡＳＤＡＱ－１００（為替ヘッジあり）連動型上場投信"
+},
+"2846": {
+"isin": "JP3049530003",
+"associFundCd": "01312223",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳダウ・ジョーンズ工業株３０種平均株価（為替ヘッジあり）連動型上場投信"
+},
+"2847": {
+"isin": "JP3049540002",
+"associFundCd": "B5311223",
+"how": "exact",
+"libraryName": "グローバルＸ新成長インフラ－日本株式ＥＴＦ"
+},
+"2848": {
+"isin": "JP3049550001",
+"associFundCd": "B5312223",
+"how": "exact",
+"libraryName": "グローバルＸ　ＭＳＣＩ気候変動対応－日本株式ＥＴＦ"
+},
+"2849": {
+"isin": "JP3049560000",
+"associFundCd": "B5313223",
+"how": "exact",
+"libraryName": "グローバルＸ　Ｍｏｒｎｉｎｇｓｔａｒ高配当ＥＳＧ－日本株式ＥＴＦ"
+},
+"2851": {
+"isin": "JP3049580008",
+"associFundCd": "48311226",
+"how": "exact",
+"libraryName": "ｉシェアーズＭＳＣＩジャパンＳＲＩ　ＥＴＦ"
+},
+"2852": {
+"isin": "JP3049590007",
+"associFundCd": "48313225",
+"how": "exact",
+"libraryName": "ｉシェアーズグリーンＪリートＥＴＦ"
+},
+"2853": {
+"isin": "JP3049600004",
+"associFundCd": "48312225",
+"how": "exact",
+"libraryName": "ｉシェアーズ気候リスク調整世界国債ＥＴＦ（除く日本・為替ヘッジあり）"
+},
+"2854": {
+"isin": "JP3049610003",
+"associFundCd": "B5311226",
+"how": "exact",
+"libraryName": "グローバルＸテック・トップ２０－日本株式ＥＴＦ"
+},
+"2855": {
+"isin": "JP3049620002",
+"associFundCd": "B5312226",
+"how": "exact",
+"libraryName": "グローバルＸグリーン・Ｊ－ＲＥＩＴ　ＥＴＦ"
+},
+"2856": {
+"isin": "JP3049630001",
+"associFundCd": "48311227",
+"how": "exact",
+"libraryName": "ｉシェアーズ米国債３－７年ＥＴＦ（為替ヘッジあり）"
+},
+"2857": {
+"isin": "JP3049640000",
+"associFundCd": "48312227",
+"how": "exact",
+"libraryName": "ｉシェアーズドイツ国債ＥＴＦ（為替ヘッジあり）"
+},
+"2858": {
+"isin": "JP3049650009",
+"associFundCd": "B5311227",
+"how": "exact",
+"libraryName": "グローバルＸ日経２２５カバード・コールＥＴＦ（プレミアム再投資型）"
+},
+"2859": {
+"isin": "JP3049660008",
+"associFundCd": "01311228",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳユーロ・ストックス５０指数（為替ヘッジあり）連動型上場投信"
+},
+"2860": {
+"isin": "JP3049670007",
+"associFundCd": "01312228",
+"how": "exact",
+"libraryName": "ＮＥＸＴ　ＦＵＮＤＳドイツ株式・ＤＡＸ（為替ヘッジあり）連動型上場投信"
+},
+"2861": {
+"isin": "JP3049680006",
+"associFundCd": "02311228",
+"how": "exact",
+"libraryName": "上場インデックスファンドフランス国債（為替ヘッジなし）"
+},
+"2862": {
+"isin": "JP3049690005",
+"associFundCd": "02312228",
+"how": "exact",
+"libraryName": "上場インデックスファンドフランス国債（為替ヘッジあり）"
+},
+"2864": {
+"isin": "JP3049710001",
+"associFundCd": "B5311229",
+"how": "exact",
+"libraryName": "グローバルＸロジスティクス・ＲＥＩＴ　ＥＴＦ"
+},
+"2865": {
+"isin": "JP3049720000",
+"associFundCd": "B5312229",
+"how": "exact",
+"libraryName": "グローバルＸ　ＮＡＳＤＡＱ１００・カバード・コールＥＴＦ"
+},
+"2866": {
+"isin": "JP3049730009",
+"associFundCd": "B5313229",
+"how": "exact",
+"libraryName": "グローバルＸ米国優先証券ＥＴＦ"
+},
+"2867": {
+"isin": "JP3049740008",
+"associFundCd": "B531122B",
+"how": "exact",
+"libraryName": "グローバルＸ自動運転＆ＥＶ　ＥＴＦ"
+},
+"2868": {
+"isin": "JP3049750007",
+"associFundCd": "B531222B",
+"how": "exact",
+"libraryName": "グローバルＸ　Ｓ＆Ｐ５００・カバード・コールＥＴＦ"
+}
+}

@@ -415,6 +415,10 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   <strong>Source.</strong> Fund list and quotes from the public Nasdaq ETF screener, refreshed
   each weekday after the US close. Prices are end-of-day and unadjusted.
   <br>
+  <strong>Prospectus.</strong> Each fund's modal links its EDGAR filing list — every prospectus
+  the fund has filed — and, where the fee was read from a specific filing, that filing directly.
+  Funds without a link are grantor trusts or unit investment trusts, which file elsewhere.
+  <br>
   <strong>Fee.</strong> Total annual operating expense from the fund's own prospectus, as tagged
   in SEC XBRL. Net of fee waivers where the fund reports a net figure, gross otherwise — the modal
   says which. Known for 4,198 of 5,261 funds; prospectuses are filed annually, so a fund that has
@@ -920,6 +924,20 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
             (favs[sym] ? "★ Favourited" : "☆ Favourite") + "</button>" +
           '<a target="_blank" rel="noopener" href="https://www.nasdaq.com/market-activity/etf/' +
             encodeURIComponent(sym.toLowerCase()) + '">View on Nasdaq ↗</a>' +
+          // EDGAR accepts a series id as CIK: this lists every prospectus filing
+          // (485BPOS / 485APOS) for the fund. Only funds registered under the
+          // 1940 Act have one -- grantor trusts and UITs file elsewhere.
+          (r.seriesId
+            ? '<a target="_blank" rel="noopener" href="https://www.sec.gov/cgi-bin/browse-edgar' +
+              '?action=getcompany&CIK=' + encodeURIComponent(r.seriesId) +
+              '&type=485&dateb=&owner=include&count=40">Prospectus filings (EDGAR) ↗</a>'
+            : "") +
+          // The exact filing the published fee was read from.
+          (r.cik && r.expenseAdsh
+            ? '<a target="_blank" rel="noopener" href="https://www.sec.gov/Archives/edgar/data/' +
+              encodeURIComponent(r.cik) + "/" + r.expenseAdsh.replace(/-/g, "") + "/" +
+              encodeURIComponent(r.expenseAdsh) + '-index.htm">This fee\u2019s filing ↗</a>'
+            : "") +
         "</div>" +
       "</div>";
   }

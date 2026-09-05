@@ -167,21 +167,54 @@ The portfolio is saved in `localStorage` on your device.
 
 ### Tokyo-listed ETFs
 
-`tokyo.html` lists the 274 ETFs on the Tokyo Stock Exchange, from JPX's own
-published issue table: code, fund name, management company, index tracked,
-listing date, trading unit and trust fee. **Fee coverage is complete** — 274 of
-274, against 80% on the US side — with a median of 0.220%.
+`tokyo.html` covers the 274 ETFs on the Tokyo Stock Exchange, built from two
+sources joined together:
 
-There is no price, daily move, one-year return, fund size or holdings, and that
-is not an oversight. No free source publishes quotes for Tokyo codes: the Nasdaq
-screener rejects them, Yahoo rate-limits on sight, Stooq carries no JP symbols,
-and JPX publishes no free quote file. The SEC feeds behind the US page's
-holdings and expense data cover only US-registered funds, which these are not.
+- **JPX's published issue table** — code, English and Japanese names, manager,
+  index tracked, listing date, pre-tax trust fee, and a pamphlet PDF per fund.
+- **The Investment Trusts Association's fund library** (投信総合検索ライブラリー) —
+  a JSON search API returning each fund's own filings: net assets, NAV, trust
+  fee including tax, 1/3/5-year NAV returns, one-year risk and Sharpe,
+  distributions, inception, an **official asset class** (株式 / 債券 / 不動産投信 /
+  その他資産 / 資産複合) and **official region**, and a direct prospectus download
+  (交付目論見書). Filtered to ETFs it lists 424 funds; the crawl is 22 calls.
 
-It is a separate page for the same reason. Merged into the US table these funds
-would be blank under half its columns and would break sorting on price and
-return. Fee, manager, index and listing date are directly comparable across the
-two; nothing else is.
+The two carry no common key — JPX uses the 4-digit code, the library the ISIN —
+so they are joined by normalised fund name (`scripts/fetch_tokyo.py`). The
+join was **validated 6 for 6** against ISINs read from Nomura's own holdings
+spreadsheets, and the resulting code→ISIN map is persisted in
+`data/tokyo_isin.json` so a fund is matched once and a later name change on
+either side cannot un-match it. Three of the last misses came down to a single
+character: JPX types `ＭＳＣＩ‐ＫＯＫＵＳＡＩ` with a U+2010 hyphen.
+
+**248 of 274 match (91%), ¥131 trillion in net assets.** The 26 that do not are
+absent by construction: WisdomTree's 19 commodity ETFs are Jersey-domiciled,
+SPDR S&P 500 / SPDR Gold / ABF are foreign JDRs, and the four physical-metal
+products are 信託 rather than 投信. None is a Japanese investment trust, so none
+is in the library. They show JPX's pamphlet and say why, rather than blanks.
+
+Because asset class and region come from the library's own classification,
+Japan's labels are official — unlike the US page, where category is inferred
+from holdings or names. Fees on this page are **inclusive of consumption tax**,
+so they run about 10% above the pre-tax figure JPX prints; the modal shows both.
+
+Not on this page: holdings. Only one manager (Nomura, 59 funds) publishes them
+in machine-readable form. The fetcher refuses to write if fewer than 80% of JPX
+funds match the library or the library returns fewer than 300 ETFs — the
+failure mode for both sources is a silent partial parse, not an error.
+
+### Prospectus links
+
+Every fund's modal links its prospectus:
+
+- **US:** EDGAR accepts a series id as a CIK, so
+  `browse-edgar?action=getcompany&CIK=<seriesId>&type=485` lists every
+  prospectus the fund has filed. Available for the 81% of US funds registered
+  under the 1940 Act; grantor trusts and UITs file elsewhere. Where the
+  published fee was read from a specific filing, `fetch_expenses.py` keeps that
+  filing's accession number and the modal links it directly.
+- **Japan:** the library's 交付目論見書 download for the 248 matched funds, plus
+  JPX's pamphlet for all 274.
 
 ### Newly listed funds
 
@@ -281,14 +314,15 @@ data/expenses.json             cumulative ticker -> expense ratio cache
 data/positions/<TICKER>.json   largest 500 positions, fetched on demand
 data/first_seen.json           ticker -> date first seen in the universe
 data/classification.json       last category per ticker (for hysteresis)
-data/tokyo.json                Tokyo-listed ETFs (generated)
+data/tokyo.json                Tokyo-listed ETFs, enriched (generated)
+data/tokyo_isin.json           persistent code -> ISIN map for the Tokyo join
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
 scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
 scripts/fetch_expenses.py      accumulate expense ratios across RR quarters
 scripts/reclassify.py          category from the fund's own filing
 scripts/track_new.py           first-seen dates, tags newly listed funds
-scripts/fetch_tokyo.py         parse JPX's listed ETF issue table
+scripts/fetch_tokyo.py         JPX list joined to the fund library
 scripts/test_derive.py         regression tests for the name-derived fields
 scripts/test_classify.py       regression tests for the filing-based category
 scripts/serve.py               local static server for previewing

@@ -86,6 +86,10 @@ jobs:
           assert known >= 0.99 * n, f'only {known}/{n} inception dates'
           assert fees >= 0.75 * n, f'only {fees}/{n} expense ratios'
           assert src == n, f'{n - src} records missing categorySource'
+          t = json.load(open('data/tokyo.json'))
+          tl = [f for f in t['funds'] if f.get('library')]
+          assert len(tl) >= 200, f'Tokyo: only {len(tl)} funds matched the fund library'
+          assert all(f.get('prospectusUrl') for f in tl), 'Tokyo: library fund without prospectus link'
           print(f'OK — {n} funds, {len(meta["issuers"])} sponsors, '
                 f'{known} inception dates, {fees} fees')
           EOF

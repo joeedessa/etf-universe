@@ -538,7 +538,7 @@
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 666,
-  "expenseKnown": 4177,
+  "expenseKnown": 4201,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",

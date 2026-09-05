@@ -75,6 +75,8 @@ def recent_quarters(n):
 
 
 def class_to_ticker(wanted):
+    """class id -> (ticker, cik, series id). The CIK and series id are what an
+    EDGAR prospectus link is built from, so they ride along with the fee."""
     with sec_get(TICKER_MAP_URL) as resp:
         raw = resp.read()
     if raw[:2] == b"\x1f\x8b":
@@ -82,7 +84,7 @@ def class_to_ticker(wanted):
     out = {}
     for cik, series_id, class_id, symbol in json.loads(raw)["data"]:
         if symbol in wanted:
-            out[class_id] = symbol
+            out[class_id] = (symbol, cik, series_id)
     return out
 
 
@@ -114,9 +116,10 @@ def scan_quarter(quarter, cls2sym, found):
                     # The class id lives in otherdims ("Class=C000038531;"),
                     # not in the class column, which is blank on these rows.
                     m = CLASS_DIM.search(row.get("otherdims") or "")
-                    symbol = cls2sym.get(m.group(1) if m else row.get("class"))
-                    if not symbol:
+                    hit = cls2sym.get(m.group(1) if m else row.get("class"))
+                    if not hit:
                         continue
+                    symbol, cik, series_id = hit
                     try:
                         pct = float(row["value"]) * 100
                     except (TypeError, ValueError):
@@ -127,14 +130,26 @@ def scan_quarter(quarter, cls2sym, found):
                     basis = "net" if tag == NET_TAG else "gross"
                     prev = found.get(symbol)
                     # Newer filing wins; within the same filing, net beats gross.
+                    # A record written before the filing-link fields existed is
+                    # upgraded in place from the same-or-newer row -- otherwise a
+                    # rescan finds the identical filing, judges it "not newer",
+                    # and leaves the old record without an accession.
+                    legacy = prev is not None and "adsh" not in prev
                     if (prev is None
                             or ddate > prev["asOf"]
                             or (ddate == prev["asOf"]
-                                and basis == "net" and prev["basis"] == "gross")):
+                                and basis == "net" and prev["basis"] == "gross")
+                            or (legacy and ddate >= prev["asOf"]
+                                and not (basis == "gross" and prev["basis"] == "net"
+                                         and ddate == prev["asOf"]))):
                         if prev is None:
                             added += 1
-                        found[symbol] = {"pct": round(pct, 4),
-                                         "asOf": ddate, "basis": basis}
+                        # adsh is the accession of the prospectus this fee came
+                        # from, so the page can link the exact filing rather than
+                        # a search for it.
+                        found[symbol] = {"pct": round(pct, 4), "asOf": ddate,
+                                         "basis": basis, "adsh": row.get("adsh"),
+                                         "cik": cik, "seriesId": series_id}
         print(f"  {quarter}: +{added} new tickers "
               f"({len(found)} total)", flush=True)
         return added
@@ -163,6 +178,13 @@ def main():
             cache = {}
     found = cache.get("ratios", {})
     done = set() if args.force else set(cache.get("quarters", []))
+    # Records written before the filing-link fields existed carry no accession.
+    # Rescan while ANY record still lacks one -- "none has one" was wrong: after
+    # a partial pass a handful did, and the backfill declared itself finished.
+    legacy = sum(1 for v in found.values() if "adsh" not in v)
+    if legacy:
+        print(f"{legacy} cached fees predate filing-link fields — rescanning to backfill")
+        done = set()
 
     todo = [q for q in recent_quarters(args.quarters) if q not in done]
     if not todo:
@@ -183,6 +205,9 @@ def main():
         rec = found.get(e["symbol"])
         e["expense"] = rec["pct"] if rec else None
         e["expenseBasis"] = rec["basis"] if rec else None
+        e["expenseAdsh"] = rec.get("adsh") if rec else None
+        e["cik"] = rec.get("cik") if rec else None
+        e["seriesId"] = rec.get("seriesId") if rec else None
         if rec:
             hits += 1
     etfs_path.write_text(json.dumps(etfs, separators=(",", ":")) + "\n")

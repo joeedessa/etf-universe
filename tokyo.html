@@ -119,6 +119,52 @@ td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-spac
 .note strong{color:var(--color-text-secondary);font-weight:600}
 .note a{color:var(--accent)}
 @media(max-width:760px){.wrap,.controls,.stats,.count,.note{padding-left:12px;padding-right:12px}}
+
+/* ---- v2 additions ---- */
+.pick{position:relative;flex:0 0 auto}
+.pick-btn{border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-primary);border-radius:8px;padding:8px 10px;font-size:12.5px;cursor:pointer;
+  font-family:var(--font-sans);white-space:nowrap}
+.pick-btn:hover{border-color:var(--accent)}.pick-btn.active{border-color:var(--accent);color:var(--accent)}
+.pick-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:40;width:270px;
+  background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);
+  border-radius:10px;box-shadow:var(--shadow-2);padding:9px}
+.pick-item{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:6px;font-size:12.5px;
+  cursor:pointer;color:var(--color-text-secondary)}
+.pick-item:hover{background:var(--color-background-secondary)}
+.pick-item input{margin:0;accent-color:var(--accent)}
+.pick-item .cn{margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--color-text-tertiary)}
+.pick-foot{display:flex;justify-content:space-between;margin-top:7px;padding-top:7px;
+  border-top:.5px solid var(--color-border-tertiary);font-size:11px;color:var(--color-text-tertiary)}
+.linkb{border:none;background:none;color:var(--accent);cursor:pointer;font-size:11.5px;padding:0;font-family:var(--font-sans)}
+tbody tr.row{cursor:pointer}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.doc{font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap}
+.doc:hover{text-decoration:underline}
+.tag{display:inline-block;background:var(--color-background-secondary);border:.5px solid var(--color-border-tertiary);
+  border-radius:5px;padding:1px 6px;font-size:10px;color:var(--color-text-tertiary);white-space:nowrap}
+.backdrop{position:fixed;inset:0;z-index:100;background:rgba(16,18,22,.5);display:flex;align-items:flex-start;
+  justify-content:center;padding:36px 14px;overflow-y:auto}
+.backdrop[hidden]{display:none}
+.modal{width:100%;max-width:860px;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);
+  border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,.32);margin:auto}
+.modal-head{display:flex;align-items:flex-start;gap:14px;padding:16px 18px 13px;border-bottom:.5px solid var(--color-border-tertiary)}
+.modal-tick{font-family:var(--font-mono);font-size:17px;font-weight:600;color:var(--accent)}
+.modal-name{font-size:13.5px;color:var(--color-text-secondary);margin-top:2px;line-height:1.4}
+.modal-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:4px}
+.modal-x{margin-left:auto;border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);
+  color:var(--color-text-secondary);border-radius:7px;width:28px;height:28px;font-size:15px;line-height:1;cursor:pointer;flex:0 0 auto}
+.modal-body{padding:15px 18px 18px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:11px;margin-bottom:16px}
+.fact-l{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary)}
+.fact-v{font-family:var(--font-mono);font-size:14px;font-weight:600;margin-top:2px}
+.fact-n{font-family:var(--font-sans);font-size:9.5px;font-weight:400;color:var(--color-text-tertiary);margin-top:2px}
+.docs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.docbtn{border:.5px solid var(--color-border-secondary);border-radius:7px;padding:6px 11px;font-size:12px;
+  color:var(--accent);text-decoration:none;background:var(--color-background-primary)}
+.docbtn:hover{border-color:var(--accent)}
+.note-in{font-size:12px;color:var(--color-text-tertiary);line-height:1.6;background:var(--color-background-secondary);
+  border-radius:8px;padding:10px 12px}
 </style>
 </head>
 <body>
@@ -130,6 +176,7 @@ td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-spac
       <div class="mast-sub" id="sub">Listed on the Tokyo Stock Exchange</div>
     </div>
     <div class="mast-right">
+      <span class="mast-date" id="asof">—</span>
       <a class="tbtn" href="index.html">← US ETFs</a>
       <a class="tbtn" href="portfolio.html">Portfolio builder</a>
       <button class="tbtn" id="theme" type="button">Dark</button>
@@ -141,17 +188,33 @@ td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-spac
 
 <section class="controls">
   <div class="search">
-    <input id="q" type="search" placeholder="Search code, fund name or index…" autocomplete="off" spellcheck="false">
+    <input id="q" type="search" placeholder="Search code, fund name (English or Japanese) or index…" autocomplete="off" spellcheck="false">
   </div>
-  <select id="f-iss"><option value="">All managers</option></select>
-  <select id="f-idx"><option value="">All indices</option></select>
+  <div class="pick" data-pick="cls">
+    <button class="pick-btn" id="cls-btn" type="button">All asset classes ▾</button>
+    <div class="pick-panel" id="cls-panel" hidden><div id="cls-list"></div>
+      <div class="pick-foot"><span id="cls-n"></span><button class="linkb" data-clear="cls" type="button">Clear</button></div></div>
+  </div>
+  <div class="pick" data-pick="reg">
+    <button class="pick-btn" id="reg-btn" type="button">All regions ▾</button>
+    <div class="pick-panel" id="reg-panel" hidden><div id="reg-list"></div>
+      <div class="pick-foot"><span id="reg-n"></span><button class="linkb" data-clear="reg" type="button">Clear</button></div></div>
+  </div>
+  <div class="pick" data-pick="iss">
+    <button class="pick-btn" id="iss-btn" type="button">All managers ▾</button>
+    <div class="pick-panel" id="iss-panel" hidden><div id="iss-list"></div>
+      <div class="pick-foot"><span id="iss-n"></span><button class="linkb" data-clear="iss" type="button">Clear</button></div></div>
+  </div>
   <select id="sort">
+    <option value="aum-d">Sort: Largest</option>
     <option value="code">Sort: Code</option>
     <option value="fee-a">Sort: Cheapest fee</option>
     <option value="fee-d">Sort: Priciest fee</option>
+    <option value="r1-d">Sort: 1-year ↓</option>
+    <option value="r1-a">Sort: 1-year ↑</option>
+    <option value="r3-d">Sort: 3-year ↓</option>
     <option value="new">Sort: Newest listing</option>
     <option value="old">Sort: Oldest listing</option>
-    <option value="name">Sort: Name A–Z</option>
   </select>
   <button class="reset" id="reset" type="button">Reset</button>
 </section>
@@ -161,39 +224,45 @@ td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-spac
 <div class="wrap">
   <div class="tbl">
     <table>
-      <thead>
-        <tr>
-          <th data-sk="code">Code</th>
-          <th data-sk="name">Fund</th>
-          <th data-sk="issuer">Manager</th>
-          <th>Index tracked</th>
-          <th data-sk="listed" class="num">Listed</th>
-          <th class="num">Unit</th>
-          <th data-sk="expense" class="num">Trust fee</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th data-sk="code">Code</th><th data-sk="name">Fund</th><th>Manager</th>
+        <th>Class</th><th>Region</th>
+        <th data-sk="netAssets" class="num">Net assets</th>
+        <th data-sk="expense" class="num">Fee</th>
+        <th data-sk="return1y" class="num">1 yr</th>
+        <th data-sk="return3y" class="num">3 yr</th>
+        <th data-sk="listed" class="num">Listed</th>
+        <th>Docs</th>
+      </tr></thead>
       <tbody id="rows"></tbody>
     </table>
   </div>
   <div id="more"></div>
 </div>
 
+<div class="backdrop" id="backdrop" hidden><div class="modal" id="modal"></div></div>
+
 <p class="note">
-  <strong>Source.</strong> The Japan Exchange Group's published list of TSE-listed ETF issues,
-  refreshed with the nightly job. Trust fee is the annual management fee stated by JPX,
-  before tax, and is known for every fund here.
+  <strong>Sources.</strong> The list, index, listing date and pamphlet come from the Japan Exchange
+  Group's published table of TSE-listed ETFs. Size, NAV, fee, returns, risk, distributions, asset
+  class, region and the prospectus come from the Investment Trusts Association's fund library
+  (投信総合検索ライブラリー), which publishes each fund's own filings. The two are joined by fund
+  name; the join was validated against ISINs published by the funds' managers.
   <br>
-  <strong>What is missing, and why.</strong> There is no price, daily move, one-year return,
-  fund size or holdings on this page. No free source publishes quotes for Tokyo codes — the
-  Nasdaq screener rejects them, and the SEC feeds behind the US page's holdings and expense
-  data cover only funds registered in the United States, which these are not. Those columns are
-  absent rather than estimated.
+  <strong>Returns</strong> are NAV total returns as the library reports them — one, three and five
+  years, where the fund is old enough. Fee is the trust fee <em>including</em> consumption tax, so
+  it runs about 10% above the pre-tax figure JPX prints.
   <br>
-  <strong>Why a separate page.</strong> Merged into the US table these funds would be blank
-  under half its columns and would break sorting on price and return. Fee, manager, index and
-  listing date are directly comparable across the two; nothing else is.
+  <strong>Asset class and region are official</strong>, from the library's own classification —
+  unlike the US page, where category is inferred from holdings or names.
   <br>
-  <strong>Not investment advice.</strong> Nothing here is a recommendation to buy or sell any security.
+  <strong>26 funds have no library record</strong>, by construction rather than by omission:
+  WisdomTree's commodity ETFs are Jersey-domiciled, SPDR S&amp;P 500, SPDR Gold and ABF are foreign
+  JDRs, and the physical-metal products are trusts rather than investment trusts. They show JPX's
+  pamphlet and nothing else.
+  <br>
+  <strong>Not on this page:</strong> holdings. Only one manager publishes them in machine-readable
+  form. <strong>Not investment advice.</strong> Nothing here is a recommendation to buy or sell any security.
 </p>
 
 <script>
@@ -202,157 +271,186 @@ td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-spac
   var REVALIDATE = { cache: "no-cache" };
   var $ = function(id){ return document.getElementById(id); };
   var all = [], view = [], meta = {};
+  var sel = { cls:{}, reg:{}, iss:{} }, items = {};
+  var PICKERS = [{key:"cls", all:"All asset classes", unit:"classes"},
+                 {key:"reg", all:"All regions", unit:"regions"},
+                 {key:"iss", all:"All managers", unit:"managers"}];
 
   var root = document.documentElement;
   try { var t = localStorage.getItem("etf-theme"); if (t) root.setAttribute("data-theme", t); } catch (e) {}
-  function isDark(){
-    var a = root.getAttribute("data-theme");
-    return a ? a === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
+  function isDark(){ var a = root.getAttribute("data-theme"); return a ? a === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches; }
   function paintTheme(){ $("theme").textContent = isDark() ? "Light" : "Dark"; }
-  $("theme").addEventListener("click", function(){
-    var next = isDark() ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try { localStorage.setItem("etf-theme", next); } catch (e) {}
-    paintTheme();
-  });
+  $("theme").addEventListener("click", function(){ var n = isDark() ? "light" : "dark"; root.setAttribute("data-theme", n); try { localStorage.setItem("etf-theme", n); } catch (e) {} paintTheme(); });
   paintTheme();
 
-  function esc(s){
-    return String(s).replace(/[&<>"]/g, function(c){
-      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
-    });
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function yen(v){
+    if (v === null || v === undefined) return '<span class="na">—</span>';
+    if (v >= 1e12) return "¥" + (v / 1e12).toFixed(2) + "tn";
+    if (v >= 1e9)  return "¥" + (v / 1e9).toFixed(1) + "bn";
+    return "¥" + Math.round(v / 1e6).toLocaleString() + "m";
   }
+  function pct(v, dp){
+    if (v === null || v === undefined) return '<span class="na">—</span>';
+    var c = v > 0 ? "up" : v < 0 ? "dn" : "";
+    return '<span class="' + c + '">' + (v > 0 ? "+" : "") + v.toFixed(dp === undefined ? 1 : dp) + "%</span>";
+  }
+  function setSize(o){ return Object.keys(o).length; }
 
   function apply(){
     var q = $("q").value.trim().toLowerCase();
-    var iss = $("f-iss").value, idx = $("f-idx").value;
+    var nC = setSize(sel.cls), nR = setSize(sel.reg), nI = setSize(sel.iss);
     view = all.filter(function(f){
-      if (iss && f.issuer !== iss) return false;
-      if (idx && (f.index || "") !== idx) return false;
-      if (q && f.code.indexOf(q) === -1 &&
-               f.name.toLowerCase().indexOf(q) === -1 &&
-               (f.index || "").toLowerCase().indexOf(q) === -1) return false;
+      if (nC && !sel.cls[f.assetClass || "No record"]) return false;
+      if (nR && !(f.regions || ["No record"]).some(function(r){ return sel.reg[r]; })) return false;
+      if (nI && !sel.iss[f.issuer]) return false;
+      if (q && f.code.indexOf(q) === -1 && f.name.toLowerCase().indexOf(q) === -1 &&
+          (f.nameJa || "").toLowerCase().indexOf(q) === -1 &&
+          (f.index || "").toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
     sortView();
-    $("count").textContent = view.length.toLocaleString() + " of " +
-      all.length.toLocaleString() + " funds";
-    render();
+    $("count").textContent = view.length.toLocaleString() + " of " + all.length.toLocaleString() + " funds";
+    paintPickers(); render();
   }
 
   function sortView(){
     var s = $("sort").value;
-    // Funds with no fee on file sort last either way, so "cheapest" never opens
-    // with a page of unknowns.
-    function byNum(key, dir){
-      return function(a, b){
-        var x = a[key], y = b[key];
-        if (x === null || x === undefined) return 1;
-        if (y === null || y === undefined) return -1;
-        return dir * (y - x);
-      };
-    }
-    function byStr(key, dir){
-      return function(a, b){
-        var x = a[key] || "", y = b[key] || "";
-        if (!x) return 1;
-        if (!y) return -1;
-        return x < y ? -dir : x > y ? dir : 0;
-      };
-    }
-    if (s === "code") view.sort(byStr("code", 1));
-    else if (s === "name") view.sort(function(a,b){ return a.name.localeCompare(b.name); });
-    else if (s === "fee-a") view.sort(byNum("expense", -1));
-    else if (s === "fee-d") view.sort(byNum("expense", 1));
-    else if (s === "new") view.sort(byStr("listed", -1));
-    else if (s === "old") view.sort(byStr("listed", 1));
+    function byNum(k, dir){ return function(a,b){ var x=a[k], y=b[k]; if (x===null||x===undefined) return 1; if (y===null||y===undefined) return -1; return dir*(y-x); }; }
+    function byStr(k, dir){ return function(a,b){ var x=a[k]||"", y=b[k]||""; if(!x) return 1; if(!y) return -1; return x<y?-dir:x>y?dir:0; }; }
+    ({ "aum-d": function(){ view.sort(byNum("netAssets", 1)); },
+       "code":  function(){ view.sort(byStr("code", 1)); },
+       "name":  function(){ view.sort(function(a,b){ return a.name.localeCompare(b.name); }); },
+       "fee-a": function(){ view.sort(byNum("expense", -1)); },
+       "fee-d": function(){ view.sort(byNum("expense", 1)); },
+       "r1-d":  function(){ view.sort(byNum("return1y", 1)); },
+       "r1-a":  function(){ view.sort(byNum("return1y", -1)); },
+       "r3-d":  function(){ view.sort(byNum("return3y", 1)); },
+       "new":   function(){ view.sort(byStr("listed", -1)); },
+       "old":   function(){ view.sort(byStr("listed", 1)); } }[s] || function(){})();
   }
 
   function render(){
-    if (!view.length) {
-      $("rows").innerHTML = "";
-      $("more").innerHTML = '<div class="empty">No fund matches.</div>';
-      return;
-    }
+    if (!view.length) { $("rows").innerHTML = ""; $("more").innerHTML = '<div class="empty">No fund matches.</div>'; return; }
     $("more").innerHTML = "";
     $("rows").innerHTML = view.map(function(f){
-      return "<tr>" +
+      var regs = f.regions ? f.regions.map(function(r){ return '<span class="tag">' + esc(r) + "</span>"; }).join(" ") : '<span class="na">—</span>';
+      return '<tr class="row" data-code="' + esc(f.code) + '">' +
         '<td><span class="code">' + esc(f.code) + "</span></td>" +
-        '<td class="nm" title="' + esc(f.name) + '">' + esc(f.name) + "</td>" +
+        '<td class="nm" title="' + esc(f.name) + (f.nameJa ? " · " + esc(f.nameJa) : "") + '">' + esc(f.name) + "</td>" +
         '<td class="iss">' + esc(f.issuer) + "</td>" +
-        "<td>" + (f.index ? '<span class="chip" title="' + esc(f.index) + '">' +
-          esc(f.index) + "</span>" : '<span class="na">—</span>') + "</td>" +
+        "<td>" + (f.assetClass ? '<span class="chip">' + esc(f.assetClass) + "</span>" : '<span class="tag" title="' + esc(f.libraryNote || "") + '">no record</span>') + "</td>" +
+        "<td>" + regs + "</td>" +
+        '<td class="num">' + yen(f.netAssets) + "</td>" +
+        '<td class="num">' + (f.expense === null || f.expense === undefined ? '<span class="na">—</span>' : f.expense.toFixed(3) + "%") + "</td>" +
+        '<td class="num">' + pct(f.return1y) + "</td>" +
+        '<td class="num">' + pct(f.return3y) + "</td>" +
         '<td class="num iss">' + (f.listed ? esc(f.listed) : "—") + "</td>" +
-        '<td class="num iss">' + (f.unit ? esc(f.unit) : "—") + "</td>" +
-        '<td class="num">' + (f.expense === null || f.expense === undefined
-          ? '<span class="na">—</span>' : f.expense.toFixed(3) + "%") + "</td>" +
+        "<td>" + (f.prospectusUrl ? '<a class="doc" target="_blank" rel="noopener" href="' + esc(f.prospectusUrl) + '">Prospectus</a> · ' : "") +
+          '<a class="doc" target="_blank" rel="noopener" href="' + esc(f.pamphletUrl) + '">Pamphlet</a></td>' +
       "</tr>";
     }).join("");
   }
 
-  function fill(el, values){
-    el.innerHTML = el.children[0].outerHTML + values.map(function(v){
-      return '<option value="' + esc(v[0]) + '">' + esc(v[0]) +
-        " (" + v[1] + ")</option>";
+  /* pickers */
+  function countBy(fn){ var m = {}; all.forEach(function(f){ (fn(f) || []).forEach(function(k){ m[k] = (m[k] || 0) + 1; }); }); return m; }
+  function asItems(m){ return Object.keys(m).sort(function(a,b){ return m[b]-m[a] || (a<b?-1:1); }).map(function(k){ return {v:k, count:m[k]}; }); }
+  function renderPick(key){
+    $(key + "-list").innerHTML = (items[key] || []).map(function(it){
+      return '<label class="pick-item"><input type="checkbox" data-g="' + key + '" data-v="' + esc(it.v) + '"' + (sel[key][it.v] ? " checked" : "") + '><span>' + esc(it.v) + '</span><span class="cn">' + it.count + "</span></label>";
     }).join("");
   }
+  function paintPickers(){
+    PICKERS.forEach(function(p){
+      var n = setSize(sel[p.key]), b = $(p.key + "-btn");
+      b.textContent = (n === 0 ? p.all : n === 1 ? Object.keys(sel[p.key])[0] : n + " " + p.unit) + " ▾";
+      b.classList.toggle("active", n > 0);
+      $(p.key + "-n").textContent = n ? n + " selected" : p.all;
+    });
+  }
+  function closePickers(except){ PICKERS.forEach(function(p){ if (p.key !== except) $(p.key + "-panel").hidden = true; }); }
 
-  function tally(key){
-    var m = {};
-    all.forEach(function(f){ var k = f[key]; if (k) m[k] = (m[k] || 0) + 1; });
-    return Object.keys(m).sort(function(a, b){ return m[b] - m[a] || (a < b ? -1 : 1); })
-      .map(function(k){ return [k, m[k]]; });
+  /* modal */
+  function openModal(html){ $("modal").innerHTML = html; $("backdrop").hidden = false; document.body.style.overflow = "hidden"; }
+  function closeModal(){ $("backdrop").hidden = true; $("modal").innerHTML = ""; document.body.style.overflow = ""; }
+  function fundModal(code){
+    var f = null; for (var i = 0; i < all.length; i++) if (all[i].code === code) { f = all[i]; break; }
+    if (!f) return "";
+    function fact(l, v, n){ return '<div><div class="fact-l">' + l + '</div><div class="fact-v">' + v + "</div>" + (n ? '<div class="fact-n">' + n + "</div>" : "") + "</div>"; }
+    var facts = f.library
+      ? fact("Net assets", yen(f.netAssets), "library, " + esc(meta.libraryAsOf || "")) +
+        fact("Fee", f.expense.toFixed(3) + "%", "trust fee incl. tax" + (f.jpxFee ? " · JPX pre-tax " + f.jpxFee.toFixed(3) + "%" : "")) +
+        fact("NAV", f.nav ? "¥" + Math.round(f.nav).toLocaleString() : "—") +
+        fact("1 year", pct(f.return1y, 2), "NAV total return") + fact("3 year", pct(f.return3y, 2)) + fact("5 year", pct(f.return5y, 2)) +
+        fact("Risk (1y)", f.risk1y !== null && f.risk1y !== undefined ? f.risk1y.toFixed(1) + "%" : "—", "annualised std dev") +
+        fact("Sharpe (1y)", f.sharpe1y !== null && f.sharpe1y !== undefined ? f.sharpe1y.toFixed(2) : "—") +
+        fact("Distributions (1y)", f.dividend1y !== null && f.dividend1y !== undefined ? "¥" + f.dividend1y.toLocaleString() : "—", "per unit") +
+        fact("Asset class", esc(f.assetClass), "official") + fact("Region", (f.regions || []).map(esc).join(", ") || "—", "official") +
+        fact("Inception", esc(f.inception || f.listed || "—")) + fact("Index", esc(f.index || "—"))
+      : fact("Fee", f.expense !== null && f.expense !== undefined ? f.expense.toFixed(3) + "%" : "—", "JPX trust fee, pre-tax") +
+        fact("Listed", esc(f.listed || "—")) + fact("Index", esc(f.index || "—")) + fact("Unit", esc(f.unit || "—"));
+    var docs = '<div class="docs">' +
+      (f.prospectusUrl ? '<a class="docbtn" target="_blank" rel="noopener" href="' + esc(f.prospectusUrl) + '">Prospectus (交付目論見書) ↗</a>' : "") +
+      '<a class="docbtn" target="_blank" rel="noopener" href="' + esc(f.pamphletUrl) + '">JPX pamphlet ↗</a>' +
+      (f.libraryUrl ? '<a class="docbtn" target="_blank" rel="noopener" href="' + esc(f.libraryUrl) + '">Fund library record ↗</a>' : "") +
+      (f.managerUrl ? '<a class="docbtn" target="_blank" rel="noopener" href="' + esc(f.managerUrl) + '">Manager’s page ↗</a>' : "") + "</div>";
+    return '<div class="modal-head"><div><div class="modal-tick">' + esc(f.code) + "</div>" +
+      '<div class="modal-name">' + esc(f.name) + (f.nameJa ? '<br><span style="font-size:12px">' + esc(f.nameJa) + "</span>" : "") + "</div>" +
+      '<div class="modal-sub">' + esc(f.manager) + (f.isin ? " · " + esc(f.isin) : "") + "</div></div>" +
+      '<button class="modal-x" type="button" data-close aria-label="Close">×</button></div>' +
+      '<div class="modal-body"><div class="facts">' + facts + "</div>" +
+      (f.library ? "" : '<div class="note-in">' + esc(f.libraryNote || "") + "</div>") + docs + "</div>";
   }
 
-  ["q","f-iss","f-idx","sort"].forEach(function(id){
-    $(id).addEventListener(id === "q" ? "input" : "change", apply);
+  /* events */
+  $("q").addEventListener("input", apply); $("sort").addEventListener("change", apply);
+  $("reset").addEventListener("click", function(){ $("q").value = ""; sel = {cls:{}, reg:{}, iss:{}}; $("sort").value = "aum-d"; PICKERS.forEach(function(p){ renderPick(p.key); }); closePickers(); apply(); });
+  PICKERS.forEach(function(p){
+    $(p.key + "-list").addEventListener("change", function(e){
+      var v = e.target.getAttribute && e.target.getAttribute("data-v"); if (!v) return;
+      if (e.target.checked) sel[p.key][v] = 1; else delete sel[p.key][v]; apply();
+    });
   });
-  $("reset").addEventListener("click", function(){
-    $("q").value = ""; $("f-iss").value = ""; $("f-idx").value = "";
-    $("sort").value = "code"; apply();
+  document.addEventListener("click", function(e){
+    var t = e.target;
+    if (t.hasAttribute && t.hasAttribute("data-close")) { closeModal(); return; }
+    if (t === $("backdrop")) { closeModal(); return; }
+    var clear = t.getAttribute && t.getAttribute("data-clear");
+    if (clear) { sel[clear] = {}; renderPick(clear); apply(); return; }
+    var wrap = t.closest ? t.closest(".pick") : null;
+    if (wrap) {
+      var key = wrap.getAttribute("data-pick");
+      if (t === $(key + "-btn")) { var open = $(key + "-panel").hidden; closePickers(key); if (open) renderPick(key); $(key + "-panel").hidden = !open; }
+      return;
+    }
+    closePickers();
+    if (t.closest && t.closest("a")) return;          // doc links navigate
+    var row = t.closest ? t.closest("tr.row") : null;
+    if (row) openModal(fundModal(row.getAttribute("data-code")));
   });
-
-  var SORTABLE = { code:["code","code"], name:["name","name"],
-                   expense:["fee-a","fee-d"], listed:["new","old"] };
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") { if (!$("backdrop").hidden) closeModal(); else closePickers(); } });
+  var SORTABLE = { code:["code","code"], name:["name","name"], netAssets:["aum-d","aum-d"], expense:["fee-a","fee-d"], return1y:["r1-d","r1-a"], return3y:["r3-d","r3-d"], listed:["new","old"] };
   Array.prototype.forEach.call(document.querySelectorAll("thead th"), function(th){
-    th.addEventListener("click", function(){
-      var pair = SORTABLE[th.getAttribute("data-sk")];
-      if (!pair) return;
-      $("sort").value = ($("sort").value === pair[0]) ? pair[1] : pair[0];
-      apply();
-    });
+    th.addEventListener("click", function(){ var p = SORTABLE[th.getAttribute("data-sk")]; if (!p) return; $("sort").value = $("sort").value === p[0] ? p[1] : p[0]; apply(); });
   });
 
-  fetch("data/tokyo.json", REVALIDATE).then(function(r){ return r.json(); })
-    .then(function(d){
-      all = d.funds || [];
-      meta = d;
-      $("sub").textContent = "Listed on the Tokyo Stock Exchange · " +
-        all.length.toLocaleString() + " funds";
-      fill($("f-iss"), tally("issuer"));
-      fill($("f-idx"), tally("index"));
-
-      var fees = all.map(function(f){ return f.expense; })
-        .filter(function(v){ return v !== null && v !== undefined; }).sort(function(a,b){ return a-b; });
-      var years = all.map(function(f){ return f.listed; }).filter(Boolean).sort();
-      function stat(v, l){
-        return '<div class="stat"><div class="stat-v">' + v +
-          '</div><div class="stat-l">' + l + "</div></div>";
-      }
-      $("stats").innerHTML =
-        stat(all.length.toLocaleString(), "Listed ETFs") +
-        stat(String(tally("issuer").length), "Managers") +
-        stat(fees.length ? fees[Math.floor(fees.length / 2)].toFixed(3) + "%" : "—", "Median fee") +
-        stat(fees.length ? fees[0].toFixed(3) + "%" : "—", "Cheapest") +
-        stat(years.length ? years[0].slice(0, 4) : "—", "Oldest listing");
-      apply();
-    })
-    .catch(function(err){
-      $("count").textContent = "";
-      $("more").innerHTML = '<div class="empty">Could not load Tokyo fund data. ' +
-        esc(err && err.message ? err.message : "Unknown error") + "</div>";
-    });
+  fetch("data/tokyo.json", REVALIDATE).then(function(r){ return r.json(); }).then(function(d){
+    all = d.funds || []; meta = d;
+    $("sub").textContent = "Listed on the Tokyo Stock Exchange · " + all.length + " funds";
+    $("asof").textContent = d.libraryAsOf ? "Library " + d.libraryAsOf : "";
+    items.cls = asItems(countBy(function(f){ return [f.assetClass || "No record"]; }));
+    items.reg = asItems(countBy(function(f){ return f.regions || ["No record"]; }));
+    items.iss = asItems(countBy(function(f){ return [f.issuer]; }));
+    PICKERS.forEach(function(p){ renderPick(p.key); });
+    var lib = all.filter(function(f){ return f.library; });
+    var aum = lib.reduce(function(m,f){ return m + (f.netAssets || 0); }, 0);
+    var fees = lib.map(function(f){ return f.expense; }).filter(function(v){ return v !== null && v !== undefined; }).sort(function(a,b){ return a-b; });
+    function stat(v,l){ return '<div class="stat"><div class="stat-v">' + v + '</div><div class="stat-l">' + l + "</div></div>"; }
+    $("stats").innerHTML = stat(all.length, "Listed ETFs") + stat(lib.length, "With fund-library record") +
+      stat(yen(aum), "Net assets") + stat(fees.length ? fees[Math.floor(fees.length/2)].toFixed(3) + "%" : "—", "Median fee (incl. tax)") +
+      stat(String(items.iss.length), "Managers");
+    apply();
+  }).catch(function(err){ $("count").textContent = ""; $("more").innerHTML = '<div class="empty">Could not load Tokyo fund data. ' + esc(err && err.message ? err.message : "Unknown error") + "</div>"; });
 })();
 </script>
 </body>

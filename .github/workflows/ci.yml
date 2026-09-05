@@ -40,7 +40,17 @@ jobs:
           codes = [f['code'] for f in d['funds']]
           assert len(set(codes)) == len(codes), 'duplicate Tokyo codes'
           assert all(len(c) == 4 and c.isdigit() for c in codes), 'bad code format'
-          print(f"OK — {len(d['funds'])} Tokyo ETFs")
+          # The fund-library join: 248/274 when built. A collapse means a name
+          # format changed on one side and the match silently degraded.
+          lib = [f for f in d['funds'] if f.get('library')]
+          assert len(lib) >= 200, f'only {len(lib)} Tokyo funds matched the fund library'
+          nopros = [f['code'] for f in lib if not f.get('prospectusUrl')]
+          assert not nopros, f'library funds without a prospectus link: {nopros[:5]}'
+          noaum = [f['code'] for f in lib if not f.get('netAssets')]
+          assert len(noaum) <= 5, f'library funds without net assets: {noaum[:5]}'
+          m = json.loads(pathlib.Path('data/tokyo_isin.json').read_text())
+          assert len(m) >= 200, f'code->ISIN map has only {len(m)} entries'
+          print(f"OK — {len(d['funds'])} Tokyo ETFs, {len(lib)} with library records")
           EOF
 
       - name: Name classifier behaves on known funds
@@ -60,6 +70,13 @@ jobs:
           assert fees >= 0.75 * n, f'fees on only {fees}/{n}'
           assert inc >= 0.99 * n, f'inception on only {inc}/{n}'
           assert src == n, f'categorySource missing on {n - src}'
+          # Prospectus links: every fee should know which filing it came from,
+          # and every 1940-Act fund its series id.
+          withfee = [e for e in etfs if e.get('expense') is not None]
+          adsh = sum(1 for e in withfee if e.get('expenseAdsh'))
+          series = sum(1 for e in etfs if e.get('seriesId'))
+          assert adsh >= 0.95 * len(withfee), f'accession on only {adsh}/{len(withfee)} fees'
+          assert series >= 0.70 * n, f'series id on only {series}/{n}'
           h = json.load(open('data/holdings.json'))
           assert len(h) >= 3000, f'only {len(h)} funds with holdings'
           bad = [s for s, r in h.items() if not r.get('top') or not r.get('asOf')]
