@@ -169,6 +169,9 @@ tbody tr:hover{background:var(--color-background-secondary)}
 .nm{color:var(--color-text-secondary);max-width:400px;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap}
 .iss{color:var(--color-text-tertiary);font-size:12px;white-space:nowrap}
+.mix{font-family:var(--font-mono);font-weight:600;opacity:.8;margin-left:2px}
+.chip.filed{box-shadow:inset 0 0 0 .5px var(--chip-t)}
+.fact-n{font-family:var(--font-sans);font-size:9.5px;font-weight:400;color:var(--color-text-tertiary);margin-top:2px}
 .chip{display:inline-block;background:var(--chip-bg);color:var(--chip-t);border-radius:5px;
   padding:2px 6px;font-size:10.5px;font-weight:500;white-space:nowrap}
 .lev{font-family:var(--font-mono);font-size:11.5px;font-weight:600}
@@ -428,7 +431,13 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
   price history. Prospectus inception can precede it by a few days, and a fund that changed
   sponsor or exchange may show the later of the two dates rather than its original launch.
   <br>
-  <strong>Derived fields.</strong> Sponsor, category, region and leverage are inferred from the
+  <strong>Category.</strong> Where a fund files holdings with the SEC, its category comes from
+  what it actually holds: ≥90% equity is equity, ≥90% debt is fixed income, ≥30% derivatives is
+  derivative income, and any real mix is Multi-asset with the split shown. A chip with an outline
+  was set that way; hover any chip for the source. Funds without a filing — and funds that hold
+  other funds, whose filings cannot say what the underlying funds hold — fall back to the name.
+  <br>
+  <strong>Derived fields.</strong> Sponsor, region and leverage are inferred from the
   fund's name, not from a filings database — the screener does not publish them. They are
   accurate enough to filter on and wrong often enough that you should confirm against the fund's
   own fact sheet before acting. Expense ratios, AUM and holdings are not available from this
@@ -482,6 +491,30 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     var sign = v > 0 ? "+" : "";
     return '<td class="num ' + cls + '">' + sign + v.toFixed(2) + "%</td>";
   }
+  // The label's provenance matters as much as the label: "holdings" means the
+  // fund's own SEC filing decided it, "name" means it was inferred from the
+  // fund's name because no usable filing exists.
+  function mixText(r){
+    if (r.equityPct === null || r.equityPct === undefined) return "";
+    return "equity " + r.equityPct.toFixed(0) + "% · debt " + r.debtPct.toFixed(0) +
+      "%" + (r.derivPct >= 1 ? " · derivatives " + r.derivPct.toFixed(0) + "%" : "");
+  }
+  function catChip(r){
+    var label = esc(r.category);
+    if (r.category === "Multi-asset" && r.equityPct !== null && r.equityPct !== undefined) {
+      label += ' <span class="mix">' + r.equityPct.toFixed(0) + "/" +
+        r.debtPct.toFixed(0) + "</span>";
+    }
+    var tip = r.categorySource === "holdings"
+      ? "From the fund's SEC filing: " + mixText(r)
+      : "Inferred from the fund's name" +
+        (r.fundOfFunds ? " (holds other funds, so the filing cannot classify it)" :
+         r.nameCategory ? "" : "") +
+        (mixText(r) ? " · filing shows " + mixText(r) : "");
+    return '<span class="chip' + (r.categorySource === "holdings" ? " filed" : "") +
+      '" title="' + esc(tip) + '">' + label + "</span>";
+  }
+
   function levLabel(l){
     if (l === 1) return '<td class="num lev n">—</td>';
     var txt = (l < 0 ? "-" : "") + Math.abs(l) + "x";
@@ -649,7 +682,7 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
           (r.isNew ? '<span class="newtag" title="Listed or first seen in the last ' +
             (meta.newWindowDays || 90) + ' days">New</span>' : "") + "</td>" +
         '<td class="iss">' + esc(r.issuer) + "</td>" +
-        '<td><span class="chip">' + esc(r.category) + "</span></td>" +
+        '<td>' + catChip(r) + "</td>" +
         '<td class="iss">' + esc(r.region) + "</td>" +
         (r.inception
           ? '<td class="num dt" title="First trading day">' + esc(r.inception) + "</td>"
@@ -844,7 +877,16 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
     var h = holdings[sym];
     var inCmp = !!cmp[sym];
     var facts = [
-      ["Category", esc(r.category)],
+      ["Category", esc(r.category) +
+        '<div class="fact-n">' + (r.categorySource === "holdings"
+          ? "from SEC filing" : "from name" + (r.fundOfFunds ? " · fund of funds" : "")) +
+        (r.nameCategory && r.nameCategory !== r.category
+          ? " · name said " + esc(r.nameCategory) : "") + "</div>"],
+      ["Asset mix", r.equityPct === null || r.equityPct === undefined
+        ? '<span class="na">—</span>'
+        : r.equityPct.toFixed(0) + " / " + r.debtPct.toFixed(0) +
+          (r.derivPct >= 1 ? " / " + r.derivPct.toFixed(0) : "") +
+          '<div class="fact-n">equity / debt' + (r.derivPct >= 1 ? " / deriv" : "") + "</div>"],
       ["Region", esc(r.region)],
       ["Fee", r.expense !== null && r.expense !== undefined
         ? r.expense.toFixed(2) + "%" : '<span class="na">—</span>'],

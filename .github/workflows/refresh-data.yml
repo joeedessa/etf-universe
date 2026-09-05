@@ -43,6 +43,12 @@ jobs:
       - name: Top up expense ratios
         run: python scripts/fetch_expenses.py --quarters 8
 
+      # The name-derived category is a guess; where a fund's own N-PORT filing
+      # says otherwise, the filing wins. Runs after the universe rebuild wipes
+      # the previous labels and before anything validates or tags them.
+      - name: Reclassify from SEC filings
+        run: python scripts/reclassify.py
+
       # Records first-seen dates so newly listed funds can be tagged. Must run
       # after the universe is rebuilt and before validation.
       - name: Tag newly listed funds
@@ -72,8 +78,16 @@ jobs:
                  and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', e['inception'])]
           assert not bad, f'malformed inception dates: {bad[:5]}'
           known = sum(1 for e in etfs if e.get('inception'))
-          print(f'OK — {len(etfs)} funds, {len(meta["issuers"])} sponsors, '
-                f'{known} inception dates')
+          fees = sum(1 for e in etfs if e.get('expense') is not None)
+          src = sum(1 for e in etfs if e.get('categorySource'))
+          n = len(etfs)
+          # A run that silently dropped an enrichment step would otherwise
+          # commit a universe with every fee or date blank and pass.
+          assert known >= 0.99 * n, f'only {known}/{n} inception dates'
+          assert fees >= 0.75 * n, f'only {fees}/{n} expense ratios'
+          assert src == n, f'{n - src} records missing categorySource'
+          print(f'OK — {n} funds, {len(meta["issuers"])} sponsors, '
+                f'{known} inception dates, {fees} fees')
           EOF
 
       - name: Commit if changed

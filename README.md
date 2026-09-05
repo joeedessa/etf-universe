@@ -1,6 +1,6 @@
 # etf-universe
 
-Every US-listed ETF in one searchable table — 5,261 funds, refreshed each weekday
+Every US-listed ETF in one searchable table — 5,253 funds, refreshed each weekday
 after the close.
 
 Live: https://joeedessa.github.io/etf-universe/
@@ -31,7 +31,7 @@ rather than quietly showing a shorter watchlist than you saved.
 ### The default view
 
 On load the page hides **crypto, currency, single stock, fixed income and
-derivative income** — 1,948 of the 5,261 funds — leaving 3,313 diversified
+derivative income** — 2,144 of the 5,253 funds — leaving 3,109 diversified
 funds. Single-stock and derivative-income wrappers are the reason: there are
 now ~950 of them, many being a dozen tickers on one underlying, and they crowd
 out everything else in an A–Z list.
@@ -53,7 +53,55 @@ name**:
 | Listed (first trading day) | Earliest bar in the fund's price history |
 | Top 10 holdings | SEC Form N-PORT (quarterly, lagging) |
 | Expense ratio | SEC prospectus risk/return summary XBRL |
-| Sponsor, category, region, leverage | Inferred from the fund name |
+| Category | Fund's N-PORT asset mix where filed; else the name |
+| Sponsor, region, leverage | Inferred from the fund name |
+
+### Category: the fund's own filing wins
+
+Category used to be inferred from the fund's name alone. A review found that
+wrong in ways that matter: 216 bond funds labelled as equity because their
+names say "Core Plus Income" rather than "Bond", buffer funds that are 99%
+derivatives labelled Broad equity. Fixed income is hidden by default, so those
+leaked into the view meant for diversified equity funds.
+
+`scripts/reclassify.py` now lets a fund's N-PORT asset mix override the name
+wherever a usable filing exists. The rule, in order:
+
+1. **Strategy labels are kept from the name** — Alternatives, Derivative
+   income, Single stock, Crypto, Commodity, Currency, and anything levered. The
+   asset field cannot see a strategy: a 3x Europe fund files as "49% equity,
+   51% swaps", which is not a balanced fund.
+2. **Funds that hold other funds keep the name label.** A fund holding ETFs
+   files each one as "Equity (common)" regardless of what that ETF holds —
+   `BNDW` Vanguard Total World Bond reads as 100% equity because it owns two
+   bond ETFs, and `CGBL` Core Balanced hides a 38% bond sleeve the same way.
+   Any holding of ≥20% in other funds makes the split unreliable. 612 funds.
+3. **Derivatives ≥30% → Derivative income.** Buffer and defined-outcome funds.
+4. **Equity and debt both ≥10% → Multi-asset**, with the split shown on the
+   row. "Any combination of equity and something else is multi-asset", with a
+   10% tolerance because every fund holds a little cash or has a rounding
+   residual. For a two-class fund that is the 90% line; unlike a plain 90%
+   rule it does not let an unclassifiable residual (non-US REITs file as
+   `OTHER`) push a real-estate fund into Multi-asset.
+5. **Otherwise, whichever is larger** — the equity family (Broad / Sector /
+   Dividend / Real estate, by name) or Fixed income.
+
+Preferred stock counts as debt, by the convention every preferred fund
+follows. Securities-lending collateral, filed as cash on top of a fully
+invested portfolio, is ignored rather than treated as an allocation. Labels
+have hysteresis so a fund at 89/11 drifting to 91/9 does not flap between
+Multi-asset and Broad equity from one quarterly filing to the next.
+
+On the current data: **2,771 funds classified from their filing, 2,482 from
+their name** (no usable filing, or fund-of-funds), and **258 labels changed** —
+91 Broad equity → Fixed income, 71 Broad equity → Derivative income, 29 Dividend
+equity → Fixed income, 28 Broad equity → Multi-asset. Every fund carries
+`categorySource` and its `equityPct` / `debtPct` / `derivPct`, so the label is
+never the only thing to go on: hover a category chip for its source and mix,
+and an outlined chip is one the filing decided.
+
+`scripts/test_classify.py` holds 27 cases, each a real fund where name and
+filing disagreed or a boundary the rule has to respect.
 
 The **Listed** column is the fund's first trading day, not its prospectus
 inception — the latter is not published in bulk anywhere free. The two are
@@ -175,7 +223,7 @@ carries holdings but no fees.
 A prospectus is filed roughly **annually**, so one quarter holds only a slice of
 the universe — 2026q2 alone covered 932 of our funds. Coverage comes from
 accumulating quarters, and `data/expenses.json` is cumulative: 8 quarters reach
-**4,198 of 5,261 (80%)**, and each run pulls only quarters it has not seen.
+**4,177 of 5,253 (80%)**, and each run pulls only quarters it has not seen.
 
 Net expense (after waivers) is preferred over gross, since net is what a holder
 pays. The modal states which basis a figure uses. Values above 10% are dropped —
@@ -193,7 +241,7 @@ Two things to keep in mind:
 - **They lag.** N-PORT is published ~60 days after a quarter ends, so report
   dates currently span 2026-02 to 2026-04. Each drawer shows its own as-of date.
   These describe how a fund *was* positioned.
-- **Coverage is 4,042 of 5,261 funds (77%).** The gap is structural, not a bug:
+- **Coverage is 4,042 of 5,250 funds (77%).** The gap is structural, not a bug:
   commodity and crypto grantor trusts (`GLD`, `IBIT`, `SLV`) file 10-Ks, and
   unit investment trusts (`SPY`, `DIA`, `MDY`) file nothing of this shape.
   Coverage is 84–96% across the diversified categories and weakest in commodity
@@ -232,14 +280,17 @@ data/holdings.json             top 10 positions per fund (generated)
 data/expenses.json             cumulative ticker -> expense ratio cache
 data/positions/<TICKER>.json   largest 500 positions, fetched on demand
 data/first_seen.json           ticker -> date first seen in the universe
+data/classification.json       last category per ticker (for hysteresis)
 data/tokyo.json                Tokyo-listed ETFs (generated)
 scripts/fetch_etfs.py          fetch + derive + write (standard library only)
 scripts/fetch_inception.py     top up the inception cache, merge into etfs.json
 scripts/fetch_holdings.py      stream SEC N-PORT, keep each fund's top 10
 scripts/fetch_expenses.py      accumulate expense ratios across RR quarters
+scripts/reclassify.py          category from the fund's own filing
 scripts/track_new.py           first-seen dates, tags newly listed funds
 scripts/fetch_tokyo.py         parse JPX's listed ETF issue table
-scripts/test_derive.py         regression tests for the derived fields
+scripts/test_derive.py         regression tests for the name-derived fields
+scripts/test_classify.py       regression tests for the filing-based category
 scripts/serve.py               local static server for previewing
 .github/workflows/refresh-data.yml   weeknight refresh, commits data/
 .github/workflows/refresh-holdings.yml  monthly N-PORT check

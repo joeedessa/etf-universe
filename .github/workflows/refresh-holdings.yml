@@ -40,6 +40,10 @@ jobs:
           python scripts/fetch_holdings.py \
             ${{ inputs.force && '--force' || '' }}
 
+      # Fresh filings can move a fund across a category line.
+      - name: Reclassify from the new filings
+        run: python scripts/reclassify.py
+
       - name: Validate output
         run: |
           python - <<'EOF'

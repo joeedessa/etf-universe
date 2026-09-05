@@ -515,17 +515,17 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 2155,
-    "Fixed income": 846,
-    "Sector equity": 568,
+    "Broad equity": 1968,
+    "Fixed income": 962,
+    "Sector equity": 555,
+    "Derivative income": 533,
     "Single stock": 492,
-    "Derivative income": 448,
-    "Dividend equity": 286,
+    "Dividend equity": 252,
     "Crypto": 133,
     "Alternatives": 100,
     "Commodity": 93,
+    "Multi-asset": 84,
     "Real estate": 57,
-    "Multi-asset": 51,
     "Currency": 24
   },
   "regions": {
@@ -555,5 +555,16 @@
   "holdingsSource": "SEC Form N-PORT 2026q2",
   "holdingsAsOf": "2026-04-30",
   "newCount": 220,
-  "newWindowDays": 90
+  "newWindowDays": 90,
+  "categorySource": {
+    "name": 2482,
+    "holdings": 2771
+  },
+  "reclassified": 259,
+  "classifyThresholds": {
+    "mix": 10.0,
+    "mixLeave": 7.0,
+    "deriv": 30.0,
+    "fundOfFunds": 20.0
+  }
 }

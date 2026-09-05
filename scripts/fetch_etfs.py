@@ -363,7 +363,10 @@ CATEGORY_RULES = [
                   r"broad basket"),
     ("Currency", r"\bcurrency|dollar index|japanese yen|\beuro\b|swiss franc|"
                  r"british pound|mexican peso|chinese yuan"),
-    ("Fixed income", r"\bbond|treasur|municipal|\bmuni\b|high yield|"
+    # "high yield" is a bond idiom — unless it is "High Yield Equity" or "High
+    # Yield Dividend", where it is an equity screen. PEY sat in Fixed income for
+    # that reason; funds without an SEC filing have only this rule to go on.
+    ("Fixed income", r"\bbond|treasur|municipal|\bmuni\b|high yield(?! (equity|dividend))|"
                      r"aggregate|\btips\b|inflation-protected|mortgage|\bmbs\b|"
                      r"\bclo\b|bank loan|senior loan|\bt-bill|\bbill etf|"
                      r"floating rate|convertible|preferred|fixed income|"

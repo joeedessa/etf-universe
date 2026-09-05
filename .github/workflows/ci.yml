@@ -43,8 +43,31 @@ jobs:
           print(f"OK — {len(d['funds'])} Tokyo ETFs")
           EOF
 
-      - name: Classifier behaves on known funds
+      - name: Name classifier behaves on known funds
         run: python scripts/test_derive.py
+
+      - name: Holdings classifier behaves on known funds
+        run: python scripts/test_classify.py
+
+      - name: Enriched fields are present and holdings parse
+        run: |
+          python - <<'EOF'
+          import json, pathlib
+          etfs = json.load(open('data/etfs.json')); n = len(etfs)
+          fees = sum(1 for e in etfs if e.get('expense') is not None)
+          inc = sum(1 for e in etfs if e.get('inception'))
+          src = sum(1 for e in etfs if e.get('categorySource') in ('name', 'holdings'))
+          assert fees >= 0.75 * n, f'fees on only {fees}/{n}'
+          assert inc >= 0.99 * n, f'inception on only {inc}/{n}'
+          assert src == n, f'categorySource missing on {n - src}'
+          h = json.load(open('data/holdings.json'))
+          assert len(h) >= 3000, f'only {len(h)} funds with holdings'
+          bad = [s for s, r in h.items() if not r.get('top') or not r.get('asOf')]
+          assert not bad, f'malformed holdings: {bad[:5]}'
+          pos = list(pathlib.Path('data/positions').glob('*.json'))
+          assert len(pos) >= 3000, f'only {len(pos)} position files'
+          print(f'OK — fees {fees}, inception {inc}, holdings {len(h)}, positions {len(pos)}')
+          EOF
 
       # The dashboard is one file with no build step, so a syntax error ships
       # straight to production as a blank page.

@@ -90,6 +90,9 @@ CATEGORY_CASES = [
      "Derivative income"),
     ("SPDR Gold Shares", "Commodity"),
     ("Schwab US Dividend Equity ETF", "Dividend equity"),
+    # "High Yield Equity" is an equity screen, not a bond fund.
+    ("Invesco High Yield Equity Dividend Achievers ETF", "Dividend equity"),
+    ("iShares iBoxx $ High Yield Corporate Bond ETF", "Fixed income"),
     ("Vanguard S&P 500 ETF", "Broad equity"),
     ("First Trust Nasdaq Cybersecurity ETF", "Sector equity"),
     # Single-stock wrappers must not read as plain equity.
