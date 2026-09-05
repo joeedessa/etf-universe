@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-04T06:18:23Z",
-  "priceAsOf": "9/2/2026 8:00:00 PM",
+  "generated": "2026-09-05T06:06:56Z",
+  "priceAsOf": "9/3/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5250,
+  "count": 5253,
   "derived": [
     "issuer",
     "category",
@@ -57,11 +57,11 @@
     "Bank": 22,
     "ALPS": 21,
     "Columbia": 21,
+    "NYLIM": 21,
     "BNY Mellon": 20,
     "BondBloxx": 20,
     "Cambria": 20,
     "John Hancock": 20,
-    "NYLIM": 20,
     "The": 20,
     "Horizon": 19,
     "NEOS": 19,
@@ -122,6 +122,7 @@
     "Tuttle": 8,
     "USCF": 8,
     "United": 8,
+    "Yorkville": 8,
     "Baron": 7,
     "Brookstone": 7,
     "Lazard": 7,
@@ -131,7 +132,6 @@
     "Russell Investments": 7,
     "Thornburg": 7,
     "U.S": 7,
-    "Yorkville": 7,
     "Abacus": 6,
     "FIS": 6,
     "Pictet": 6,
@@ -198,6 +198,7 @@
     "Gotham": 3,
     "HCM": 3,
     "Hedgeye": 3,
+    "Kensington": 3,
     "LeaderShares": 3,
     "Liberty": 3,
     "Main": 3,
@@ -255,7 +256,6 @@
     "InfraCap": 2,
     "Intech": 2,
     "Intelligent": 2,
-    "Kensington": 2,
     "Kingsbarn": 2,
     "Lattice": 2,
     "Leuthold": 2,
@@ -515,7 +515,7 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 2153,
+    "Broad equity": 2155,
     "Fixed income": 846,
     "Sector equity": 568,
     "Single stock": 492,
@@ -524,20 +524,20 @@
     "Crypto": 133,
     "Alternatives": 100,
     "Commodity": 93,
-    "Real estate": 56,
+    "Real estate": 57,
     "Multi-asset": 51,
     "Currency": 24
   },
   "regions": {
-    "US": 4365,
+    "US": 4368,
     "Developed ex-US": 359,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5248,
+  "inceptionKnown": 5251,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 664,
+  "launchedThisYear": 666,
   "expenseKnown": 4177,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
@@ -554,6 +554,6 @@
   "holdingsKnown": 4044,
   "holdingsSource": "SEC Form N-PORT 2026q2",
   "holdingsAsOf": "2026-04-30",
-  "newCount": 218,
+  "newCount": 220,
   "newWindowDays": 90
 }
