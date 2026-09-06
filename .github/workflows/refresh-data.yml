@@ -9,6 +9,11 @@ on:
   schedule:
     - cron: '30 1 * * 2-6'
   workflow_dispatch:
+    inputs:
+      dividends_all:
+        description: 'refresh distributions for every symbol, not just the stalest'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -42,6 +47,16 @@ jobs:
       # already scanned, so most runs do nothing here.
       - name: Top up expense ratios
         run: python scripts/fetch_expenses.py --quarters 8
+
+      # Trailing distributions from Yahoo's chart feed, a per-symbol cache
+      # refreshed oldest-first so the universe cycles in about a week. The
+      # script exits non-zero and leaves the cache alone if the feed is
+      # rate-limiting; that must not fail the rest of the night's refresh.
+      - name: Top up distributions
+        run: |
+          python scripts/fetch_dividends.py \
+            ${{ inputs.dividends_all && '--all' || '--limit 600' }} \
+            || echo "::warning::distribution feed unavailable tonight — cache kept"
 
       # The name-derived category is a guess; where a fund's own N-PORT filing
       # says otherwise, the filing wins. Runs after the universe rebuild wipes

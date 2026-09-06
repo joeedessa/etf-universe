@@ -118,6 +118,17 @@ jobs:
           pos = list(pathlib.Path('data/positions').glob('*.json'))
           assert len(pos) >= 3000, f'only {len(pos)} position files'
           print(f'OK — fees {fees}, inception {inc}, holdings {len(h)}, positions {len(pos)}')
+          q = pathlib.Path('data/dividends.json')
+          if q.exists():
+              recs = json.loads(q.read_text())['records']
+              # Yield is recomputed nightly against the screener price; a record
+              # whose ttm went astray (a split-adjusted history, a mis-keyed
+              # symbol) shows as an absurd yield. Levered income funds really
+              # do pay 50-100%, so the ceiling is generous.
+              ys = [e['yieldTtm'] for e in etfs if e.get('yieldTtm') is not None]
+              assert all(0 <= y <= 200 for y in ys), f'implausible yields: {[y for y in ys if not 0 <= y <= 200][:5]}'
+              assert len(recs) >= 0.5 * n or len(recs) < 1000, f'distribution cache covers only {len(recs)}/{n}'
+              print(f'OK — distributions cached for {len(recs)} funds, yields on {len(ys)}')
           EOF
 
       # The dashboard is one file with no build step, so a syntax error ships
