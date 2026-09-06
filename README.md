@@ -322,6 +322,26 @@ pays. The modal states which basis a figure uses. Values above 10% are dropped �
 the raw data contains figures as absurd as 85%, which are mis-tagged rather than
 real.
 
+### Distribution yield
+
+Neither of the US sources has distributions — the Nasdaq screener carries
+price and fee only, and Nasdaq's own ETF dividend endpoint returns nothing for
+ETFs — so `scripts/fetch_dividends.py` reads them from Yahoo's chart feed:
+every cash distribution with its ex-date, keyed by symbol, no account. It is
+unofficial and can rate-limit, so the script is built to degrade rather than
+break: `data/dividends.json` is a per-symbol cache refreshed oldest-first, a
+few hundred a night, so the universe cycles in about a week; a symbol that
+fails keeps its previous record; and a night where more than 30% of attempts
+fail is treated as an outage and leaves the cache untouched.
+
+The **yield is trailing**: cash paid over the last twelve months against that
+night's screener price, recomputed on every run so it is never staler than the
+price it is shown against. It is not a forward or SEC yield, and return of
+capital and capital-gain payouts are in the sum because the feed does not
+separate them — a levered income fund's 80% is real cash paid, not a data
+error. The modal shows the sum, the number of payments and the last ex-date;
+the `Yield` column sorts on it.
+
 ### Holdings
 
 Click any fund for its ten largest positions. These come from SEC Form N-PORT,
