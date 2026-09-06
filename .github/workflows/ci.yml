@@ -59,6 +59,31 @@ jobs:
       - name: Holdings classifier behaves on known funds
         run: python scripts/test_classify.py
 
+      - name: Tokyo PCF row rules behave on known lines
+        run: python scripts/test_tokyo_pcf.py
+
+      - name: Tokyo holdings parse and reconcile
+        run: |
+          python - <<'EOF'
+          import json, pathlib
+          p = pathlib.Path('data/tokyo_holdings.json')
+          if not p.exists():
+              print('no tokyo_holdings.json yet'); raise SystemExit(0)
+          h = json.loads(p.read_text()); f = h['funds']
+          assert h['count'] == len(f), 'count disagrees with funds'
+          # 241 of 248 library funds when built; a feed that went dark shows here.
+          assert len(f) >= 200, f'only {len(f)} Tokyo funds with holdings'
+          bad = [c for c, r in f.items() if not r.get('top') or not r.get('asOf') or not r.get('denominatorYen')]
+          assert not bad, f'malformed holdings: {bad[:5]}'
+          # Weights are computed, not read, so every fund is reconciled against
+          # the fund library's net assets. A misread file lands at 0.01x or 100x.
+          ok = sum(1 for r in f.values() if r.get('check', {}).get('status') in ('ok', 'approx'))
+          assert ok >= 0.85 * len(f), f'only {ok}/{len(f)} reconcile with library net assets'
+          pos = list(pathlib.Path('data/tokyo_positions').glob('*.json'))
+          assert len(pos) == len(f), f'{len(pos)} position files for {len(f)} funds'
+          print(f"OK — {len(f)} Tokyo funds with holdings, {ok} reconciled, {h['check']}")
+          EOF
+
       - name: Enriched fields are present and holdings parse
         run: |
           python - <<'EOF'

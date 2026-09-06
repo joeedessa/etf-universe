@@ -198,10 +198,48 @@ Japan's labels are official — unlike the US page, where category is inferred
 from holdings or names. Fees on this page are **inclusive of consumption tax**,
 so they run about 10% above the pre-tax figure JPX prints; the modal shows both.
 
-Not on this page: holdings. Only one manager (Nomura, 59 funds) publishes them
-in machine-readable form. The fetcher refuses to write if fewer than 80% of JPX
-funds match the library or the library returns fewer than 300 ETFs — the
-failure mode for both sources is a silent partial parse, not an error.
+The fetcher refuses to write if fewer than 80% of JPX funds match the library
+or the library returns fewer than 300 ETFs — the failure mode for both sources
+is a silent partial parse, not an error.
+
+#### Tokyo holdings
+
+Every TSE-listed ETF publishes a **portfolio composition file** (PCF) each
+business day — every line in the fund, with quantity and price — through the
+agent that computes its indicative NAV. Only three agents serve the market, and
+all three publish the same CSV shape, so three feeds cover it
+(`scripts/fetch_tokyo_holdings.py`):
+
+| Feed | Funds | Managers |
+|---|---|---|
+| ICE, one daily zip | 141 | Nomura, BlackRock, MUFG, AM One, Simplex, SMDAM, SMTAM, Norinchukin |
+| IHS Markit (S&P), one CSV per fund | 62 | Amova, Daiwa, Norinchukin |
+| Solactive, one CSV per fund | 37 | Global X Japan |
+| Nomura's monthly workbook | 1 | the one Nomura fund with no PCF on ICE |
+
+**241 of the 248 library funds have holdings.** The seven without are four
+BlackRock hedged bond ETFs, one MUFG China fund and two Simplex funds, whose
+managers publish only PDFs. The 26 pamphlet-only funds (physical metals,
+WisdomTree, the JDRs) hold one asset each by construction.
+
+Weights are **computed, not read**, so the rules are spelled out in the script
+and tested on real lines (`scripts/test_tokyo_pcf.py`): foreign lines are
+converted at a daily open FX rate (Amova's files carry their own), bonds are
+quantity × price ÷ 100, cash lines arrive with a yen-per-unit rate, a
+units-per-yen rate or no rate at all and the orientation is decided by
+comparing to the open rate rather than assumed, and futures are kept **out of
+the denominator** — their notional is exposure, not asset — and listed
+separately, with a notional only where the file states a contract multiplier.
+
+Because a misread file lands at 0.01× or 100×, **every fund is reconciled
+against an independent figure** — the AUM the file itself states (Amova), or
+the fund library's net assets. 232 of 241 agree within 3%; 9 are within 15%
+(hedged bond funds, whose forward gains the file does not price, and small
+funds whose basket is dated a day ahead) and the modal says so; anything
+further off has its weights withheld while the position list is still shown.
+Click a fund for asset mix, country and currency rollups
+over all positions, the ten largest, and a button to load every position
+(largest 500). Refreshed weekly by `.github/workflows/refresh-tokyo-holdings.yml`.
 
 ### Prospectus links
 

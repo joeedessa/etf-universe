@@ -165,6 +165,25 @@ tbody tr.row{cursor:pointer}
 .docbtn:hover{border-color:var(--accent)}
 .note-in{font-size:12px;color:var(--color-text-tertiary);line-height:1.6;background:var(--color-background-secondary);
   border-radius:8px;padding:10px 12px}
+/* holdings, from the fund's daily portfolio composition file */
+.hd{margin:6px 0 14px;padding-top:12px;border-top:.5px solid var(--color-border-tertiary)}
+.hd-head{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);margin-bottom:6px}
+.hd-sub{font-size:11.5px;color:var(--color-text-tertiary);line-height:1.55;margin-bottom:10px}
+.hd-sub.warn{color:#B45309}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{display:inline-block;border-radius:5px;padding:2px 8px;font-size:11px;background:var(--color-background-secondary);
+  color:var(--color-text-secondary);border:.5px solid var(--color-border-tertiary)}
+.chip b{font-family:var(--font-mono);font-weight:600;color:var(--color-text-primary);margin-left:4px}
+.hrow{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:baseline;padding:5px 0;border-bottom:.5px solid var(--color-border-tertiary);font-size:12.5px}
+.hrow:last-child{border-bottom:0}
+.hrow .n{font-family:var(--font-mono);font-size:11px;color:var(--color-text-tertiary)}
+.hrow .m{font-size:10.5px;color:var(--color-text-tertiary);margin-left:6px}
+.hrow .p{font-family:var(--font-mono);font-size:12.5px;font-weight:600}
+.hfull{max-height:320px;overflow:auto;margin-top:8px;border:.5px solid var(--color-border-tertiary);border-radius:8px;padding:2px 10px}
+.hfull .hrow{font-size:12px;padding:4px 0}
+.hbtn{margin-top:10px;border:.5px solid var(--color-border-secondary);border-radius:7px;padding:6px 11px;font-size:12px;
+  color:var(--accent);background:var(--color-background-primary);cursor:pointer}
+.hbtn:hover{border-color:var(--accent)}
 </style>
 </head>
 <body>
@@ -261,14 +280,18 @@ tbody tr.row{cursor:pointer}
   JDRs, and the physical-metal products are trusts rather than investment trusts. They show JPX's
   pamphlet and nothing else.
   <br>
-  <strong>Not on this page:</strong> holdings. Only one manager publishes them in machine-readable
-  form. <strong>Not investment advice.</strong> Nothing here is a recommendation to buy or sell any security.
+  <strong>Holdings</strong> come from each fund’s daily portfolio composition file, published through its
+  indicative-NAV agent (ICE, IHS Markit or Solactive). Weights are computed here — foreign lines converted at
+  a daily open FX rate, bonds at price per 100, futures and FX forwards listed but not weighted — and every
+  fund is reconciled against an independent net-assets figure; the modal states the result. Seven library funds
+  have no machine-readable file. <strong>Not investment advice.</strong> Nothing here is a recommendation to buy or sell any security.
 </p>
 
 <script>
 (function(){
   "use strict";
   var REVALIDATE = { cache: "no-cache" };
+  var holdings = {}, holdMeta = {};
   var $ = function(id){ return document.getElementById(id); };
   var all = [], view = [], meta = {};
   var sel = { cls:{}, reg:{}, iss:{} }, items = {};
@@ -399,7 +422,68 @@ tbody tr.row{cursor:pointer}
       '<div class="modal-sub">' + esc(f.manager) + (f.isin ? " · " + esc(f.isin) : "") + "</div></div>" +
       '<button class="modal-x" type="button" data-close aria-label="Close">×</button></div>' +
       '<div class="modal-body"><div class="facts">' + facts + "</div>" +
-      (f.library ? "" : '<div class="note-in">' + esc(f.libraryNote || "") + "</div>") + docs + "</div>";
+      (f.library ? "" : '<div class="note-in">' + esc(f.libraryNote || "") + "</div>") + holdingsHtml(f) + docs + "</div>";
+  }
+
+  /* holdings: every line of the fund's daily portfolio composition file, weighted here
+     over the fund's own bottom-up value and reconciled against the library's net assets */
+  var SOURCE_LABEL = { ice: "ICE (iNAV agent)", ihs: "IHS Markit / S&P (iNAV agent)", solactive: "Solactive (iNAV agent)", nomura: "Nomura monthly holdings workbook" };
+  var COUNTRY = { JP:"Japan", US:"United States", GB:"United Kingdom", DE:"Germany", FR:"France", NL:"Netherlands", CH:"Switzerland", IE:"Ireland",
+    CA:"Canada", AU:"Australia", HK:"Hong Kong", CN:"China", TW:"Taiwan", KR:"Korea", IN:"India", SG:"Singapore", BR:"Brazil", MX:"Mexico",
+    ZA:"South Africa", ES:"Spain", IT:"Italy", SE:"Sweden", DK:"Denmark", FI:"Finland", NO:"Norway", BE:"Belgium", AT:"Austria", PT:"Portugal",
+    IL:"Israel", SA:"Saudi Arabia", AE:"UAE", ID:"Indonesia", TH:"Thailand", MY:"Malaysia", PH:"Philippines", PL:"Poland", TR:"Turkey", CL:"Chile",
+    CO:"Colombia", PE:"Peru", KY:"Cayman Is.", BM:"Bermuda", LU:"Luxembourg", JE:"Jersey", XS:"Eurobond", NZ:"New Zealand", QA:"Qatar", KW:"Kuwait",
+    HU:"Hungary", CZ:"Czechia", GR:"Greece", EG:"Egypt", AR:"Argentina", "??":"Unknown" };
+  function cname(c){ return COUNTRY[c] || c; }
+  function chips(obj, fmt){
+    return '<div class="chips">' + Object.keys(obj).map(function(k){ return '<span class="chip">' + esc(fmt ? fmt(k) : k) + "<b>" + obj[k].toFixed(1) + "%</b></span>"; }).join("") + "</div>";
+  }
+  function hrow(i, name, meta, p, showPct){
+    return '<div class="hrow"><span class="n">' + (i ? i + "." : "") + "</span><span>" + esc(name) + (meta ? '<span class="m">' + esc(meta) + "</span>" : "") +
+      '</span><span class="p">' + (showPct ? p.toFixed(2) + "%" : "") + "</span></div>";
+  }
+  function holdingsHtml(f){
+    var h = holdings[f.code];
+    if (!h) {
+      if (!f.library) return "";
+      return '<div class="hd"><div class="hd-head">Holdings</div><div class="hd-sub">No machine-readable portfolio composition file was found for this fund. ' +
+        "Its holdings are in the prospectus and monthly report linked below.</div></div>";
+    }
+    var chk = h.check || {}, dev = chk.ratio ? Math.abs(chk.ratio - 1) * 100 : null, showPct = chk.status !== "off";
+    var sub = "Every line of the fund’s portfolio composition file dated " + esc(h.asOf || "—") + ", via " + esc(SOURCE_LABEL[h.source] || h.source) +
+      ". Weights are computed over the fund’s own bottom-up value (¥" + Math.round(h.denominatorYen / 1e6).toLocaleString() + " million); futures and FX forwards are listed, not weighted.";
+    var recon = chk.status === "ok"
+      ? '<div class="hd-sub">Reconciles with the fund library’s net assets within ' + dev.toFixed(1) + "%.</div>"
+      : chk.status === "approx"
+        ? '<div class="hd-sub warn">Differs from the fund library’s net assets by ' + dev.toFixed(1) + "% — treat weights as approximate. Hedged funds carry forward gains the file does not price; small funds’ baskets are dated a day ahead.</div>"
+        : chk.status === "off"
+          ? '<div class="hd-sub warn">Differs from the fund library’s net assets by ' + dev.toFixed(0) + "%, so weights are withheld; the position list is still shown.</div>"
+          : "";
+    var mix = {}; Object.keys(h.byAsset || {}).forEach(function(k){ mix[k] = h.byAsset[k]; });
+    var d = h.derivatives || {};
+    var derivNote = d.contracts ? '<div class="hd-sub">Futures: ' + d.contracts + " contract line" + (d.contracts > 1 ? "s" : "") + " (" + esc((d.names || []).join(", ")) + ")" +
+      (d.notionalPct !== null && d.notionalPct !== undefined ? " — notional " + d.notionalPct.toFixed(1) + "% of fund value" : " — notional not computed: the file states no contract multiplier") +
+      (h.fxForwards ? "; " + h.fxForwards + " FX forward line" + (h.fxForwards > 1 ? "s" : "") + " (currency hedge)" : "") + ".</div>" : "";
+    var top = h.top.map(function(t, i){ return hrow(i + 1, t.name, [cname(t.country), t.ccy, t.kind === "bond" ? "bond" : ""].filter(Boolean).join(" · "), t.pct, showPct); }).join("");
+    return '<div class="hd"><div class="hd-head">Holdings · ' + h.positions.toLocaleString() + " positions</div>" +
+      '<div class="hd-sub">' + sub + "</div>" + recon +
+      '<div class="hd-head">Asset mix</div>' + chips(mix) + derivNote +
+      (Object.keys(h.byCountry || {}).length ? '<div class="hd-head">By country (ISIN / listing)</div>' + chips(h.byCountry, cname) : "") +
+      (Object.keys(h.byCurrency || {}).length > 1 ? '<div class="hd-head">By currency</div>' + chips(h.byCurrency) : "") +
+      '<div class="hd-head">Largest ' + h.top.length + "</div>" + top +
+      (h.positions > h.top.length ? '<button class="hbtn" type="button" data-full="' + esc(f.code) + '">Show all positions (' + Math.min(h.positions, 500).toLocaleString() + (h.positions > 500 ? " of " + h.positions.toLocaleString() : "") + ")</button>" : "") +
+      '<div id="hfull"></div></div>';
+  }
+  function loadFull(code, btn){
+    btn.disabled = true; btn.textContent = "Loading…";
+    fetch("data/tokyo_positions/" + code + ".json", REVALIDATE).then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(function(p){
+      var showPct = !(holdings[code] && holdings[code].check && holdings[code].check.status === "off");
+      var el = $("hfull"); if (!el) return;
+      el.innerHTML = '<div class="hfull">' + p.positions.map(function(t, i){
+        return hrow(i + 1, t.name, [cname(t.country), t.ccy, t.kind === "bond" ? "bond" : ""].filter(Boolean).join(" · "), t.pct, showPct); }).join("") + "</div>" +
+        '<div class="hd-sub" style="margin-top:6px">' + p.shown.toLocaleString() + " of " + p.total.toLocaleString() + " positions, largest first" + (p.total > p.shown ? "; the rest are below the cut" : "") + ".</div>";
+      btn.hidden = true;
+    }).catch(function(err){ btn.disabled = false; btn.textContent = "Could not load positions (" + (err && err.message ? err.message : "error") + ") — retry"; });
   }
 
   /* events */
@@ -413,6 +497,7 @@ tbody tr.row{cursor:pointer}
   });
   document.addEventListener("click", function(e){
     var t = e.target;
+    if (t.hasAttribute && t.hasAttribute("data-full")) { loadFull(t.getAttribute("data-full"), t); return; }
     if (t.hasAttribute && t.hasAttribute("data-close")) { closeModal(); return; }
     if (t === $("backdrop")) { closeModal(); return; }
     var clear = t.getAttribute && t.getAttribute("data-clear");
@@ -434,10 +519,15 @@ tbody tr.row{cursor:pointer}
     th.addEventListener("click", function(){ var p = SORTABLE[th.getAttribute("data-sk")]; if (!p) return; $("sort").value = $("sort").value === p[0] ? p[1] : p[0]; apply(); });
   });
 
-  fetch("data/tokyo.json", REVALIDATE).then(function(r){ return r.json(); }).then(function(d){
+  Promise.all([
+    fetch("data/tokyo.json", REVALIDATE).then(function(r){ return r.json(); }),
+    // Absent or stale holdings must not take the page down with them.
+    fetch("data/tokyo_holdings.json", REVALIDATE).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+  ]).then(function(res){
+    var d = res[0]; holdMeta = res[1] || {}; holdings = holdMeta.funds || {};
     all = d.funds || []; meta = d;
     $("sub").textContent = "Listed on the Tokyo Stock Exchange · " + all.length + " funds";
-    $("asof").textContent = d.libraryAsOf ? "Library " + d.libraryAsOf : "";
+    $("asof").textContent = (d.libraryAsOf ? "Library " + d.libraryAsOf : "") + (holdMeta.asOfRange ? " · Holdings " + holdMeta.asOfRange[1] : "");
     items.cls = asItems(countBy(function(f){ return [f.assetClass || "No record"]; }));
     items.reg = asItems(countBy(function(f){ return f.regions || ["No record"]; }));
     items.iss = asItems(countBy(function(f){ return [f.issuer]; }));
@@ -448,7 +538,7 @@ tbody tr.row{cursor:pointer}
     function stat(v,l){ return '<div class="stat"><div class="stat-v">' + v + '</div><div class="stat-l">' + l + "</div></div>"; }
     $("stats").innerHTML = stat(all.length, "Listed ETFs") + stat(lib.length, "With fund-library record") +
       stat(yen(aum), "Net assets") + stat(fees.length ? fees[Math.floor(fees.length/2)].toFixed(3) + "%" : "—", "Median fee (incl. tax)") +
-      stat(String(items.iss.length), "Managers");
+      stat(String(items.iss.length), "Managers") + stat(String(Object.keys(holdings).length), "With holdings");
     apply();
   }).catch(function(err){ $("count").textContent = ""; $("more").innerHTML = '<div class="empty">Could not load Tokyo fund data. ' + esc(err && err.message ? err.message : "Unknown error") + "</div>"; });
 })();
