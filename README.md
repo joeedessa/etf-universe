@@ -326,13 +326,15 @@ real.
 
 Neither of the US sources has distributions — the Nasdaq screener carries
 price and fee only, and Nasdaq's own ETF dividend endpoint returns nothing for
-ETFs — so `scripts/fetch_dividends.py` reads them from Yahoo's chart feed:
-every cash distribution with its ex-date, keyed by symbol, no account. It is
-unofficial and can rate-limit, so the script is built to degrade rather than
-break: `data/dividends.json` is a per-symbol cache refreshed oldest-first, a
-few hundred a night, so the universe cycles in about a week; a symbol that
-fails keeps its previous record; and a night where more than 30% of attempts
-fail is treated as an outage and leaves the cache untouched.
+ETFs. `scripts/fetch_dividends.py` was written against Yahoo's chart feed
+(every cash distribution with its ex-date, keyed by symbol, no account), and
+**Yahoo refuses it**: 250 of 250 symbols were rejected from GitHub's runner on
+the first full pass, and a home connection was rejected the same day. The
+script now stops within seconds when a feed refuses it, keeps whatever a
+run did fetch in the per-symbol cache `data/dividends.json`, and always
+merges that cache into the page against the night's prices — so **the US
+`Yield` column is empty until a source that accepts the runner is wired in**.
+The Tokyo page's yield is unaffected; it comes from the fund library.
 
 The **yield is trailing**: cash paid over the last twelve months against that
 night's screener price, recomputed on every run so it is never staler than the

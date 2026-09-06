@@ -13,9 +13,15 @@ script is built to degrade rather than break:
     the universe in about a week while a failed night costs nothing.
   * A symbol that answers with no events is a non-payer and is recorded as
     such (count 0); a symbol that fails to fetch keeps its previous record.
-  * If more than MAX_FAIL_RATE of the attempted symbols fail, the run is
-    treated as a feed outage: the cache is left untouched and the exit code
-    is non-zero, so the workflow does not commit a half-refreshed file.
+  * If the first BREAK_AFTER symbols all fail, the feed is refusing this
+    client (Yahoo refuses GitHub's runner IP range outright: 250/250 failed on
+    the first attempt) and the run stops in seconds. A run also stops at its
+    time budget. Either way whatever was fetched is kept, the merge into
+    etfs.json still runs from the cache, and the exit code is non-zero so the
+    workflow can note it. The cache therefore has to be SEEDED from a machine
+    the feed accepts (python scripts/fetch_dividends.py --all, ~25 minutes,
+    then commit data/dividends.json); the nightly job recomputes yields from
+    it against fresh prices and tops it up wherever it can.
 
 What is recorded, per symbol:
 
@@ -65,9 +71,15 @@ WINDOW_DAYS = 365
 DEFAULT_LIMIT = 600
 WORKERS = 3
 PAUSE = 0.35          # seconds between requests per worker; ~8/s total is polite
-ATTEMPTS = 4
-BACKOFF = (4, 12, 30) # after a 429 or 5xx
+ATTEMPTS = 3
+BACKOFF = (3, 10)     # after a 429 or 5xx
 MAX_FAIL_RATE = 0.30  # more than this of attempted symbols failing = outage
+# Circuit breaker: this many consecutive failures at the start of a run means
+# the feed is refusing this client, not that a few symbols are odd. Stop at
+# once rather than grind every symbol through its retries -- the first full
+# pass on GitHub's runner did exactly that for two hours before it was killed.
+BREAK_AFTER = 25
+BUDGET_MINUTES = 30   # stop attempting after this; what succeeded is kept
 
 _lock = threading.Lock()
 _session = {"opener": None, "crumb": ""}
@@ -195,30 +207,48 @@ def main():
             return sym, None, f"{type(exc).__name__}:{getattr(exc, 'code', '')}"
 
     print(f"refreshing {len(todo)} of {len(symbols)} symbols ({len(records)} cached)", flush=True)
-    done, failed, errors = 0, [], {}
+    done, failed, errors, outage = 0, [], {}, None
+    started = time.monotonic()
+    # Chunked so the breaker can act on the FIRST chunk's outcome and the
+    # budget can be checked between chunks; a plain map would run ahead.
     with concurrent.futures.ThreadPoolExecutor(WORKERS) as ex:
-        for sym, rec, err in ex.map(work, todo):
-            if rec is not None:
-                records[sym] = rec
-                done += 1
-            else:
-                failed.append(sym)
-                errors[err] = errors.get(err, 0) + 1
-            if (done + len(failed)) % 250 == 0:
+        for start in range(0, len(todo), BREAK_AFTER):
+            if time.monotonic() - started > BUDGET_MINUTES * 60:
+                outage = f"time budget of {BUDGET_MINUTES} min spent"
+                break
+            chunk = todo[start:start + BREAK_AFTER]
+            chunk_failed = 0
+            for sym, rec, err in ex.map(work, chunk):
+                if rec is not None:
+                    records[sym] = rec
+                    done += 1
+                else:
+                    failed.append(sym)
+                    chunk_failed += 1
+                    errors[err] = errors.get(err, 0) + 1
+            if (done + len(failed)) % 250 < BREAK_AFTER:
                 print(f"  {done + len(failed)}/{len(todo)} ({len(failed)} failed)", flush=True)
+            if chunk_failed == len(chunk) and done == 0:
+                outage = f"first {len(chunk)} symbols all failed — the feed is refusing this client"
+                break
 
     print(f"refreshed {done}, failed {len(failed)} {dict(sorted(errors.items(), key=lambda kv: -kv[1])[:4])}")
-    if todo and len(failed) > MAX_FAIL_RATE * len(todo):
-        print(f"{len(failed)}/{len(todo)} failed — treating as a feed outage, cache untouched",
+    if todo and not outage and len(failed) > MAX_FAIL_RATE * len(todo):
+        outage = f"{len(failed)}/{len(todo)} failed"
+    if outage:
+        print(f"feed outage: {outage}. Records fetched this run are kept; nothing else changes.",
               file=sys.stderr)
-        return 1
 
+    # The cache is written whenever anything new arrived, and the merge below
+    # runs REGARDLESS, so a night the feed refuses still carries last week's
+    # cached distributions through to the page against tonight's prices.
     records = {s: r for s, r in records.items() if s in price_of}
-    CACHE.write_text(json.dumps({
-        "source": "Yahoo Finance chart feed, cash distributions by ex-date",
-        "windowDays": WINDOW_DAYS,
-        "records": dict(sorted(records.items())),
-    }, separators=(",", ":")) + "\n")
+    if done:
+        CACHE.write_text(json.dumps({
+            "source": "Yahoo Finance chart feed, cash distributions by ex-date",
+            "windowDays": WINDOW_DAYS,
+            "records": dict(sorted(records.items())),
+        }, separators=(",", ":")) + "\n")
 
     # Merge: yield against THIS run's screener price, never against a stale one.
     known, payers = 0, 0
@@ -248,7 +278,7 @@ def main():
     (DATA / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"distribution records for {known}/{len(etfs)} funds; {payers} paid in the last year"
           + (f"; median yield among payers {meta['yieldMedianPayers']:.2f}%" if ys else ""))
-    return 0
+    return 1 if outage else 0
 
 
 if __name__ == "__main__":

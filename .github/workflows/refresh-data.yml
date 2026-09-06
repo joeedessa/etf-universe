@@ -25,6 +25,9 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    # A rate-limited feed must not hold the whole night's refresh hostage; the
+    # distribution script has its own time budget well inside this.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
