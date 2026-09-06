@@ -82,6 +82,15 @@ jobs:
           pos = list(pathlib.Path('data/tokyo_positions').glob('*.json'))
           assert len(pos) == len(f), f'{len(pos)} position files for {len(f)} funds'
           print(f"OK — {len(f)} Tokyo funds with holdings, {ok} reconciled, {h['check']}")
+          q = pathlib.Path('data/tokyo_distributions.json')
+          if q.exists():
+              d = json.loads(q.read_text())
+              assert d['count'] == len(d['funds']) >= 200, f"distributions: {d['count']} funds"
+              assert d['paying12m'] >= 0.8 * d['count'], f"distributions: only {d['paying12m']} payers"
+              # A basis slip (per-unit payment over per-100-unit NAV, or the
+              # reverse) shows up as a yield near 0 or far above any real fund.
+              assert all(0 <= r['yield12m'] <= 30 for r in d['funds'].values()), 'implausible yield'
+              print(f"OK — {d['count']} funds with distribution history, {d['paying12m']} paid in 12m")
           EOF
 
       - name: Enriched fields are present and holdings parse

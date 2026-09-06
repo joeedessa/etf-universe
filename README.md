@@ -241,6 +241,27 @@ Click a fund for asset mix, country and currency rollups
 over all positions, the ten largest, and a button to load every position
 (largest 500). Refreshed weekly by `.github/workflows/refresh-tokyo-holdings.yml`.
 
+#### Tokyo distribution yield
+
+The library's search API returns a one-year distribution figure, and it is
+**not usable**: the library quotes NAV per 1, 10 or 100 units depending on the
+fund, and changes a fund's basis over time. NF Nikkei High Dividend 50 (1489)
+moved from per-unit to per-100-units on 2026-07-08; its figure still sums the
+per-unit payments (¥94) while its NAV is now ¥357,613 — a 0.03% "yield" for a
+fund paying about 3%.
+
+Each fund's NAV history CSV is self-consistent row by row, so
+`scripts/fetch_tokyo_distributions.py` takes every payment as a percentage of
+that day's NAV and sums the trailing twelve months. That is a **distribution
+yield on NAV**, basis-independent (1489 comes out at 3.27%, the J-REIT index
+fund at 4.5%, the covered-call funds at 9–11%). It is on NAV rather than price
+because there are no Tokyo prices on this site; for an ETF the two differ by
+the premium/discount, normally a few basis points. 248 of 248 library funds
+have a history; 235 paid in the last year. The `Yield` column sorts on it, and
+the modal shows the recent payments each as % of NAV. Yen amounts are
+deliberately not shown, because an amount without its basis misleads. Weekly,
+alongside holdings.
+
 ### Prospectus links
 
 Every fund's modal links its prospectus:

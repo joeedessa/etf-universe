@@ -229,6 +229,7 @@ tbody tr.row{cursor:pointer}
     <option value="code">Sort: Code</option>
     <option value="fee-a">Sort: Cheapest fee</option>
     <option value="fee-d">Sort: Priciest fee</option>
+    <option value="yld-d">Sort: Distribution yield ↓</option>
     <option value="r1-d">Sort: 1-year ↓</option>
     <option value="r1-a">Sort: 1-year ↑</option>
     <option value="r3-d">Sort: 3-year ↓</option>
@@ -250,6 +251,7 @@ tbody tr.row{cursor:pointer}
         <th data-sk="expense" class="num">Fee</th>
         <th data-sk="return1y" class="num">1 yr</th>
         <th data-sk="return3y" class="num">3 yr</th>
+        <th data-sk="yield12m" class="num" title="Distributions over the last 12 months, each as % of NAV on its ex-date">Yield</th>
         <th data-sk="listed" class="num">Listed</th>
         <th>Docs</th>
       </tr></thead>
@@ -343,6 +345,7 @@ tbody tr.row{cursor:pointer}
     function byStr(k, dir){ return function(a,b){ var x=a[k]||"", y=b[k]||""; if(!x) return 1; if(!y) return -1; return x<y?-dir:x>y?dir:0; }; }
     ({ "aum-d": function(){ view.sort(byNum("netAssets", 1)); },
        "code":  function(){ view.sort(byStr("code", 1)); },
+       "yld-d": function(){ view.sort(byNum("yield12m", 1)); },
        "name":  function(){ view.sort(function(a,b){ return a.name.localeCompare(b.name); }); },
        "fee-a": function(){ view.sort(byNum("expense", -1)); },
        "fee-d": function(){ view.sort(byNum("expense", 1)); },
@@ -368,6 +371,7 @@ tbody tr.row{cursor:pointer}
         '<td class="num">' + (f.expense === null || f.expense === undefined ? '<span class="na">—</span>' : f.expense.toFixed(3) + "%") + "</td>" +
         '<td class="num">' + pct(f.return1y) + "</td>" +
         '<td class="num">' + pct(f.return3y) + "</td>" +
+        '<td class="num">' + (f.yield12m === null || f.yield12m === undefined ? '<span class="na">—</span>' : f.yield12m.toFixed(2) + "%") + "</td>" +
         '<td class="num iss">' + (f.listed ? esc(f.listed) : "—") + "</td>" +
         "<td>" + (f.prospectusUrl ? '<a class="doc" target="_blank" rel="noopener" href="' + esc(f.prospectusUrl) + '">Prospectus</a> · ' : "") +
           '<a class="doc" target="_blank" rel="noopener" href="' + esc(f.pamphletUrl) + '">Pamphlet</a></td>' +
@@ -407,7 +411,8 @@ tbody tr.row{cursor:pointer}
         fact("1 year", pct(f.return1y, 2), "NAV total return") + fact("3 year", pct(f.return3y, 2)) + fact("5 year", pct(f.return5y, 2)) +
         fact("Risk (1y)", f.risk1y !== null && f.risk1y !== undefined ? f.risk1y.toFixed(1) + "%" : "—", "annualised std dev") +
         fact("Sharpe (1y)", f.sharpe1y !== null && f.sharpe1y !== undefined ? f.sharpe1y.toFixed(2) : "—") +
-        fact("Distributions (1y)", f.dividend1y !== null && f.dividend1y !== undefined ? "¥" + f.dividend1y.toLocaleString() : "—", "per unit") +
+        fact("Distribution yield (12m)", f.yield12m === null || f.yield12m === undefined ? "—" : f.yield12m.toFixed(2) + "%",
+             f.dist ? (f.dist.count12m ? f.dist.count12m + " payment" + (f.dist.count12m > 1 ? "s" : "") + " · last " + esc(f.dist.lastDate) + ", " + f.dist.lastPct.toFixed(2) + "% of NAV" : "no distribution in the last year") : "") +
         fact("Asset class", esc(f.assetClass), "official") + fact("Region", (f.regions || []).map(esc).join(", ") || "—", "official") +
         fact("Inception", esc(f.inception || f.listed || "—")) + fact("Index", esc(f.index || "—"))
       : fact("Fee", f.expense !== null && f.expense !== undefined ? f.expense.toFixed(3) + "%" : "—", "JPX trust fee, pre-tax") +
@@ -422,7 +427,16 @@ tbody tr.row{cursor:pointer}
       '<div class="modal-sub">' + esc(f.manager) + (f.isin ? " · " + esc(f.isin) : "") + "</div></div>" +
       '<button class="modal-x" type="button" data-close aria-label="Close">×</button></div>' +
       '<div class="modal-body"><div class="facts">' + facts + "</div>" +
-      (f.library ? "" : '<div class="note-in">' + esc(f.libraryNote || "") + "</div>") + holdingsHtml(f) + docs + "</div>";
+      (f.library ? "" : '<div class="note-in">' + esc(f.libraryNote || "") + "</div>") + distHtml(f) + holdingsHtml(f) + docs + "</div>";
+  }
+
+  /* distributions: each payment as % of NAV on its ex-date, from the library's own history,
+     because the library quotes NAV per 1, 10 or 100 units and changes a fund's basis over time */
+  function distHtml(f){
+    var d = f.dist; if (!d || !d.recent || !d.recent.length) return "";
+    return '<div class="hd"><div class="hd-head">Recent distributions · % of NAV on ex-date</div><div class="chips">' +
+      d.recent.slice().reverse().map(function(x){ return '<span class="chip">' + esc(x[0]) + "<b>" + x[1].toFixed(2) + "%</b></span>"; }).join("") +
+      '</div><div class="hd-sub">Yield is the trailing twelve months of these summed, on NAV rather than price. The library’s yen amounts are not shown: it quotes NAV per 1, 10 or 100 units and changes a fund’s basis over time, so an amount without its basis misleads.</div></div>';
   }
 
   /* holdings: every line of the fund's daily portfolio composition file, weighted here
@@ -514,7 +528,7 @@ tbody tr.row{cursor:pointer}
     if (row) openModal(fundModal(row.getAttribute("data-code")));
   });
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") { if (!$("backdrop").hidden) closeModal(); else closePickers(); } });
-  var SORTABLE = { code:["code","code"], name:["name","name"], netAssets:["aum-d","aum-d"], expense:["fee-a","fee-d"], return1y:["r1-d","r1-a"], return3y:["r3-d","r3-d"], listed:["new","old"] };
+  var SORTABLE = { code:["code","code"], name:["name","name"], netAssets:["aum-d","aum-d"], expense:["fee-a","fee-d"], yield12m:["yld-d","yld-d"], return1y:["r1-d","r1-a"], return3y:["r3-d","r3-d"], listed:["new","old"] };
   Array.prototype.forEach.call(document.querySelectorAll("thead th"), function(th){
     th.addEventListener("click", function(){ var p = SORTABLE[th.getAttribute("data-sk")]; if (!p) return; $("sort").value = $("sort").value === p[0] ? p[1] : p[0]; apply(); });
   });
@@ -522,10 +536,19 @@ tbody tr.row{cursor:pointer}
   Promise.all([
     fetch("data/tokyo.json", REVALIDATE).then(function(r){ return r.json(); }),
     // Absent or stale holdings must not take the page down with them.
-    fetch("data/tokyo_holdings.json", REVALIDATE).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+    fetch("data/tokyo_holdings.json", REVALIDATE).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+    fetch("data/tokyo_distributions.json", REVALIDATE).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
   ]).then(function(res){
     var d = res[0]; holdMeta = res[1] || {}; holdings = holdMeta.funds || {};
     all = d.funds || []; meta = d;
+    var dist = (res[2] && res[2].funds) || {};
+    all.forEach(function(f){
+      var r = dist[f.code];
+      f.dist = r || null;
+      // A library fund with a history but no payment in the window is a 0% yield;
+      // a pamphlet-only fund has no history at all and stays blank.
+      f.yield12m = r ? r.yield12m : null;
+    });
     $("sub").textContent = "Listed on the Tokyo Stock Exchange · " + all.length + " funds";
     $("asof").textContent = (d.libraryAsOf ? "Library " + d.libraryAsOf : "") + (holdMeta.asOfRange ? " · Holdings " + holdMeta.asOfRange[1] : "");
     items.cls = asItems(countBy(function(f){ return [f.assetClass || "No record"]; }));

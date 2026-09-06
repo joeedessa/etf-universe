@@ -36,10 +36,19 @@ jobs:
       - name: Pull portfolio composition files
         run: python scripts/fetch_tokyo_holdings.py
 
+      # One NAV-history CSV per library fund; distributions arrive at most
+      # monthly, so weekly is plenty.
+      - name: Pull distribution histories
+        run: python scripts/fetch_tokyo_distributions.py
+
       - name: Validate output
         run: |
           python - <<'EOF'
           import json, pathlib
+          d = json.loads(pathlib.Path('data/tokyo_distributions.json').read_text())
+          assert d['count'] >= 200, f"only {d['count']} funds with distribution history"
+          assert d['paying12m'] >= 0.8 * d['count'], f"only {d['paying12m']} payers of {d['count']}"
+          assert all(0 <= r['yield12m'] <= 30 for r in d['funds'].values()), 'implausible yield'
           h = json.loads(pathlib.Path('data/tokyo_holdings.json').read_text()); f = h['funds']
           assert len(f) >= 200, f'only {len(f)} funds'
           for code, r in f.items():
