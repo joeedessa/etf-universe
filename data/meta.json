@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-05T06:06:56Z",
-  "priceAsOf": "9/3/2026 8:00:00 PM",
+  "generated": "2026-09-08T06:17:50Z",
+  "priceAsOf": "9/4/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5253,
   "derived": [
@@ -538,7 +538,7 @@
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 666,
-  "expenseKnown": 4201,
+  "expenseKnown": 4204,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
@@ -554,17 +554,21 @@
   "holdingsKnown": 4044,
   "holdingsSource": "SEC Form N-PORT 2026q2",
   "holdingsAsOf": "2026-04-30",
-  "newCount": 220,
+  "newCount": 217,
   "newWindowDays": 90,
   "categorySource": {
     "name": 2482,
     "holdings": 2771
   },
-  "reclassified": 259,
+  "reclassified": 258,
   "classifyThresholds": {
     "mix": 10.0,
     "mixLeave": 7.0,
     "deriv": 30.0,
     "fundOfFunds": 20.0
-  }
+  },
+  "yieldKnown": 0,
+  "yieldPayers": 0,
+  "yieldSource": "Yahoo Finance chart feed; trailing 12-month cash distributions over last price",
+  "yieldMedianPayers": null
 }
