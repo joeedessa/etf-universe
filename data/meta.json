@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-09T06:25:21Z",
-  "priceAsOf": "9/4/2026 8:00:00 PM",
+  "generated": "2026-09-10T06:23:41Z",
+  "priceAsOf": "9/9/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5253,
+  "count": 5256,
   "derived": [
     "issuer",
     "category",
@@ -29,8 +29,8 @@
     "Fidelity": 76,
     "JPMorgan": 75,
     "Tradr": 74,
+    "PGIM": 68,
     "Franklin": 67,
-    "PGIM": 66,
     "Defiance": 65,
     "Pacer": 58,
     "YieldMax": 57,
@@ -70,9 +70,9 @@
     "American Century": 18,
     "Exchange": 17,
     "Grayscale": 17,
+    "Inc": 17,
     "Sprott": 17,
     "Trust": 17,
-    "Inc": 16,
     "AllianzIM": 15,
     "Hartford": 15,
     "AdvisorShares": 14,
@@ -515,7 +515,7 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 1968,
+    "Broad equity": 1971,
     "Fixed income": 962,
     "Sector equity": 555,
     "Derivative income": 533,
@@ -529,16 +529,16 @@
     "Currency": 24
   },
   "regions": {
-    "US": 4368,
-    "Developed ex-US": 359,
+    "US": 4370,
+    "Developed ex-US": 360,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5251,
+  "inceptionKnown": 5254,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 666,
-  "expenseKnown": 4204,
+  "launchedThisYear": 669,
+  "expenseKnown": 4205,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
@@ -557,7 +557,7 @@
   "newCount": 210,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2482,
+    "name": 2485,
     "holdings": 2771
   },
   "reclassified": 258,

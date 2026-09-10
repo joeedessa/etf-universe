@@ -17319,6 +17319,11 @@
 "source": "holdings",
 "asOf": "2026-02-27"
 },
+"PJIN": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PJIO": {
 "category": "Broad equity",
 "source": "holdings",
@@ -17328,6 +17333,11 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-04-30"
+},
+"PJSM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "PJUL": {
 "category": "Derivative income",
@@ -22873,6 +22883,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-03-31"
+},
+"TSCZ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "TSDD": {
 "category": "Single stock",
