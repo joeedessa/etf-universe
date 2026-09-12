@@ -147,8 +147,9 @@ the row expands to show which funds put the figure there, one line per fund as
 shown. The 46% United States in a sheet is then traceable to the three funds
 that carry it rather than an unexplained total.
 
-Rows in the sheet can be reordered with the ▲ ▼ arrows; the order is saved
-with the sheet and with any named portfolio, and changes nothing else.
+Rows in the sheet can be reordered by dragging the ⋮⋮ grip at the left of a
+row and dropping it where the line shows; the order is saved with the sheet
+and with any named portfolio, and changes nothing else.
 
 The top-10 list is still there underneath, for "what does it actually own".
 
