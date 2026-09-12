@@ -1383,6 +1383,21 @@ th.cth,td.ctd{width:26px;padding-left:2px;padding-right:0;text-align:center}
 
     paintStats();
     apply();
+
+    // Deep link: index.html#SPY opens that fund's detail, with the search box
+    // set to the ticker so the row is on screen when the modal closes. The
+    // portfolio builder links here from each row of a sheet.
+    function openFromHash(){
+      var m = /^#([A-Za-z0-9.\-]{1,12})$/.exec(location.hash || "");
+      if (!m) return;
+      var sym = m[1].toUpperCase();
+      if (!all.some(function(e){ return e.symbol === sym; })) return;
+      var q = $("q");
+      if (q) { q.value = sym; apply(); }
+      openModal(fundModal(sym));
+    }
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
   }).catch(function(err){
     $("count").textContent = "";
     $("more").innerHTML = '<div class="empty">Could not load fund data. ' +

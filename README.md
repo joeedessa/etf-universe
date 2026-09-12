@@ -149,7 +149,9 @@ that carry it rather than an unexplained total.
 
 Rows in the sheet can be reordered by dragging the ⋮⋮ grip at the left of a
 row and dropping it where the line shows; the order is saved with the sheet
-and with any named portfolio, and changes nothing else.
+and with any named portfolio, and changes nothing else. The ticker and name
+in each row link to the fund on the US dashboard (`index.html#TICKER`), which
+opens with that fund's detail already up and the search set to the ticker.
 
 The top-10 list is still there underneath, for "what does it actually own".
 

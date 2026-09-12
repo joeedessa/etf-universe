@@ -114,6 +114,10 @@ tbody td{padding:7px 10px;border-bottom:.5px solid var(--color-border-tertiary);
 tbody tr:last-child td{border-bottom:none}
 td.num{text-align:right;font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
 .tick{font-family:var(--font-mono);font-weight:600;font-size:12.5px;color:var(--accent)}
+/* each row links to the fund's detail on the US dashboard */
+.flink{color:inherit;text-decoration:none;border-bottom:.5px solid transparent}
+.flink:hover{border-bottom-color:currentColor}
+a.tick.flink:hover{color:var(--accent)}
 .nm{color:var(--color-text-secondary);max-width:290px;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap}
 .chip{display:inline-block;background:var(--chip-bg);color:var(--chip-t);border-radius:5px;
@@ -656,8 +660,10 @@ tr.drop-below td{box-shadow:inset 0 -2px 0 var(--accent)}
         var amt = value * (r.weight / 100);
         return '<tr data-row="' + esc(r.sym) + '">' +
           '<td style="white-space:nowrap"><span class="grip" draggable="true" title="Drag to reorder" ' +
-            'aria-label="Drag to reorder">⋮⋮</span> <span class="tick">' + esc(r.sym) + "</span></td>" +
-          '<td class="nm" title="' + esc(e.name || "") + '">' + esc(e.name || "") + "</td>" +
+            'aria-label="Drag to reorder">⋮⋮</span> <a class="tick flink" href="index.html#' + encodeURIComponent(r.sym) +
+            '" title="Open ' + esc(r.sym) + ' on the US dashboard">' + esc(r.sym) + "</a></td>" +
+          '<td class="nm"><a class="flink" href="index.html#' + encodeURIComponent(r.sym) + '" title="' + esc(e.name || "") +
+            '">' + esc(e.name || "") + "</a></td>" +
           '<td><span class="chip">' + esc(e.category || "—") + "</span></td>" +
           '<td class="num">' + (e.expense !== null && e.expense !== undefined
             ? e.expense.toFixed(2) + "%" : '<span class="na">—</span>') + "</td>" +
