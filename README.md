@@ -141,6 +141,15 @@ equal-weight VOO/VXUS/BND blend comes out 64.4% United States, 5.1% Japan, 3.2%
 United Kingdom; 66% equity, 26% debt, 7% mortgage-backed; 77% corporate, 16% US
 Treasury. That is real look-through, not a top-10 approximation.
 
+**Every rollup row opens.** Click a country, asset class or issuer type and
+the row expands to show which funds put the figure there, one line per fund as
+*fund weight × the fund's own share in that slice*, summing to the number
+shown. The 46% United States in a sheet is then traceable to the three funds
+that carry it rather than an unexplained total.
+
+Rows in the sheet can be reordered with the ▲ ▼ arrows; the order is saved
+with the sheet and with any named portfolio, and changes nothing else.
+
 The top-10 list is still there underneath, for "what does it actually own".
 
 **Full holdings are pulled on demand.** The *Pull full holdings* button fetches

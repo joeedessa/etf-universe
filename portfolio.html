@@ -147,6 +147,20 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
 .brk:last-child{border-bottom:none}
 .brk-n{color:var(--color-text-secondary)}
 .brk-p{margin-left:auto;font-family:var(--font-mono);font-size:12px;font-weight:600;flex:0 0 auto}
+/* a rollup row that can be opened to show which funds contribute */
+.brk[data-k]{cursor:pointer}
+.brk[data-k]:hover .brk-n{color:var(--accent)}
+.brk-c{font-size:10px;color:var(--color-text-tertiary);width:10px;flex:0 0 auto}
+.brk-d{padding:2px 0 8px 19px;border-bottom:.5px solid var(--color-border-tertiary)}
+.brk-d .brk{border-bottom:none;padding:3px 0;font-size:11.5px}
+.brk-d .brk-n{color:var(--color-text-tertiary)}
+.brk-d .brk-p{font-weight:500;font-size:11.5px}
+.brk-d .tick{font-family:var(--font-mono);font-weight:600;color:var(--color-text-secondary);margin-right:6px}
+/* reorder arrows */
+.mv{border:none;background:none;color:var(--color-text-tertiary);cursor:pointer;font-size:11px;line-height:1;padding:2px 3px}
+.mv:hover{color:var(--accent)}
+.mv:disabled{opacity:.25;cursor:default}
+.mv:disabled:hover{color:var(--color-text-tertiary)}
 .empty{padding:34px 14px;text-align:center;color:var(--color-text-tertiary);font-size:13px;
   line-height:1.6}
 
@@ -634,7 +648,7 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
     var tw = totalWeight();
 
     if (!skipInputs) {
-      $("rows").innerHTML = rows.map(function(r){
+      $("rows").innerHTML = rows.map(function(r, i){
         var e = bySym[r.sym] || {};
         var amt = value * (r.weight / 100);
         return "<tr>" +
@@ -647,7 +661,12 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
           '<td class="num"><input class="wt" type="number" step="0.01" min="0" max="100" ' +
             'data-w="' + esc(r.sym) + '" value="' + r.weight + '"></td>' +
           '<td class="num">' + (value ? money(amt) : "—") + "</td>" +
-          '<td><button class="rm" type="button" data-rm="' + esc(r.sym) +
+          '<td style="white-space:nowrap">' +
+            '<button class="mv" type="button" data-up="' + esc(r.sym) + '" aria-label="Move up"' +
+              (i === 0 ? " disabled" : "") + '>▲</button>' +
+            '<button class="mv" type="button" data-dn="' + esc(r.sym) + '" aria-label="Move down"' +
+              (i === rows.length - 1 ? " disabled" : "") + '>▼</button>' +
+            '<button class="rm" type="button" data-rm="' + esc(r.sym) +
             '" aria-label="Remove">×</button></td>' +
         "</tr>";
       }).join("");
@@ -722,9 +741,12 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
   // Combines a per-fund rollup across the portfolio. Unlike the top-10 list,
   // these rollups describe 100% of each fund that files N-PORT, so the only
   // gap is funds with no filing at all — which is reported rather than hidden.
+  // Each row can be opened to show which funds put the figure there:
+  // fund weight × the fund's own share in that slice, one line per fund.
+  var contrib = {};
   function rollup(el, field, opts){
     opts = opts || {};
-    var agg = {}, covered = 0, missing = [];
+    var agg = {}, covered = 0, missing = [], parts = {};
     rows.forEach(function(r){
       var h = holdings[r.sym];
       var src = h && h[field];
@@ -736,8 +758,10 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
       covered += r.weight;
       Object.keys(src).forEach(function(k){
         agg[k] = (agg[k] || 0) + w * src[k];
+        (parts[k] = parts[k] || []).push({ sym: r.sym, weight: r.weight, share: src[k], adds: w * src[k] });
       });
     });
+    contrib[el] = parts;
     var keys = Object.keys(agg).sort(function(a, b){ return Math.abs(agg[b]) - Math.abs(agg[a]); });
     // "Other" is a residual, not a holding — it belongs at the bottom.
     keys = keys.filter(function(k){ return k !== "Other"; })
@@ -755,12 +779,43 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
           (missing.length > 4 ? " and " + (missing.length - 4) + " more" : "") : "") + ".</div>";
     }
     $(el).innerHTML = note + keys.slice(0, opts.limit || 12).map(function(k){
-      return '<div class="brk"><span class="brk-n">' +
+      return '<div class="brk" data-k="' + esc(k) + '" title="Click to see which funds contribute">' +
+        '<span class="brk-c">▸</span><span class="brk-n">' +
         esc(opts.label ? opts.label(k) : k) +
         '</span><span class="brk-p">' + agg[k].toFixed(2) + "%</span></div>";
     }).join("");
     return { agg: agg, keys: keys, covered: covered };
   }
+
+  // Open or close the contributor list under a rollup row. "Other" is each
+  // fund's own residual tail, so its lines are residuals too and say so.
+  function toggleContrib(box, row){
+    var next = row.nextElementSibling;
+    if (next && next.className === "brk-d") { next.remove(); row.firstChild.textContent = "▸"; return; }
+    var k = row.getAttribute("data-k");
+    var parts = (contrib[box.id] || {})[k] || [];
+    parts = parts.slice().sort(function(a, b){ return Math.abs(b.adds) - Math.abs(a.adds); });
+    var total = parts.reduce(function(m, p){ return m + p.adds; }, 0);
+    var d = document.createElement("div");
+    d.className = "brk-d";
+    d.innerHTML = parts.map(function(p){
+      return '<div class="brk"><span class="brk-n"><span class="tick">' + esc(p.sym) + "</span>" +
+        p.weight.toFixed(1) + "% of portfolio × " + p.share.toFixed(1) + "% of fund" +
+        (k === "Other" ? " (fund’s residual tail)" : "") + "</span>" +
+        '<span class="brk-p">' + p.adds.toFixed(2) + "%</span></div>";
+    }).join("") + '<div class="brk"><span class="brk-n">' + parts.length + " fund" + (parts.length === 1 ? "" : "s") +
+      '</span><span class="brk-p">' + total.toFixed(2) + "%</span></div>";
+    row.after(d);
+    row.firstChild.textContent = "▾";
+  }
+  ["by-country", "by-asset", "by-issuer"].forEach(function(id){
+    var box = $(id);
+    if (!box) return;
+    box.addEventListener("click", function(e){
+      var row = e.target.closest && e.target.closest(".brk[data-k]");
+      if (row && row.parentNode === box) toggleContrib(box, row);
+    });
+  });
 
   // Only the codes common enough to be worth spelling out; anything else shows
   // as its ISO code rather than being guessed at.
@@ -967,7 +1022,20 @@ tfoot td{padding:9px 10px;font-family:var(--font-mono);font-size:12.5px;font-wei
     if (cell) { cell.textContent = tw.toFixed(2) + "%"; cell.className = "num" + (off ? " off" : ""); }
   });
   $("rows").addEventListener("click", function(e){
-    var sym = e.target.getAttribute && e.target.getAttribute("data-rm");
+    var t = e.target;
+    if (!t.getAttribute) return;
+    // Reorder: the list order is the user's own, saved with the sheet; weights
+    // and every derived figure are unaffected, so only the table re-renders.
+    var up = t.getAttribute("data-up"), dn = t.getAttribute("data-dn");
+    if (up || dn) {
+      var i = rows.map(function(r){ return r.sym; }).indexOf(up || dn);
+      var j = up ? i - 1 : i + 1;
+      if (i < 0 || j < 0 || j >= rows.length) return;
+      var tmp = rows[i]; rows[i] = rows[j]; rows[j] = tmp;
+      render();
+      return;
+    }
+    var sym = t.getAttribute("data-rm");
     if (!sym) return;
     rows = rows.filter(function(r){ return r.sym !== sym; });
     if (scheme === "equal") applyEqual();
