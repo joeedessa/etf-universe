@@ -349,6 +349,16 @@
 "source": "name",
 "asOf": "2026-03-31"
 },
+"AFDM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"AFEM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "AFGR": {
 "category": "Broad equity",
 "source": "holdings",
@@ -13259,6 +13269,11 @@
 "source": "holdings",
 "asOf": "2026-03-31"
 },
+"KATT": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "KAUG": {
 "category": "Derivative income",
 "source": "name",
@@ -14674,6 +14689,11 @@
 "source": "holdings",
 "asOf": "2026-02-28"
 },
+"MFSD": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MFSG": {
 "category": "Broad equity",
 "source": "holdings",
@@ -14693,6 +14713,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-02-28"
+},
+"MFSX": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "MFUL": {
 "category": "Multi-asset",
