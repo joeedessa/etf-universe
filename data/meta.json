@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-18T06:21:44Z",
-  "priceAsOf": "9/16/2026 8:00:00 PM",
+  "generated": "2026-09-19T06:19:34Z",
+  "priceAsOf": "9/17/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5255,
   "derived": [
@@ -67,7 +67,7 @@
     "NEOS": 19,
     "T. Rowe Price": 19,
     "TrueShares": 19,
-    "American Century": 17,
+    "American Century": 18,
     "Exchange": 17,
     "Grayscale": 17,
     "Inc": 17,
@@ -335,7 +335,6 @@
     "BrandywineGLOBAL-Dynamic": 1,
     "Brendan": 1,
     "Bridges": 1,
-    "Brookmont": 1,
     "BufferLABS": 1,
     "Build": 1,
     "Cambiar": 1,
@@ -516,11 +515,11 @@
   },
   "categories": {
     "Broad equity": 1969,
-    "Fixed income": 962,
+    "Fixed income": 961,
     "Sector equity": 555,
     "Derivative income": 533,
     "Single stock": 493,
-    "Dividend equity": 252,
+    "Dividend equity": 253,
     "Crypto": 133,
     "Alternatives": 100,
     "Commodity": 93,
@@ -557,8 +556,8 @@
   "newCount": 192,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2488,
-    "holdings": 2767
+    "name": 2489,
+    "holdings": 2766
   },
   "reclassified": 257,
   "classifyThresholds": {
