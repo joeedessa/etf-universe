@@ -1214,6 +1214,11 @@
 "source": "name",
 "asOf": null
 },
+"ASSX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "ASTG": {
 "category": "Single stock",
 "source": "name",
