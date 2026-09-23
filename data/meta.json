@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-22T06:35:36Z",
-  "priceAsOf": "9/18/2026 8:00:00 PM",
+  "generated": "2026-09-23T06:22:37Z",
+  "priceAsOf": "9/21/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5256,
+  "count": 5252,
   "derived": [
     "issuer",
     "category",
@@ -69,16 +69,15 @@
     "TrueShares": 19,
     "American Century": 18,
     "Exchange": 17,
-    "Grayscale": 17,
     "Inc": 17,
     "Sprott": 17,
     "Trust": 17,
+    "Grayscale": 16,
     "AdvisorShares": 15,
     "AllianzIM": 15,
     "Hartford": 15,
     "Neuberger": 14,
     "Spinnaker": 14,
-    "Themes": 14,
     "Alpha Architect": 13,
     "Aptus": 13,
     "F/m": 13,
@@ -95,6 +94,7 @@
     "SEI": 11,
     "Strategy Shares": 11,
     "Strive": 11,
+    "Themes": 11,
     "US": 11,
     "VistaShares": 11,
     "abrdn": 11,
@@ -513,13 +513,13 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 1969,
+    "Broad equity": 1967,
     "Fixed income": 961,
-    "Sector equity": 555,
+    "Sector equity": 554,
     "Derivative income": 533,
     "Single stock": 494,
     "Dividend equity": 253,
-    "Crypto": 133,
+    "Crypto": 132,
     "Alternatives": 100,
     "Commodity": 93,
     "Multi-asset": 84,
@@ -527,16 +527,16 @@
     "Currency": 24
   },
   "regions": {
-    "US": 4371,
+    "US": 4367,
     "Developed ex-US": 359,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5254,
+  "inceptionKnown": 5250,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 673,
-  "expenseKnown": 4204,
+  "expenseKnown": 4200,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
@@ -552,11 +552,11 @@
   "holdingsKnown": 4044,
   "holdingsSource": "SEC Form N-PORT 2026q2",
   "holdingsAsOf": "2026-04-30",
-  "newCount": 179,
+  "newCount": 174,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2490,
-    "holdings": 2766
+    "name": 2489,
+    "holdings": 2763
   },
   "reclassified": 257,
   "classifyThresholds": {
