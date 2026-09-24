@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-23T06:22:37Z",
-  "priceAsOf": "9/21/2026 8:00:00 PM",
+  "generated": "2026-09-24T06:30:49Z",
+  "priceAsOf": "9/23/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5252,
   "derived": [
@@ -536,7 +536,7 @@
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 673,
-  "expenseKnown": 4200,
+  "expenseKnown": 4201,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2024q4",
@@ -552,7 +552,7 @@
   "holdingsKnown": 4044,
   "holdingsSource": "SEC Form N-PORT 2026q2",
   "holdingsAsOf": "2026-04-30",
-  "newCount": 174,
+  "newCount": 173,
   "newWindowDays": 90,
   "categorySource": {
     "name": 2489,
