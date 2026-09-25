@@ -9269,6 +9269,11 @@
 "source": "name",
 "asOf": null
 },
+"GCPU": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "GDEC": {
 "category": "Derivative income",
 "source": "name",
