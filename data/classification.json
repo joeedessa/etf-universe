@@ -7105,8 +7105,8 @@
 "asOf": null
 },
 "EVNT": {
-"category": "Multi-asset",
-"source": "holdings",
+"category": "Alternatives",
+"source": "name",
 "asOf": "2026-02-28"
 },
 "EVPF": {
@@ -10708,6 +10708,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-04-30"
+},
+"HUMM": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "HUMN": {
 "category": "Sector equity",
@@ -24018,6 +24023,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-04-30"
+},
+"VAIC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "VAIE": {
 "category": "Dividend equity",
