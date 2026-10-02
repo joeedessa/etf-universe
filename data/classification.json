@@ -25285,7 +25285,7 @@
 "asOf": "2026-02-28"
 },
 "XDIV": {
-"category": "Dividend equity",
+"category": "Broad equity",
 "source": "name",
 "asOf": "2026-03-31"
 },
@@ -25835,7 +25835,7 @@
 "asOf": "2026-03-31"
 },
 "XSPC": {
-"category": "Broad equity",
+"category": "Sector equity",
 "source": "name",
 "asOf": null
 },
