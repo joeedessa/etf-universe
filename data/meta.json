@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-06T07:54:17Z",
-  "priceAsOf": "10/2/2026 8:00:00 PM",
+  "generated": "2026-10-07T07:32:46Z",
+  "priceAsOf": "10/5/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5250,
+  "count": 5251,
   "derived": [
     "issuer",
     "category",
@@ -34,7 +34,7 @@
     "Defiance": 65,
     "Pacer": 58,
     "YieldMax": 57,
-    "Roundhill": 48,
+    "Roundhill": 49,
     "Northern": 47,
     "Goldman Sachs": 46,
     "AIM": 44,
@@ -513,7 +513,7 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 1965,
+    "Broad equity": 1966,
     "Fixed income": 961,
     "Sector equity": 557,
     "Derivative income": 533,
@@ -527,15 +527,15 @@
     "Currency": 24
   },
   "regions": {
-    "US": 4365,
+    "US": 4366,
     "Developed ex-US": 359,
     "Emerging markets": 270,
     "Global": 256
   },
-  "inceptionKnown": 5248,
+  "inceptionKnown": 5249,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 675,
+  "launchedThisYear": 676,
   "expenseKnown": 4212,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
@@ -555,7 +555,7 @@
   "newCount": 120,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2490,
+    "name": 2491,
     "holdings": 2760
   },
   "reclassified": 256,
