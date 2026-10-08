@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-07T07:32:46Z",
-  "priceAsOf": "10/5/2026 8:00:00 PM",
+  "generated": "2026-10-08T07:49:28Z",
+  "priceAsOf": "10/6/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5251,
   "derived": [
@@ -552,7 +552,7 @@
   "holdingsKnown": 4044,
   "holdingsSource": "SEC Form N-PORT 2026q2",
   "holdingsAsOf": "2026-04-30",
-  "newCount": 120,
+  "newCount": 115,
   "newWindowDays": 90,
   "categorySource": {
     "name": 2491,
