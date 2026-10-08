@@ -513,12 +513,12 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 1966,
-    "Fixed income": 961,
-    "Sector equity": 557,
-    "Derivative income": 533,
+    "Broad equity": 1968,
+    "Fixed income": 966,
+    "Sector equity": 555,
+    "Derivative income": 534,
     "Single stock": 494,
-    "Dividend equity": 252,
+    "Dividend equity": 246,
     "Crypto": 131,
     "Alternatives": 101,
     "Commodity": 92,
@@ -549,16 +549,16 @@
     "2026q4"
   ],
   "expenseMedian": 0.5,
-  "holdingsKnown": 4044,
-  "holdingsSource": "SEC Form N-PORT 2026q2",
-  "holdingsAsOf": "2026-04-30",
+  "holdingsKnown": 4176,
+  "holdingsSource": "SEC Form N-PORT 2026q3",
+  "holdingsAsOf": "2026-07-31",
   "newCount": 115,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2491,
-    "holdings": 2760
+    "name": 2420,
+    "holdings": 2831
   },
-  "reclassified": 256,
+  "reclassified": 263,
   "classifyThresholds": {
     "mix": 10.0,
     "mixLeave": 7.0,
