@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-14T06:31:03Z",
-  "priceAsOf": "10/12/2026 8:00:00 PM",
+  "generated": "2026-10-15T06:13:51Z",
+  "priceAsOf": "10/13/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5241,
   "derived": [
@@ -116,11 +116,11 @@
     "Nicholas": 9,
     "Nomura": 9,
     "Teucrium": 9,
+    "Tuttle": 9,
     "Allspring": 8,
     "ETC": 8,
     "Gabelli": 8,
     "Janus Henderson": 8,
-    "Tuttle": 8,
     "United": 8,
     "Yorkville": 8,
     "Baron": 7,
@@ -282,7 +282,6 @@
     "STF": 2,
     "SanJac": 2,
     "Scharf": 2,
-    "Sophus": 2,
     "Sparkline": 2,
     "Stone Ridge": 2,
     "Stratified": 2,
@@ -476,6 +475,7 @@
     "Short": 1,
     "Solana": 1,
     "SonicShares": 1,
+    "Sophus": 1,
     "Sovereign's": 1,
     "SpaceXAI": 1,
     "Spear": 1,
@@ -513,12 +513,12 @@
     "iM": 1
   },
   "categories": {
-    "Broad equity": 1960,
+    "Broad equity": 1959,
     "Fixed income": 966,
     "Sector equity": 553,
     "Derivative income": 534,
     "Single stock": 494,
-    "Dividend equity": 246,
+    "Dividend equity": 247,
     "Crypto": 131,
     "Alternatives": 101,
     "Commodity": 92,
@@ -527,16 +527,16 @@
     "Currency": 24
   },
   "regions": {
-    "US": 4356,
+    "US": 4357,
     "Developed ex-US": 359,
-    "Emerging markets": 270,
+    "Emerging markets": 269,
     "Global": 256
   },
   "inceptionKnown": 5238,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 676,
-  "expenseKnown": 4201,
+  "expenseKnown": 4214,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2025q1",
@@ -552,11 +552,11 @@
   "holdingsKnown": 4176,
   "holdingsSource": "SEC Form N-PORT 2026q3",
   "holdingsAsOf": "2026-07-31",
-  "newCount": 72,
+  "newCount": 68,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2419,
-    "holdings": 2822
+    "name": 2420,
+    "holdings": 2821
   },
   "reclassified": 263,
   "classifyThresholds": {

@@ -16654,6 +16654,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"OPTO": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "OPTZ": {
 "category": "Broad equity",
 "source": "holdings",
