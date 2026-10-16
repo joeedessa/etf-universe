@@ -14,6 +14,16 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"AAAD": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
+"AAAP": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "AAAU": {
 "category": "Commodity",
 "source": "name",
@@ -44,6 +54,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"AAOZ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "AAPB": {
 "category": "Single stock",
 "source": "name",
@@ -53,6 +68,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"AAPE": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "AAPR": {
 "category": "Derivative income",
@@ -164,6 +184,16 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"ACBE": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"ACBH": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "ACEI": {
 "category": "Dividend equity",
 "source": "name",
@@ -178,6 +208,11 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"ACGO": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "ACGR": {
 "category": "Broad equity",
@@ -214,8 +249,33 @@
 "source": "name",
 "asOf": null
 },
+"ACLZ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "ACMG": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"ACMM": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"ACOM": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
+},
+"ACQQ": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"ACRT": {
+"category": "Dividend equity",
 "source": "name",
 "asOf": null
 },
@@ -228,6 +288,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"ACSP": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "ACSV": {
 "category": "Broad equity",
@@ -269,6 +334,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"ACYQ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "ACYS": {
 "category": "Broad equity",
 "source": "name",
@@ -283,6 +353,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"ADDS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "ADIU": {
 "category": "Single stock",
@@ -504,6 +579,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"AHBM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "AHD": {
 "category": "Broad equity",
 "source": "name",
@@ -544,7 +624,17 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"AIFR": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "AIHY": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"AIMG": {
 "category": "Sector equity",
 "source": "name",
 "asOf": null
@@ -553,6 +643,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"AINF": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "AINP": {
 "category": "Dividend equity",
@@ -644,6 +739,11 @@
 "source": "name",
 "asOf": null
 },
+"AKAL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "AKRE": {
 "category": "Broad equity",
 "source": "holdings",
@@ -661,6 +761,11 @@
 },
 "ALBG": {
 "category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"ALDB": {
+"category": "Derivative income",
 "source": "name",
 "asOf": null
 },
@@ -694,6 +799,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"AMAA": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "AMAU": {
 "category": "Single stock",
 "source": "name",
@@ -703,6 +813,11 @@
 "category": "Multi-asset",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"AMDC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "AMDD": {
 "category": "Single stock",
@@ -729,6 +844,21 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"AMEI": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"AMEM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"AMGR": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "AMID": {
 "category": "Broad equity",
 "source": "holdings",
@@ -736,6 +866,11 @@
 },
 "AMJB": {
 "category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"AMKL": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -788,6 +923,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"AMZG": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "AMZO": {
 "category": "Single stock",
@@ -889,6 +1029,11 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"APDB": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "APHG": {
 "category": "Single stock",
 "source": "name",
@@ -936,6 +1081,11 @@
 },
 "APOC": {
 "category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"APPC": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -1034,6 +1184,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"ARIA": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "ARKB": {
 "category": "Crypto",
 "source": "name",
@@ -1089,6 +1244,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"ARKY": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "ARLI": {
 "category": "Derivative income",
 "source": "name",
@@ -1098,6 +1258,11 @@
 "category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"ARMA": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "ARMG": {
 "category": "Single stock",
@@ -1234,10 +1399,25 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"ASTT": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "ASTX": {
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"ASTY": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"ASUP": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "ATC": {
 "category": "Broad equity",
@@ -1318,6 +1498,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"AV": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "AVAZ": {
 "category": "Alternatives",
@@ -1544,6 +1729,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"AXTQ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "AXTU": {
 "category": "Single stock",
 "source": "name",
@@ -1598,6 +1788,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"BAGX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "BAGY": {
 "category": "Crypto",
@@ -1699,6 +1894,11 @@
 "source": "name",
 "asOf": null
 },
+"BAY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "BBAG": {
 "category": "Fixed income",
 "source": "holdings",
@@ -1794,6 +1994,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"BBLS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "BBLU": {
 "category": "Broad equity",
 "source": "holdings",
@@ -1873,6 +2078,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"BCHP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "BCI": {
 "category": "Commodity",
@@ -1974,6 +2184,11 @@
 "source": "name",
 "asOf": null
 },
+"BEC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "BEDY": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -1994,10 +2209,20 @@
 "source": "name",
 "asOf": null
 },
+"BEGS": {
+"category": "Crypto",
+"source": "name",
+"asOf": null
+},
 "BEMB": {
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"BEMD": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "BENJ": {
 "category": "Derivative income",
@@ -2168,6 +2393,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"BHYP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "BIB": {
 "category": "Sector equity",
@@ -2419,6 +2649,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"BLCK": {
+"category": "Crypto",
+"source": "name",
+"asOf": null
+},
 "BLCR": {
 "category": "Broad equity",
 "source": "name",
@@ -2529,10 +2764,20 @@
 "source": "name",
 "asOf": null
 },
+"BMSI": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "BMVP": {
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"BNAV": {
+"category": "Crypto",
+"source": "name",
+"asOf": null
 },
 "BND": {
 "category": "Fixed income",
@@ -2714,6 +2959,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"BREW": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
+},
 "BRF": {
 "category": "Multi-asset",
 "source": "holdings",
@@ -2779,8 +3029,28 @@
 "source": "name",
 "asOf": null
 },
+"BRSM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"BRSV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "BRTR": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"BRZD": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"BRZL": {
+"category": "Sector equity",
 "source": "name",
 "asOf": null
 },
@@ -3004,6 +3274,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"BTA": {
+"category": "Alternatives",
+"source": "name",
+"asOf": null
+},
 "BTAL": {
 "category": "Alternatives",
 "source": "name",
@@ -3024,12 +3299,22 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"BTCK": {
+"category": "Crypto",
+"source": "name",
+"asOf": null
+},
 "BTCL": {
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-06-30"
 },
 "BTCO": {
+"category": "Crypto",
+"source": "name",
+"asOf": null
+},
+"BTCU": {
 "category": "Crypto",
 "source": "name",
 "asOf": null
@@ -3279,6 +3564,11 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"BZZ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "CAAA": {
 "category": "Fixed income",
 "source": "holdings",
@@ -3324,6 +3614,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"CAMC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "CAML": {
 "category": "Broad equity",
 "source": "holdings",
@@ -3354,6 +3649,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"CAPA": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "CAPE": {
 "category": "Broad equity",
 "source": "holdings",
@@ -3371,6 +3671,11 @@
 },
 "CARU": {
 "category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"CARX": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -3444,6 +3749,11 @@
 "source": "name",
 "asOf": null
 },
+"CBOT": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "CBOX": {
 "category": "Broad equity",
 "source": "name",
@@ -3513,6 +3823,11 @@
 "category": "Multi-asset",
 "source": "holdings",
 "asOf": "2026-05-29"
+},
+"CCML": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "CCNR": {
 "category": "Broad equity",
@@ -3754,6 +4069,11 @@
 "source": "name",
 "asOf": null
 },
+"CGPT": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "CGRO": {
 "category": "Broad equity",
 "source": "holdings",
@@ -3808,6 +4128,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"CHDG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "CHGX": {
 "category": "Broad equity",
@@ -3900,6 +4225,11 @@
 "asOf": null
 },
 "CJUL": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"CJUN": {
 "category": "Derivative income",
 "source": "name",
 "asOf": null
@@ -3999,6 +4329,16 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"CMAG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"CMAY": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "CMBO": {
 "category": "Broad equity",
 "source": "name",
@@ -4079,6 +4419,11 @@
 "source": "name",
 "asOf": null
 },
+"COHQ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "COHX": {
 "category": "Single stock",
 "source": "name",
@@ -4093,6 +4438,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"COIX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "COLO": {
 "category": "Multi-asset",
@@ -4138,6 +4488,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"COOL": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "COPA": {
 "category": "Sector equity",
@@ -4384,10 +4739,20 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"CQTM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "CRAK": {
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"CRAM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "CRBN": {
 "category": "Broad equity",
@@ -4454,6 +4819,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"CROB": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "CRPT": {
 "category": "Crypto",
 "source": "name",
@@ -4468,6 +4838,11 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"CRUC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "CRUX": {
 "category": "Fixed income",
@@ -4529,6 +4904,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"CSEN": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "CSEX": {
 "category": "Single stock",
 "source": "name",
@@ -4568,6 +4948,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"CSRA": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "CSRE": {
 "category": "Real estate",
@@ -4615,6 +5000,16 @@
 "asOf": "2026-05-29"
 },
 "CTJL": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"CTJN": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"CTMA": {
 "category": "Derivative income",
 "source": "name",
 "asOf": null
@@ -4738,6 +5133,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"DACL": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "DADS": {
 "category": "Crypto",
@@ -4899,6 +5299,11 @@
 "source": "name",
 "asOf": null
 },
+"DDFG": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "DDFJ": {
 "category": "Derivative income",
 "source": "name",
@@ -4975,6 +5380,11 @@
 "asOf": null
 },
 "DDTF": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"DDTG": {
 "category": "Derivative income",
 "source": "name",
 "asOf": null
@@ -5449,6 +5859,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"DICE": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "DIEM": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -5483,6 +5898,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"DIPR": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "DIPS": {
 "category": "Single stock",
@@ -5521,6 +5941,11 @@
 },
 "DIVG": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"DIVH": {
+"category": "Dividend equity",
 "source": "name",
 "asOf": null
 },
@@ -5619,6 +6044,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"DLMY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "DLN": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -5674,6 +6104,11 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"DOCK": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "DOCT": {
 "category": "Derivative income",
 "source": "name",
@@ -5714,10 +6149,20 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"DQJN": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "DRAI": {
 "category": "Sector equity",
 "source": "name",
 "asOf": "2026-05-29"
+},
+"DRAL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "DRAM": {
 "category": "Broad equity",
@@ -5818,6 +6263,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"DSPC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "DSPY": {
 "category": "Broad equity",
@@ -6043,6 +6493,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"DWWN": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "DWX": {
 "category": "Dividend equity",
@@ -6519,6 +6974,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"ELOL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "EMB": {
 "category": "Fixed income",
 "source": "holdings",
@@ -6609,6 +7069,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"EMJL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "EMKT": {
 "category": "Broad equity",
 "source": "holdings",
@@ -6633,6 +7098,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"EMMY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "EMNT": {
 "category": "Fixed income",
@@ -6683,6 +7153,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"EMXX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "ENDW": {
 "category": "Broad equity",
@@ -6828,6 +7303,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"EQQQ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "EQRR": {
 "category": "Broad equity",
@@ -7079,6 +7559,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"EUV": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "EVHY": {
 "category": "Fixed income",
 "source": "holdings",
@@ -7106,6 +7591,11 @@
 },
 "EVMT": {
 "category": "Commodity",
+"source": "name",
+"asOf": null
+},
+"EVMU": {
+"category": "Crypto",
 "source": "name",
 "asOf": null
 },
@@ -7289,6 +7779,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"EXPN": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "EXUS": {
 "category": "Broad equity",
 "source": "holdings",
@@ -7298,6 +7793,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"EYES": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "EYLD": {
 "category": "Broad equity",
@@ -7458,6 +7958,11 @@
 "category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"FBX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "FBY": {
 "category": "Single stock",
@@ -7794,6 +8299,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"FEMG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "FEMR": {
 "category": "Broad equity",
 "source": "holdings",
@@ -7803,6 +8313,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"FEMV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "FENI": {
 "category": "Broad equity",
@@ -7909,6 +8424,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"FFLX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "FFND": {
 "category": "Broad equity",
 "source": "holdings",
@@ -7979,6 +8499,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"FHIL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "FHLC": {
 "category": "Sector equity",
 "source": "holdings",
@@ -8033,6 +8558,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"FIMU": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "FINA": {
 "category": "Broad equity",
@@ -8094,10 +8624,20 @@
 "source": "name",
 "asOf": null
 },
+"FIXX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "FIYY": {
 "category": "Fixed income",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"FIZY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "FJAN": {
 "category": "Derivative income",
@@ -8213,6 +8753,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"FLEL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "FLEU": {
 "category": "Broad equity",
@@ -8694,6 +9239,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"FREI": {
+"category": "Real estate",
+"source": "name",
+"asOf": null
+},
 "FREL": {
 "category": "Real estate",
 "source": "holdings",
@@ -8749,10 +9299,20 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"FSEG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "FSEP": {
 "category": "Derivative income",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"FSEV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "FSGS": {
 "category": "Broad equity",
@@ -8779,10 +9339,20 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"FSPC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "FSTA": {
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"FSTB": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "FSYD": {
 "category": "Fixed income",
@@ -8848,6 +9418,11 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"FTG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "FTGC": {
 "category": "Commodity",
@@ -9003,6 +9578,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"FUSD": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "FUSI": {
 "category": "Fixed income",
@@ -9174,6 +9754,11 @@
 "source": "name",
 "asOf": null
 },
+"GAIQ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "GAL": {
 "category": "Multi-asset",
 "source": "name",
@@ -9208,6 +9793,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"GASZ": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
 },
 "GAUG": {
 "category": "Derivative income",
@@ -9259,6 +9849,11 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"GCLO": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "GCOR": {
 "category": "Fixed income",
 "source": "holdings",
@@ -9276,6 +9871,11 @@
 },
 "GCPU": {
 "category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"GCSH": {
+"category": "Fixed income",
 "source": "name",
 "asOf": null
 },
@@ -9339,6 +9939,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"GEEQ": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "GEM": {
 "category": "Broad equity",
 "source": "holdings",
@@ -9356,6 +9961,11 @@
 },
 "GEMG": {
 "category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"GEMQ": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -9529,6 +10139,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"GISC": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "GJAN": {
 "category": "Derivative income",
 "source": "name",
@@ -9553,6 +10168,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"GLAM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "GLBL": {
 "category": "Broad equity",
@@ -9729,6 +10349,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"GNMX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "GNOM": {
 "category": "Sector equity",
 "source": "holdings",
@@ -9759,6 +10384,16 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"GOGL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"GOIB": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "GOLI": {
 "category": "Commodity",
 "source": "name",
@@ -9773,6 +10408,11 @@
 "category": "Commodity",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"GOOL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "GOOP": {
 "category": "Single stock",
@@ -9808,6 +10448,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"GOVM": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "GOVT": {
 "category": "Fixed income",
@@ -10274,6 +10919,11 @@
 "source": "holdings",
 "asOf": "2026-05-29"
 },
+"HAWG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "HAWX": {
 "category": "Currency",
 "source": "name",
@@ -10286,6 +10936,11 @@
 },
 "HBIL": {
 "category": "Fixed income",
+"source": "name",
+"asOf": null
+},
+"HBIT": {
+"category": "Crypto",
 "source": "name",
 "asOf": null
 },
@@ -10574,10 +11229,25 @@
 "source": "name",
 "asOf": null
 },
+"HJUN": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "HLAL": {
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"HLTH": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"HMAY": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
 },
 "HMOP": {
 "category": "Fixed income",
@@ -10659,6 +11329,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"HQDG": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "HQGO": {
 "category": "Broad equity",
 "source": "holdings",
@@ -10714,6 +11389,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"HULL": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "HUMM": {
 "category": "Sector equity",
 "source": "name",
@@ -10744,10 +11424,40 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"HWIV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"HWO": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "HWSM": {
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"HXA": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"HXC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"HXE": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"HXF": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "HYBB": {
 "category": "Fixed income",
@@ -10804,6 +11514,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"HYGD": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "HYGH": {
 "category": "Fixed income",
 "source": "name",
@@ -10814,13 +11529,18 @@
 "source": "name",
 "asOf": null
 },
+"HYGU": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "HYGV": {
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-07-31"
 },
 "HYGW": {
-"category": "Fixed income",
+"category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
 },
@@ -10898,6 +11618,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"IACL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "IAGG": {
 "category": "Fixed income",
@@ -11854,6 +12579,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"INFH": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "INFL": {
 "category": "Broad equity",
 "source": "holdings",
@@ -12039,6 +12769,11 @@
 "source": "name",
 "asOf": null
 },
+"IQQ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "IQQQ": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -12163,6 +12898,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"ISRL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "ISSB": {
 "category": "Crypto",
@@ -12370,7 +13110,7 @@
 "asOf": null
 },
 "IVVW": {
-"category": "Broad equity",
+"category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
 },
@@ -12425,7 +13165,7 @@
 "asOf": "2026-06-30"
 },
 "IWMW": {
-"category": "Broad equity",
+"category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
 },
@@ -12599,6 +13339,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"JADB": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "JADE": {
 "category": "Broad equity",
 "source": "holdings",
@@ -12674,10 +13419,20 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"JBLG": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "JBND": {
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"JCAL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "JCHI": {
 "category": "Broad equity",
@@ -12919,6 +13674,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"JLVP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "JMBS": {
 "category": "Fixed income",
 "source": "name",
@@ -13003,6 +13763,11 @@
 "category": "Fixed income",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"JOUL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "JOYT": {
 "category": "Broad equity",
@@ -13154,10 +13919,20 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"JTNY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "JUCY": {
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"JUDB": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
 },
 "JUDO": {
 "category": "Broad equity",
@@ -13224,6 +13999,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"JUNC": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "JUNM": {
 "category": "Derivative income",
 "source": "name",
@@ -13273,6 +14053,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"KAIT": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "KAMO": {
 "category": "Fixed income",
@@ -13419,10 +14204,20 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"KEO": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "KEYG": {
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"KEYX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "KFEB": {
 "category": "Derivative income",
@@ -13506,6 +14301,11 @@
 },
 "KMAY": {
 "category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"KMCA": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -13674,6 +14474,11 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"KSMH": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "KSPY": {
 "category": "Broad equity",
 "source": "name",
@@ -13749,6 +14554,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"LADM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "LALT": {
 "category": "Broad equity",
 "source": "name",
@@ -13756,6 +14566,16 @@
 },
 "LAPR": {
 "category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"LASC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"LATR": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -13773,6 +14593,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"LBOX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "LCAP": {
 "category": "Broad equity",
@@ -13939,6 +14764,11 @@
 "source": "holdings",
 "asOf": "2026-03-31"
 },
+"LGDS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "LGDX": {
 "category": "Broad equity",
 "source": "holdings",
@@ -14029,6 +14859,11 @@
 "source": "name",
 "asOf": null
 },
+"LITU": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "LITX": {
 "category": "Single stock",
 "source": "name",
@@ -14099,6 +14934,16 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"LOEV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"LOFD": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "LOFF": {
 "category": "Single stock",
 "source": "name",
@@ -14164,6 +15009,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"LQDD": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "LQDH": {
 "category": "Fixed income",
 "source": "name",
@@ -14176,6 +15026,16 @@
 },
 "LQDM": {
 "category": "Fixed income",
+"source": "name",
+"asOf": null
+},
+"LQDU": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
+"LQID": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -14218,6 +15078,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"LRNX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "LRNZ": {
 "category": "Sector equity",
@@ -14294,6 +15159,11 @@
 "source": "name",
 "asOf": null
 },
+"LUMA": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "LUNL": {
 "category": "Single stock",
 "source": "name",
@@ -14324,10 +15194,20 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"LWLX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "LYLD": {
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"LYTE": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "MAAY": {
 "category": "Single stock",
@@ -14429,6 +15309,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"MAUG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MAVF": {
 "category": "Broad equity",
 "source": "holdings",
@@ -14438,6 +15323,11 @@
 "category": "Crypto",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"MAYC": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
 },
 "MAYM": {
 "category": "Derivative income",
@@ -14564,6 +15454,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"MDCR": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MDEV": {
 "category": "Sector equity",
 "source": "holdings",
@@ -14624,6 +15519,11 @@
 "source": "name",
 "asOf": null
 },
+"MEIB": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "MEM": {
 "category": "Broad equity",
 "source": "holdings",
@@ -14659,8 +15559,18 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"METG": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "METL": {
 "category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"METQ": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -14688,6 +15598,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"MFEB": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "MFEM": {
 "category": "Broad equity",
@@ -14814,6 +15729,11 @@
 "source": "name",
 "asOf": null
 },
+"MIC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "MID": {
 "category": "Broad equity",
 "source": "holdings",
@@ -14869,6 +15789,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"MIVL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MJ": {
 "category": "Alternatives",
 "source": "name",
@@ -14878,6 +15803,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"MJUN": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "MKAM": {
 "category": "Broad equity",
@@ -14934,10 +15864,20 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"MMAR": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MMAX": {
 "category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"MMAY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "MMCA": {
 "category": "Fixed income",
@@ -15004,6 +15944,16 @@
 "source": "name",
 "asOf": "2026-03-31"
 },
+"MNSX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"MNVR": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MNVT": {
 "category": "Broad equity",
 "source": "holdings",
@@ -15054,10 +16004,30 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"MPDB": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"MPDY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "MPG": {
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"MPIA": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"MPIM": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "MPLY": {
 "category": "Broad equity",
@@ -15094,6 +16064,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"MRAX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "MRCP": {
 "category": "Derivative income",
 "source": "name",
@@ -15125,6 +16100,16 @@
 "asOf": "2026-07-31"
 },
 "MRVX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"MSEP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"MSFC": {
 "category": "Single stock",
 "source": "name",
 "asOf": null
@@ -15163,6 +16148,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"MSIX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "MSLC": {
 "category": "Broad equity",
@@ -15213,6 +16203,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"MSTC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "MSTI": {
 "category": "Fixed income",
@@ -15298,6 +16293,16 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"MUG": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"MUIB": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "MULL": {
 "category": "Single stock",
@@ -15394,6 +16399,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"MUZ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "MVAL": {
 "category": "Broad equity",
 "source": "holdings",
@@ -15433,6 +16443,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"MWHS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "MXI": {
 "category": "Sector equity",
@@ -15699,6 +16714,11 @@
 "source": "name",
 "asOf": null
 },
+"NCLD": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "NCLO": {
 "category": "Fixed income",
 "source": "holdings",
@@ -15748,6 +16768,11 @@
 "category": "Crypto",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"NELS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "NEMG": {
 "category": "Single stock",
@@ -15848,6 +16873,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"NICO": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "NIHI": {
 "category": "Dividend equity",
@@ -15978,6 +17008,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"NOWX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "NPFE": {
 "category": "Broad equity",
@@ -16114,6 +17149,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"NUIF": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "NUKX": {
 "category": "Sector equity",
 "source": "name",
@@ -16189,6 +17229,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"NVC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "NVD": {
 "category": "Single stock",
 "source": "name",
@@ -16234,6 +17279,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"NVIB": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "NVII": {
 "category": "Fixed income",
 "source": "holdings",
@@ -16263,6 +17313,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"NVPS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "NVTC": {
 "category": "Single stock",
@@ -16318,6 +17373,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"NYNY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "NYSX": {
 "category": "Broad equity",
@@ -16404,10 +17464,20 @@
 "source": "name",
 "asOf": null
 },
+"OCDB": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "OCIO": {
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"OCNL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "OCTB": {
 "category": "Derivative income",
@@ -16458,6 +17528,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"ODDZ": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "ODHY": {
 "category": "Fixed income",
@@ -16619,6 +17694,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"ONTX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "ONX": {
 "category": "Single stock",
 "source": "name",
@@ -16689,6 +17769,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"ORCZ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "ORO": {
 "category": "Broad equity",
 "source": "name",
@@ -16713,6 +17798,16 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"OSSL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"OTAX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "OTGL": {
 "category": "Broad equity",
@@ -16879,6 +17974,16 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"PAYH": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"PAYM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PAYR": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -17004,6 +18109,11 @@
 "source": "name",
 "asOf": null
 },
+"PBSC": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "PBSE": {
 "category": "Derivative income",
 "source": "name",
@@ -17023,6 +18133,11 @@
 "category": "Sector equity",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"PCEB": {
+"category": "Currency",
+"source": "name",
+"asOf": null
 },
 "PCEF": {
 "category": "Dividend equity",
@@ -17049,6 +18164,11 @@
 "source": "holdings",
 "asOf": "2026-05-29"
 },
+"PCLC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PCLG": {
 "category": "Broad equity",
 "source": "name",
@@ -17069,7 +18189,17 @@
 "source": "name",
 "asOf": null
 },
+"PCOV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PCPI": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"PCPP": {
 "category": "Broad equity",
 "source": "name",
 "asOf": null
@@ -17083,6 +18213,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-29"
+},
+"PCSG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "PCY": {
 "category": "Fixed income",
@@ -17126,6 +18261,11 @@
 },
 "PEMX": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"PENU": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -17284,6 +18424,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"PHOX": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "PHYL": {
 "category": "Fixed income",
 "source": "holdings",
@@ -17333,6 +18478,11 @@
 "category": "Sector equity",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"PINC": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "PINK": {
 "category": "Sector equity",
@@ -17424,6 +18574,16 @@
 "source": "name",
 "asOf": null
 },
+"PLGI": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"PLIB": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "PLTD": {
 "category": "Single stock",
 "source": "name",
@@ -17433,6 +18593,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"PLTL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "PLTM": {
 "category": "Commodity",
@@ -17559,6 +18724,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"PMTL": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PNOV": {
 "category": "Derivative income",
 "source": "name",
@@ -17571,6 +18741,11 @@
 },
 "POCT": {
 "category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"POEL": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -17684,6 +18859,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"PRAM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PRAY": {
 "category": "Broad equity",
 "source": "holdings",
@@ -17739,6 +18919,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"PRTO": {
+"category": "Multi-asset",
+"source": "name",
+"asOf": null
+},
 "PRVS": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -17763,6 +18948,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"PSAI": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "PSC": {
 "category": "Broad equity",
@@ -17924,6 +19114,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"PSOX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PSP": {
 "category": "Broad equity",
 "source": "name",
@@ -18019,6 +19214,11 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"PTNT": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "PTRB": {
 "category": "Fixed income",
 "source": "holdings",
@@ -18038,6 +19238,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-29"
+},
+"PUR": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "PUSH": {
 "category": "Fixed income",
@@ -18524,6 +19729,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"QNDX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "QNTU": {
 "category": "Single stock",
 "source": "name",
@@ -18709,6 +19919,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"QTAC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "QTAP": {
 "category": "Broad equity",
 "source": "name",
@@ -18753,6 +19968,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"QTUP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "QUA": {
 "category": "Single stock",
@@ -18873,6 +20093,21 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"RAM": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"RAML": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"RAMZ": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "RANK": {
 "category": "Broad equity",
@@ -19244,6 +20479,31 @@
 "source": "name",
 "asOf": null
 },
+"RIZE": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"RJCA": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"RJDI": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"RJMI": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
+"RJVI": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "RKLX": {
 "category": "Single stock",
 "source": "name",
@@ -19259,6 +20519,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"RKSG": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "RKX": {
 "category": "Single stock",
 "source": "name",
@@ -19269,6 +20534,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"RMBC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "RMBX": {
 "category": "Single stock",
 "source": "name",
@@ -19278,6 +20548,16 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"RMHY": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"RMME": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "RMNY": {
 "category": "Fixed income",
@@ -19343,6 +20623,11 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"ROBX": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "ROCQ": {
 "category": "Broad equity",
@@ -19433,6 +20718,11 @@
 "category": "Derivative income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"RSEE": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "RSJN": {
 "category": "Derivative income",
@@ -19949,6 +21239,11 @@
 "source": "name",
 "asOf": null
 },
+"SCJN": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "SCLZ": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -19961,6 +21256,11 @@
 },
 "SCMC": {
 "category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"SCMY": {
+"category": "Derivative income",
 "source": "name",
 "asOf": null
 },
@@ -20454,6 +21754,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"SIMX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "SIO": {
 "category": "Fixed income",
 "source": "holdings",
@@ -20461,6 +21766,11 @@
 },
 "SIOO": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"SITX": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -20549,6 +21859,11 @@
 "source": "name",
 "asOf": null
 },
+"SKDD": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "SKF": {
 "category": "Sector equity",
 "source": "name",
@@ -20559,8 +21874,18 @@
 "source": "name",
 "asOf": null
 },
+"SKHL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "SKHN": {
 "category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"SKHQ": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -20581,6 +21906,11 @@
 },
 "SKRE": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"SKUU": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -20648,6 +21978,11 @@
 "category": "Commodity",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"SLVY": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
 },
 "SLWS": {
 "category": "Fixed income",
@@ -20758,6 +22093,16 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"SMHD": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"SMHU": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "SMHX": {
 "category": "Sector equity",
@@ -20893,6 +22238,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"SNDC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "SNDG": {
 "category": "Single stock",
@@ -21074,6 +22424,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"SPAX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "SPBC": {
 "category": "Crypto",
 "source": "name",
@@ -21130,6 +22485,11 @@
 "asOf": "2026-07-31"
 },
 "SPCM": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"SPCQ": {
 "category": "Single stock",
 "source": "name",
 "asOf": null
@@ -21639,8 +22999,18 @@
 "source": "name",
 "asOf": null
 },
+"STLR": {
+"category": "Alternatives",
+"source": "name",
+"asOf": null
+},
 "STLU": {
 "category": "Alternatives",
+"source": "name",
+"asOf": null
+},
+"STMX": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -21721,6 +23091,11 @@
 },
 "STXX": {
 "category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"STYL": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -21888,6 +23263,11 @@
 "category": "Alternatives",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"TAJX": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "TALV": {
 "category": "Broad equity",
@@ -22069,6 +23449,11 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"TDCL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "TDEC": {
 "category": "Derivative income",
 "source": "holdings",
@@ -22224,6 +23609,11 @@
 "source": "name",
 "asOf": null
 },
+"TESC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "TESL": {
 "category": "Broad equity",
 "source": "name",
@@ -22231,6 +23621,11 @@
 },
 "TETH": {
 "category": "Crypto",
+"source": "name",
+"asOf": null
+},
+"TEUP": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -22308,6 +23703,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"TGRZ": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "THD": {
 "category": "Broad equity",
@@ -22394,10 +23794,20 @@
 "source": "holdings",
 "asOf": "2026-07-31"
 },
+"TIH": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "TIIV": {
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-07-31"
+},
+"TILC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "TILL": {
 "category": "Commodity",
@@ -22484,6 +23894,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"TISC": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "TJAN": {
 "category": "Derivative income",
 "source": "name",
@@ -22524,6 +23939,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"TLDR": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "TLG": {
 "category": "Broad equity",
 "source": "holdings",
@@ -22560,7 +23980,7 @@
 "asOf": "2026-06-30"
 },
 "TLTW": {
-"category": "Fixed income",
+"category": "Derivative income",
 "source": "name",
 "asOf": "2026-07-31"
 },
@@ -22809,6 +24229,11 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"TPLX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "TPOR": {
 "category": "Sector equity",
 "source": "name",
@@ -22919,15 +24344,40 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"TRUM": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"TRUN": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "TRUO": {
 "category": "Sector equity",
 "source": "name",
 "asOf": "2026-06-30"
 },
+"TRUR": {
+"category": "Real estate",
+"source": "name",
+"asOf": null
+},
 "TRUT": {
 "category": "Sector equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"TRUU": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
+"TRXS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "TSCM": {
 "category": "Broad equity",
@@ -22976,6 +24426,11 @@
 },
 "TSEU": {
 "category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"TSIB": {
+"category": "Dividend equity",
 "source": "name",
 "asOf": null
 },
@@ -23219,6 +24674,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"TWSC": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "TXBC": {
 "category": "Crypto",
 "source": "name",
@@ -23374,6 +24834,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"UCTX": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "UCYB": {
 "category": "Sector equity",
 "source": "name",
@@ -23454,6 +24919,11 @@
 "source": "name",
 "asOf": null
 },
+"UGLD": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
+},
 "UITB": {
 "category": "Fixed income",
 "source": "holdings",
@@ -23509,6 +24979,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"UMAL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "UMAR": {
 "category": "Derivative income",
 "source": "name",
@@ -23516,6 +24991,16 @@
 },
 "UMAY": {
 "category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"UMCU": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
+"UMCX": {
+"category": "Single stock",
 "source": "name",
 "asOf": null
 },
@@ -23793,6 +25278,11 @@
 "category": "Fixed income",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"USLV": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
 },
 "USLX": {
 "category": "Broad equity",
@@ -24229,6 +25719,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"VEEM": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "VEFA": {
 "category": "Broad equity",
 "source": "holdings",
@@ -24248,6 +25743,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-07-31"
+},
+"VELL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "VEM": {
 "category": "Dividend equity",
@@ -24368,6 +25868,11 @@
 "category": "Sector equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"VIAG": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "VIDI": {
 "category": "Broad equity",
@@ -24518,6 +26023,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"VOOY": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "VOT": {
 "category": "Broad equity",
@@ -24824,6 +26334,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"WATS": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "WBIF": {
 "category": "Broad equity",
 "source": "name",
@@ -24889,6 +26404,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"WDAI": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "WDCC": {
 "category": "Single stock",
 "source": "name",
@@ -24898,6 +26418,11 @@
 "category": "Single stock",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"WDE": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
 },
 "WDGF": {
 "category": "Sector equity",
@@ -25014,6 +26539,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"WNDR": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "WNTR": {
 "category": "Single stock",
 "source": "name",
@@ -25033,6 +26563,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-06-30"
+},
+"WR": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "WRND": {
 "category": "Broad equity",
@@ -25063,6 +26598,11 @@
 "category": "Broad equity",
 "source": "holdings",
 "asOf": "2026-05-31"
+},
+"WSPC": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "WTAI": {
 "category": "Sector equity",
@@ -25144,8 +26684,18 @@
 "source": "name",
 "asOf": "2026-06-30"
 },
+"WYFL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "WZRD": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"XA": {
+"category": "Sector equity",
 "source": "name",
 "asOf": null
 },
@@ -25153,6 +26703,11 @@
 "category": "Dividend equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"XAGI": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
 },
 "XAIW": {
 "category": "Broad equity",
@@ -25274,10 +26829,20 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"XCOM": {
+"category": "Commodity",
+"source": "name",
+"asOf": null
+},
 "XCOR": {
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"XCSH": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "XDAT": {
 "category": "Broad equity",
@@ -25389,6 +26954,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"XIGV": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "XIJN": {
 "category": "Derivative income",
 "source": "holdings",
@@ -25464,10 +27034,20 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"XLCD": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
+},
 "XLCI": {
 "category": "Sector equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"XLCU": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "XLE": {
 "category": "Sector equity",
@@ -25709,6 +27289,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"XOVL": {
+"category": "Single stock",
+"source": "name",
+"asOf": null
+},
 "XOVR": {
 "category": "Broad equity",
 "source": "holdings",
@@ -25743,6 +27328,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"XQBT": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
 },
 "XQQI": {
 "category": "Dividend equity",
@@ -25823,6 +27413,11 @@
 "category": "Alternatives",
 "source": "name",
 "asOf": "2026-05-31"
+},
+"XSHP": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "XSHQ": {
 "category": "Broad equity",
@@ -25949,6 +27544,26 @@
 "source": "name",
 "asOf": null
 },
+"XVAP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"XVNV": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"XVSP": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"XVTS": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "XVV": {
 "category": "Broad equity",
 "source": "holdings",
@@ -25956,6 +27571,11 @@
 },
 "XW": {
 "category": "Broad equity",
+"source": "name",
+"asOf": null
+},
+"XWNG": {
+"category": "Sector equity",
 "source": "name",
 "asOf": null
 },
@@ -26034,6 +27654,11 @@
 "source": "name",
 "asOf": null
 },
+"YCLO": {
+"category": "Fixed income",
+"source": "name",
+"asOf": null
+},
 "YCS": {
 "category": "Broad equity",
 "source": "name",
@@ -26094,6 +27719,11 @@
 "source": "name",
 "asOf": null
 },
+"YLDY": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "YMAG": {
 "category": "Derivative income",
 "source": "name",
@@ -26129,6 +27759,11 @@
 "source": "name",
 "asOf": "2026-07-31"
 },
+"YRAM": {
+"category": "Derivative income",
+"source": "name",
+"asOf": null
+},
 "YSAG": {
 "category": "Broad equity",
 "source": "name",
@@ -26153,6 +27788,11 @@
 "category": "Broad equity",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"YUNG": {
+"category": "Sector equity",
+"source": "name",
+"asOf": null
 },
 "YXI": {
 "category": "Broad equity",
@@ -26219,8 +27859,18 @@
 "source": "holdings",
 "asOf": "2026-05-31"
 },
+"ZCSH": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "ZDEK": {
 "category": "Derivative income",
+"source": "name",
+"asOf": null
+},
+"ZDIS": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
@@ -26251,6 +27901,11 @@
 },
 "ZINC": {
 "category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
+"ZINN": {
+"category": "Broad equity",
 "source": "name",
 "asOf": null
 },
