@@ -1,15 +1,15 @@
 {
-  "generated": "2026-10-20T06:21:11Z",
-  "priceAsOf": "10/16/2026 8:00:00 PM",
+  "generated": "2026-10-21T06:21:10Z",
+  "priceAsOf": "10/19/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5564,
+  "count": 5550,
   "derived": [
     "issuer",
     "category",
     "region",
     "leverage"
   ],
-  "leveredCount": 742,
+  "leveredCount": 730,
   "inverseCount": 182,
   "issuers": {
     "iShares": 470,
@@ -20,9 +20,9 @@
     "Corgi": 175,
     "ProShares": 153,
     "Direxion": 134,
-    "Leverage Shares": 116,
     "Global X": 112,
     "Vanguard": 112,
+    "Leverage Shares": 104,
     "GraniteShares": 92,
     "VanEck": 89,
     "Defiance": 88,
@@ -72,11 +72,11 @@
     "Grayscale": 18,
     "Exchange": 17,
     "Inc": 17,
-    "Principal": 17,
     "Sprott": 17,
     "Trust": 17,
     "Hartford": 16,
     "Kurv": 16,
+    "Principal": 16,
     "AdvisorShares": 15,
     "AllianzIM": 15,
     "Neuberger": 14,
@@ -135,7 +135,6 @@
     "Thornburg": 7,
     "Thrivent": 7,
     "U.S": 7,
-    "USCF": 7,
     "Abacus": 6,
     "Canary": 6,
     "FIS": 6,
@@ -145,6 +144,7 @@
     "Return Stacked": 6,
     "Sterling": 6,
     "Tortoise": 6,
+    "USCF": 6,
     "VegaShares": 6,
     "Zacks": 6,
     "Alger": 5,
@@ -533,10 +533,10 @@
     "m+": 1
   },
   "categories": {
-    "Broad equity": 2083,
+    "Broad equity": 2082,
     "Fixed income": 983,
-    "Sector equity": 588,
-    "Single stock": 576,
+    "Sector equity": 587,
+    "Single stock": 564,
     "Derivative income": 556,
     "Dividend equity": 273,
     "Crypto": 136,
@@ -547,16 +547,16 @@
     "Currency": 25
   },
   "regions": {
-    "US": 4658,
+    "US": 4644,
     "Developed ex-US": 365,
     "Emerging markets": 283,
     "Global": 258
   },
-  "inceptionKnown": 5561,
+  "inceptionKnown": 5547,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 994,
-  "expenseKnown": 4324,
+  "launchedThisYear": 990,
+  "expenseKnown": 4320,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2025q1",
@@ -572,11 +572,11 @@
   "holdingsKnown": 4176,
   "holdingsSource": "SEC Form N-PORT 2026q3",
   "holdingsAsOf": "2026-07-31",
-  "newCount": 188,
+  "newCount": 186,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2745,
-    "holdings": 2819
+    "name": 2732,
+    "holdings": 2818
   },
   "reclassified": 263,
   "classifyThresholds": {
