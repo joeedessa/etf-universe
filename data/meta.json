@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-22T06:24:46Z",
-  "priceAsOf": "10/20/2026 8:00:00 PM",
+  "generated": "2026-10-23T06:19:15Z",
+  "priceAsOf": "10/21/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5551,
+  "count": 5553,
   "derived": [
     "issuer",
     "category",
@@ -71,10 +71,10 @@
     "Aptus": 18,
     "Grayscale": 18,
     "Exchange": 17,
+    "Hartford": 17,
     "Inc": 17,
     "Sprott": 17,
     "Trust": 17,
-    "Hartford": 16,
     "Kurv": 16,
     "Principal": 16,
     "AdvisorShares": 15,
@@ -432,6 +432,7 @@
     "Mango": 1,
     "Manzil": 1,
     "Matrix": 1,
+    "MayTech": 1,
     "McElhenny": 1,
     "Meta": 1,
     "Militia": 1,
@@ -532,7 +533,7 @@
     "m+": 1
   },
   "categories": {
-    "Broad equity": 2080,
+    "Broad equity": 2082,
     "Fixed income": 993,
     "Sector equity": 587,
     "Single stock": 558,
@@ -546,15 +547,15 @@
     "Currency": 25
   },
   "regions": {
-    "US": 4646,
+    "US": 4647,
     "Developed ex-US": 365,
     "Emerging markets": 283,
-    "Global": 257
+    "Global": 258
   },
-  "inceptionKnown": 5548,
+  "inceptionKnown": 5550,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 995,
+  "launchedThisYear": 997,
   "expenseKnown": 4311,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
@@ -571,10 +572,10 @@
   "holdingsKnown": 4176,
   "holdingsSource": "SEC Form N-PORT 2026q3",
   "holdingsAsOf": "2026-07-31",
-  "newCount": 193,
+  "newCount": 195,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2734,
+    "name": 2736,
     "holdings": 2817
   },
   "reclassified": 263,
