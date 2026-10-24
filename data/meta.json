@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-23T06:19:15Z",
-  "priceAsOf": "10/21/2026 8:00:00 PM",
+  "generated": "2026-10-24T06:14:55Z",
+  "priceAsOf": "10/22/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5553,
   "derived": [
@@ -556,7 +556,7 @@
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 997,
-  "expenseKnown": 4311,
+  "expenseKnown": 4314,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2025q1",
