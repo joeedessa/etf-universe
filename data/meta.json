@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-24T06:14:55Z",
-  "priceAsOf": "10/22/2026 8:00:00 PM",
+  "generated": "2026-10-27T06:37:40Z",
+  "priceAsOf": "10/26/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5553,
+  "count": 5551,
   "derived": [
     "issuer",
     "category",
@@ -151,7 +151,6 @@
     "American": 5,
     "Angel Oak": 5,
     "Baillie": 5,
-    "Calvert": 5,
     "ETF": 5,
     "FundX": 5,
     "Guinness": 5,
@@ -171,6 +170,7 @@
     "Applied": 4,
     "Bahl & Gaynor": 4,
     "Brown Advisory": 4,
+    "Calvert": 4,
     "Davis": 4,
     "First": 4,
     "Guggenheim": 4,
@@ -401,7 +401,6 @@
     "Google": 1,
     "Goose": 1,
     "Grizzle": 1,
-    "Guru": 1,
     "Harding": 1,
     "Harrison": 1,
     "Hennessy": 1,
@@ -533,7 +532,7 @@
     "m+": 1
   },
   "categories": {
-    "Broad equity": 2082,
+    "Broad equity": 2080,
     "Fixed income": 993,
     "Sector equity": 587,
     "Single stock": 558,
@@ -547,16 +546,16 @@
     "Currency": 25
   },
   "regions": {
-    "US": 4647,
+    "US": 4645,
     "Developed ex-US": 365,
     "Emerging markets": 283,
     "Global": 258
   },
-  "inceptionKnown": 5550,
+  "inceptionKnown": 5548,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
   "launchedThisYear": 997,
-  "expenseKnown": 4314,
+  "expenseKnown": 4312,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2025q1",
@@ -572,11 +571,11 @@
   "holdingsKnown": 4176,
   "holdingsSource": "SEC Form N-PORT 2026q3",
   "holdingsAsOf": "2026-07-31",
-  "newCount": 195,
+  "newCount": 185,
   "newWindowDays": 90,
   "categorySource": {
     "name": 2736,
-    "holdings": 2817
+    "holdings": 2815
   },
   "reclassified": 263,
   "classifyThresholds": {
