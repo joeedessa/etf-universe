@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-30T07:34:21Z",
+  "generated": "2026-10-31T07:20:52Z",
   "priceAsOf": "10/29/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
   "count": 5539,
@@ -574,7 +574,7 @@
     "name": 2728,
     "holdings": 2811
   },
-  "reclassified": 263,
+  "reclassified": 262,
   "classifyThresholds": {
     "mix": 10.0,
     "mixLeave": 7.0,
