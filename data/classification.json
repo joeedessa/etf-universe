@@ -17909,6 +17909,11 @@
 "source": "name",
 "asOf": "2026-05-31"
 },
+"OVQ": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
+},
 "OVS": {
 "category": "Broad equity",
 "source": "name",
@@ -26415,7 +26420,7 @@
 "asOf": "2026-06-30"
 },
 "WBIG": {
-"category": "Broad equity",
+"category": "Dividend equity",
 "source": "name",
 "asOf": "2026-06-30"
 },
