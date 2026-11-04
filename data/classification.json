@@ -6969,6 +6969,11 @@
 "source": "holdings",
 "asOf": "2026-06-30"
 },
+"ELCF": {
+"category": "Broad equity",
+"source": "name",
+"asOf": null
+},
 "ELCV": {
 "category": "Dividend equity",
 "source": "holdings",
@@ -7448,6 +7453,11 @@
 "category": "Crypto",
 "source": "name",
 "asOf": "2026-06-30"
+},
+"ETDG": {
+"category": "Dividend equity",
+"source": "name",
+"asOf": null
 },
 "ETEC": {
 "category": "Broad equity",

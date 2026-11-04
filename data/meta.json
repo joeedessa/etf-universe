@@ -1,8 +1,8 @@
 {
-  "generated": "2026-11-03T08:20:53Z",
-  "priceAsOf": "10/30/2026 8:00:00 PM",
+  "generated": "2026-11-04T07:49:11Z",
+  "priceAsOf": "11/2/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5534,
+  "count": 5536,
   "derived": [
     "issuer",
     "category",
@@ -249,6 +249,7 @@
     "Crossmark": 2,
     "Dan": 2,
     "Eldridge": 2,
+    "Eventide": 2,
     "FINQ": 2,
     "FM": 2,
     "Fitz-Gerald": 2,
@@ -529,12 +530,12 @@
     "m+": 1
   },
   "categories": {
-    "Broad equity": 2073,
+    "Broad equity": 2074,
     "Fixed income": 990,
     "Sector equity": 587,
     "Derivative income": 555,
     "Single stock": 553,
-    "Dividend equity": 274,
+    "Dividend equity": 275,
     "Crypto": 135,
     "Alternatives": 101,
     "Commodity": 99,
@@ -543,15 +544,15 @@
     "Currency": 25
   },
   "regions": {
-    "US": 4631,
+    "US": 4633,
     "Developed ex-US": 365,
     "Emerging markets": 281,
     "Global": 257
   },
-  "inceptionKnown": 5531,
+  "inceptionKnown": 5533,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 995,
+  "launchedThisYear": 997,
   "expenseKnown": 4299,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
@@ -571,7 +572,7 @@
   "newCount": 161,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2725,
+    "name": 2727,
     "holdings": 2809
   },
   "reclassified": 261,
