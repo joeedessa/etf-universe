@@ -1,15 +1,15 @@
 {
-  "generated": "2026-11-04T07:49:11Z",
-  "priceAsOf": "11/2/2026 8:00:00 PM",
+  "generated": "2026-11-05T08:15:26Z",
+  "priceAsOf": "11/4/2026 8:00:00 PM",
   "source": "Nasdaq ETF screener (public endpoint)",
-  "count": 5536,
+  "count": 5532,
   "derived": [
     "issuer",
     "category",
     "region",
     "leverage"
   ],
-  "leveredCount": 719,
+  "leveredCount": 715,
   "inverseCount": 181,
   "issuers": {
     "iShares": 470,
@@ -38,8 +38,8 @@
     "Amplify": 48,
     "Goldman Sachs": 47,
     "Northern": 47,
-    "T-Rex": 45,
     "AIM": 44,
+    "T-Rex": 41,
     "Xtrackers": 41,
     "Calamos": 40,
     "Simplify": 37,
@@ -534,7 +534,7 @@
     "Fixed income": 990,
     "Sector equity": 587,
     "Derivative income": 555,
-    "Single stock": 553,
+    "Single stock": 549,
     "Dividend equity": 275,
     "Crypto": 135,
     "Alternatives": 101,
@@ -544,16 +544,16 @@
     "Currency": 25
   },
   "regions": {
-    "US": 4633,
+    "US": 4629,
     "Developed ex-US": 365,
     "Emerging markets": 281,
     "Global": 257
   },
-  "inceptionKnown": 5533,
+  "inceptionKnown": 5529,
   "inceptionSource": "First trading day, from the Nasdaq chart endpoint",
   "oldestFund": "1993",
-  "launchedThisYear": 997,
-  "expenseKnown": 4299,
+  "launchedThisYear": 995,
+  "expenseKnown": 4306,
   "expenseSource": "SEC prospectus risk/return summary XBRL",
   "expenseQuarters": [
     "2025q1",
@@ -569,10 +569,10 @@
   "holdingsKnown": 4176,
   "holdingsSource": "SEC Form N-PORT 2026q3",
   "holdingsAsOf": "2026-07-31",
-  "newCount": 161,
+  "newCount": 153,
   "newWindowDays": 90,
   "categorySource": {
-    "name": 2727,
+    "name": 2723,
     "holdings": 2809
   },
   "reclassified": 261,
